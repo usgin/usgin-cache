@@ -12,8 +12,8 @@ function cleanBaseUrl(givenUrl) {
   });
 }
 
-// Given a request type and base url, construct the approriate OGC request URL
 module.exports = {
+  // Given a request type and base url, construct the approriate OGC request URL
   request: function (requestType, baseUrl, params) {
     var base = cleanBaseUrl(baseUrl),
         query = {};
@@ -66,6 +66,7 @@ module.exports = {
     return [base, qs.stringify(query)].join('?');
   },
   
+  // Just return the cleaned-up base URL
   base: cleanBaseUrl
 };
     

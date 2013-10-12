@@ -3,7 +3,7 @@ var nano = require('nano'),
     crypto = require('crypto'),
     request = require('request'),
     _ = require('underscore'),
-    requestUrl = require('./urls'),
+    urls = require('./urls'),
     designDoc = require('./design/usgin-cache');
 
 // ## Contructor
@@ -46,7 +46,7 @@ module.exports = function (forceRefresh, config) {
         _id: id,
         requestType: requestType.toLowerCase(),
         response: response.body,
-        endpoint: requestUrl.base(url)
+        endpoint: urls.base(url)
       }
       
       // Add the revision if a doc was passed in (if we're refreshing the cache)
@@ -107,7 +107,7 @@ module.exports = function (forceRefresh, config) {
       if (typeof limit === 'function ') callback = limit;
       callback = callback || function () {};
       
-      var url = requestUrl.request(requestType, cswBaseUrl, params);
+      var url = urls.request(requestType, cswBaseUrl, params);
       
       fetch(requestType, url, forceRefresh, callback);
     },
@@ -115,7 +115,7 @@ module.exports = function (forceRefresh, config) {
     // CSW GetRecordByID request
     getRecordById: function (cswBaseUrl, id, callback) {
       var requestType = 'getrecordbyid',
-          url = requestUrl.request(requestType, cswBaseUrl, {id: id});
+          url = urls.request(requestType, cswBaseUrl, {id: id});
       
       callback = callback || function () {};
       
@@ -133,7 +133,7 @@ module.exports = function (forceRefresh, config) {
       if (typeof maxFeatures === 'function') callback = maxFeatures;
       callback = callback || function () {};
       
-      var url = requestUrl.request(requestType, wfsBaseUrl, params);
+      var url = urls.request(requestType, wfsBaseUrl, params);
       
       fetch(requestType, url, forceRefresh, callback);
     },

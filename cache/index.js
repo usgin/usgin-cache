@@ -3,7 +3,8 @@ var nano = require('nano'),
     crypto = require('crypto'),
     request = require('request'),
     _ = require('underscore'),
-    requestUrl = require('./urls');
+    requestUrl = require('./urls'),
+    designDoc = require('./design/usgin-cache');
 
 // ## Contructor
 // You should pass whether or not you want to refresh the cache and also a config obj.
@@ -44,7 +45,8 @@ module.exports = function (forceRefresh, config) {
       var cacheDoc = {
         _id: id,
         requestType: requestType.toLowerCase(),
-        response: response.body
+        response: response.body,
+        endpoint: requestUrl.base(url)
       }
       
       // Add the revision if a doc was passed in (if we're refreshing the cache)
@@ -105,7 +107,7 @@ module.exports = function (forceRefresh, config) {
       if (typeof limit === 'function ') callback = limit;
       callback = callback || function () {};
       
-      var url = requestUrl(requestType, cswBaseUrl, params);
+      var url = requestUrl.request(requestType, cswBaseUrl, params);
       
       fetch(requestType, url, forceRefresh, callback);
     },
@@ -113,7 +115,7 @@ module.exports = function (forceRefresh, config) {
     // CSW GetRecordByID request
     getRecordById: function (cswBaseUrl, id, callback) {
       var requestType = 'getrecordbyid',
-          url = requestUrl(requestType, cswBaseUrl, {id: id});
+          url = requestUrl.request(requestType, cswBaseUrl, {id: id});
       
       callback = callback || function () {};
       
@@ -131,7 +133,7 @@ module.exports = function (forceRefresh, config) {
       if (typeof maxFeatures === 'function') callback = maxFeatures;
       callback = callback || function () {};
       
-      var url = requestUrl(requestType, wfsBaseUrl, params);
+      var url = requestUrl.request(requestType, wfsBaseUrl, params);
       
       fetch(requestType, url, forceRefresh, callback);
     },
@@ -140,14 +142,14 @@ module.exports = function (forceRefresh, config) {
     clear: function (callback) {
       callback = callback || function () {};
       
-      db.list({ include_docs: true }, function (err, result) {
+      db.list({include_docs: true}, function (err, result) {
         if (err) { callback(err); return; }
         
-        docs = _.reject(docs, function (doc) {
-          return doc._id.indexOf('_design') === 0;    
+        var docs = _.reject(result.rows, function (doc) {
+          return doc.id.indexOf('_design') === 0;    
         });
         
-        var docs = _.map(result.rows, function (row) {
+        docs = _.map(docs, function (row) {
           return _.extend({ _deleted: true }, row.doc);  
         });
         
@@ -159,11 +161,25 @@ module.exports = function (forceRefresh, config) {
     setup: function (callback) {
       callback = callback || function () {};
       
+      function designDocs() {
+        var id = '_design/usgin-cache';
+        
+        db.get(id, function (err, doc) {
+          if (err && err.status_code !== 404) { callback(err); return; }
+          
+          if (doc) {
+            db.insert(_.extend(designDoc, {_rev: doc._rev}), id, callback);
+          } else {
+            db.insert(designDoc, callback);  
+          }
+        });
+      }
+      
       connection.db.list(function (err, dbNames) {
         if (!_.contains(dbNames, config.dbName)) {
-          connection.db.create(config.dbName, callback);
+          connection.db.create(config.dbName, designDocs);
         } else {
-          callback(null);
+          designDocs();
         }
       });
     }

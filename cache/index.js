@@ -1,9 +1,11 @@
+// # Cache Module
 var nano = require('nano'),
     crypto = require('crypto'),
     request = require('request'),
     _ = require('underscore'),
     requestUrl = require('./urls');
 
+// ## Contructor
 // You should pass whether or not you want to refresh the cache and also a config obj.
 module.exports = function (forceRefresh, config) {
   forceRefresh = typeof forceRefresh === 'boolean' ? forceRefresh : false;
@@ -12,16 +14,16 @@ module.exports = function (forceRefresh, config) {
   var connection = nano(config.dbUrl),
       db = connection.use(config.dbName);
   
-  // Private functions:
+  // ## Private functions
   
-  // This function controls how we identify requests in the cache
+  // ### Control how we identify requests in the cache
   function getIdFor(requestType, url) {
     var hash = crypto.createHash('sha256');
     hash.update(decodeURIComponent(url).toUpperCase());
     return hash.digest('hex');
   }
   
-  // This function adds or updates a document in the cache
+  // ### Add or update a document in the cache
   function refreshDoc(requestType, url, doc, callback) {
     // Get the cache ID for this request
     var id = getIdFor(requestType, url),
@@ -59,7 +61,7 @@ module.exports = function (forceRefresh, config) {
     });
   }
   
-  // This function returns a document from the cache, adding or updating as neccessary
+  // ### Return a document from the cache, adding or updating as neccessary
   function fetch(requestType, url, refresh, callback) {
     // Valid requestTypes
     var validRequests = ['getrecords', 'getrecordbyid', 'getfeature'];
@@ -87,7 +89,7 @@ module.exports = function (forceRefresh, config) {
     });
   }
   
-  // Public API:
+  // ## Public API
   return {
     // Access to the cache database
     db: db,

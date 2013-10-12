@@ -138,6 +138,8 @@ module.exports = function (forceRefresh, config) {
     
     // Clear everything except design documents from the database
     clear: function (callback) {
+      callback = callback || function () {};
+      
       db.list({ include_docs: true }, function (err, result) {
         if (err) { callback(err); return; }
         
@@ -155,6 +157,8 @@ module.exports = function (forceRefresh, config) {
     
     // Setup the database
     setup: function (callback) {
+      callback = callback || function () {};
+      
       connection.db.list(function (err, dbNames) {
         if (!_.contains(dbNames, config.dbName)) {
           connection.db.create(config.dbName, callback);

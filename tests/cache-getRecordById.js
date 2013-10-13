@@ -52,6 +52,14 @@ var tests = {
                 'has the correct requestType': function (err, response) {
                   assert.equal(response.requestType, 'getrecordbyid');  
                 }
+              },
+              'and the doc cannot be refreshed': {
+                topic: function () {
+                  cache(true, testConfig).getRecordById('http://localhost:8000', '00570e7187459885e5c18c3a5f498d5d', this.callback);
+                },
+                'should fail': function (err, response) {
+                  assert.isNotNull(err);
+                }
               }
             }
           }

@@ -47,7 +47,7 @@ module.exports = function (forceRefresh, config) {
         requestType: requestType.toLowerCase(),
         response: response.body,
         endpoint: urls.base(url)
-      }
+      };
       
       // Add the revision if a doc was passed in (if we're refreshing the cache)
       if (rev) cacheDoc['_rev'] = rev;
@@ -93,10 +93,10 @@ module.exports = function (forceRefresh, config) {
   
   // ## Public API
   return {
-    // Access to the cache database
+    // ### Access to the cache database
     db: db,
     
-    // CSW GetRecords request
+    // ### CSW GetRecords request
     getRecords: function (cswBaseUrl, start, limit, callback) {
       var requestType = 'getrecords',
           params = {};
@@ -112,7 +112,13 @@ module.exports = function (forceRefresh, config) {
       fetch(requestType, url, forceRefresh, callback);
     },
     
-    // CSW GetRecordByID request
+    // ### Return all Metadata IDs from a particular CSW
+    idsFromCsw: function (cswBaseUrl, callback) {
+      var url = urls.base(cswBaseUrl);
+      db.view_with_list('usgin-cache', 'metadataIds', 'values', {key: url}, callback);
+    },
+
+    // ### CSW GetRecordByID request
     getRecordById: function (cswBaseUrl, id, callback) {
       var requestType = 'getrecordbyid',
           url = urls.request(requestType, cswBaseUrl, {id: id});
@@ -122,7 +128,12 @@ module.exports = function (forceRefresh, config) {
       fetch(requestType, url, forceRefresh, callback);
     },
     
-    // WFS GetFeature request
+    // ### Get all WFS Urls available in the cache
+    wfsUrls: function (callback) {
+      db.view_with_list('usgin-cache', 'wfsUrls', 'threshold', {min:4}, callback);
+    },
+
+    // ### WFS GetFeature request
     getFeature: function (wfsBaseUrl, featureType, maxFeatures, callback) {
       var requestType = 'getfeature',
           params = {};
@@ -138,7 +149,7 @@ module.exports = function (forceRefresh, config) {
       fetch(requestType, url, forceRefresh, callback);
     },
     
-    // Clear everything except design documents from the database
+    // ### Clear everything except design documents from the database
     clear: function (callback) {
       callback = callback || function () {};
       
@@ -146,18 +157,18 @@ module.exports = function (forceRefresh, config) {
         if (err) { callback(err); return; }
         
         var docs = _.reject(result.rows, function (doc) {
-          return doc.id.indexOf('_design') === 0;    
+          return doc.id.indexOf('_design') === 0;
         });
         
         docs = _.map(docs, function (row) {
-          return _.extend({ _deleted: true }, row.doc);  
+          return _.extend({ _deleted: true }, row.doc);
         });
         
         db.bulk({docs: docs}, callback);
       });
     },
     
-    // Setup the database
+    // ### Setup the database
     setup: function (callback) {
       callback = callback || function () {};
       
@@ -170,7 +181,7 @@ module.exports = function (forceRefresh, config) {
           if (doc) {
             db.insert(_.extend(designDoc, {_rev: doc._rev}), id, callback);
           } else {
-            db.insert(designDoc, callback);  
+            db.insert(designDoc, callback);
           }
         });
       }

@@ -1,20 +1,36 @@
+// # usgin-cache Design Document
+
+// A view to index cached records by requestType
 var requests = function (doc) {
   if (doc.hasOwnProperty('requestType')) {
     emit(doc.requestType, 1);
   }
 };
 
+// A view to list metadata IDs from the cached set of CSW GetRecords requests.
+// These IDs are indexed by the CSW URL from which they were fetched
 var metadataIds = function (doc) {
   if (doc.endpoint && doc.response && doc.requestType && doc.requestType === 'getrecords') {
     var re = /<gmd:fileIdentifier><gco:CharacterString>(.+?)<\/gco:CharacterString><\/gmd:fileIdentifier>/g,
         xml = doc.response,
         match;
     while (match = re.exec(xml)) {
-      emit(match[1], doc.endpoint);
+      emit(doc.endpoint, match[1]);
     }
   }
 };
 
+// A view to list WFS URLs that are found in metadata records in the cache.
+// This finds all `<gmd:URL>` elements in the metadata record and ranks how likely it is to be a WFS URL.
+// The URLs are indexed on this ranking, so that they can be sorted by it. See `threshold` below.
+// Ranking points as follows:
+//
+// - 5 points: contains "service=wfs"
+// - 3 points: contains "wfs"
+// - 1 point: contains "request="
+// - 1 point: contains "version="
+//
+// Points are cumulative -- that is, a URL containing `service=wfs` will always get at least 8 points.
 var wfsUrls = function (doc) {
   if (doc.response && doc.requestType && doc.requestType === 'getrecordbyid') {
     var findUrls = /<gmd:URL>(.+?)<\/gmd:URL>/g,
@@ -42,12 +58,19 @@ var wfsUrls = function (doc) {
   }
 };
 
+// A list function that is intended to be used in tandem with the above `wfsUrls` view.
+// A request should look something like this:
+//
+//     /_design/usgin-cache/_list/threshold/wfsUrls?min=5
+//
+// This will return a list of URLs with a minimum ranking of 5. See `wfsUrls` for rank breakdown.
 var threshold = function (head, req) {
-  start({ 'headers': { 'Content-type': 'application/json' } });
   var min = req.query.min || 0,
       max = req.query.max || 9999,
       result = [];
   
+  start({ 'headers': { 'Content-type': 'application/json' } });
+
   while (row = getRow()) {
     if (row.key >= min && row.key <= max) {
       result.push(row.value);
@@ -57,6 +80,17 @@ var threshold = function (head, req) {
   send(JSON.stringify(result));
 };
 
+// A list function that simply returns a list of values. Save yourself one `.map` function.
+var values = function (head, req) {
+  var result = [];
+  while (row = getRow()) {
+    result.push(row.value);
+  }
+  start({ 'headers': { 'Content-type': 'application/json' } });
+  send(JSON.stringify(result));
+};
+
+// This is the design document itself
 module.exports = {
   _id: '_design/usgin-cache',
   language: 'javascript',
@@ -72,6 +106,7 @@ module.exports = {
     }
   },
   lists: {
-    threshold: threshold.toString()
+    threshold: threshold.toString(),
+    values: values.toString()
   }
 };

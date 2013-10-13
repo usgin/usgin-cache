@@ -32,7 +32,7 @@ var wfsUrls = function (doc) {
       return {
         url: url,
         rank: exps.reduce(function (result, exp) {
-          var rank = isNaN(result) ? (result.re.exec(url)? result.points : 0) : result;
+          var rank = isNaN(result) ? (result.re.exec(url) ? result.points : 0) : result;
           return exp.re.exec(url) ? rank + exp.points : rank;
         })
       };
@@ -40,6 +40,21 @@ var wfsUrls = function (doc) {
       emit(ranked.rank, ranked.url);
     });
   }
+};
+
+var threshold = function (head, req) {
+  start({ 'headers': { 'Content-type': 'application/json' } });
+  var min = req.query.min || 0,
+      max = req.query.max || 9999,
+      result = [];
+  
+  while (row = getRow()) {
+    if (row.key >= min && row.key <= max) {
+      result.push(row.value);
+    }
+  }
+
+  send(JSON.stringify(result));
 };
 
 module.exports = {
@@ -55,5 +70,8 @@ module.exports = {
     wfsUrls : {
       map: wfsUrls.toString()
     }
+  },
+  lists: {
+    threshold: threshold.toString()
   }
 };

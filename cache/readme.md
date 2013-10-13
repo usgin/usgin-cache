@@ -47,7 +47,7 @@ This function removes all documents from the database that are not design docume
 
 Will perform a CSW GetRecords request with the specified pagination parameters. `cswBaseUrl` is required, while `start` and `limit` are optional, defaulting to 0 and 10, respectively. 
 
-Obeying the cache refresh rule that you set when creating the `cache` object, the function will either make an OGC request, or grab a document from the cache. `callback` is fired with `(err, document)` when complete.
+Obeying the cache refresh rule that you set when creating the `cache` object, the function will either make an OGC request, or grab a document from the cache. If provided, `callback` is fired with `(err, document)` when complete.
   
 ### cache.getRecordById(cswBaseUrl, id, [callback])
 
@@ -56,3 +56,7 @@ Will perform a CSW GetRecordById request. `cswBaseUrl` and `id` are required. `c
 ### cache.getFeature(wfsBaseUrl, featureType, [maxFeatures], [callback])
 
 Will perform a WFS GetFeature request. `wfsBaseUrl` and `featureType` are required, while `maxFeatures` is optional. `callback` identical to above.
+
+### cache.getCapabilities(wfsBaseUrl, [callback])
+
+*TO DO*: Will perform a WFS GetCapabilities request. `callback` identical to above.

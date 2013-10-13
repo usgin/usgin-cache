@@ -12,7 +12,7 @@ module.exports = function (cache) {
     },
 
     // Get all the features from a set of WFS urls
-    getFeatures: function (callback) {
+    getFeatures: function (urls, callback) {
 
     }
   };

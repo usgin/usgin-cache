@@ -10,7 +10,7 @@ var nano = require('nano'),
 // You should pass whether or not you want to refresh the cache and also a config obj.
 module.exports = function (forceRefresh, config) {
   forceRefresh = typeof forceRefresh === 'boolean' ? forceRefresh : false;
-  config = config || { dbUrl: 'http://localhost:5984', dbName: 'usgin-cache' };
+  config = config || {dbUrl: 'http://localhost:5984', dbName: 'usgin-cache'};
   
   var connection = nano(config.dbUrl),
       db = connection.use(config.dbName);

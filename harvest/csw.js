@@ -15,8 +15,8 @@ module.exports = function (cache, cswUrl) {
       }
 
       var start = 0,
-          totalRe = /numberOfRecordsMatched=(\d+)/,
-          nextRe = /nextRecord=(\d+)/;
+          totalRe = /numberOfRecordsMatched=(\d+)/i,
+          nextRe = /nextRecord=(\d+)/i;
 
       cache.GetRecords(cswUrl, start, limit, finishedYet);
 

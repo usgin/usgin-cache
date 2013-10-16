@@ -60,7 +60,7 @@ Returns a list of URLs mined from metadata records that appear to be WFS urls. `
 
 ### cache.getCapabilities(wfsBaseUrl, [callback])
 
-*TO DO*: Will perform a WFS GetCapabilities request. `callback` identical to above.
+Performs a WFS GetCapabilities request. `callback` identical to above.
 
 ### cache.getFeature(wfsBaseUrl, featureType, [maxFeatures], [callback])
 

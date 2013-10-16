@@ -10,6 +10,7 @@ module.exports = function (forceRefresh, config) {
     harvestCsw: function (cswBaseUrl, callback) {
       var csw = require('./csw')(cache, cswBaseUrl);
       csw.getAllRecords(function (err) {
+        if (err) return callback(err);
         csw.getRecordsByIds(callback);
       });
     },

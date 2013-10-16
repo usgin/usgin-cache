@@ -25,21 +25,28 @@ var tests = {
         'database clear works': function (err, response) {
           assert.isNull(err);
         },
-        'a GetRecords request can be made': {
+        'a GetRecordById request can be made': {
           topic: function () {
-            cache(false, testConfig).getRecords('http://localhost:8000', 0, 10, this.callback);
+            cache(false, testConfig).getRecordById('http://localhost:8000', '00570e7187459885e5c18c3a5f498d5d', this.callback);
           },
-          'followed by a CSW getRecordsById operation': {
+          'and wfs urls found': {
             topic: function () {
-              var harvester = csw(cache(false, testConfig), 'http://localhost:8000');
-              harvester.getRecordsByIds(this.callback);
+              cache(false, testConfig).wfsUrls(this.callback);
             },
-            'does not fail': function (err, response) {
-              assert.isNull(err);
+            'does not fail': function (err, urls) {
+              assert(!err);
             },
-            'before turning off the CSW server': {
-              topic: function () {
-                server.stop(this.callback);  
+            'and capabilities requested': {
+              topic: function (urls) {
+                cache(false, testConfig).getCapabilities(urls[0], this.callback);
+              },
+              'does not fail': function (err, doc) {
+                assert.isNull(err);
+              },
+              'before turning off the CSW server': {
+                topic: function () {
+                  server.stop(this.callback);
+                }
               }
             }
           }
@@ -50,7 +57,7 @@ var tests = {
 };
 
 if (require.main === module) {
-  vows.describe('The Harvest Module').addBatch(tests).export(module);
+  vows.describe('The Cache Module').addBatch(tests).export(module);
 } else {
   module.exports = tests;
 }

@@ -47,6 +47,15 @@ module.exports = {
       };
     }
     
+    else if (requestType === 'getcapabilities') {
+      query = {
+        service: 'WFS',
+        request: 'GetCapabilities',
+      };
+
+      if (params.version) query.version = params.version;
+    }
+
     else if (requestType === 'getfeature') {
       query = {
         service: 'WFS',
@@ -60,7 +69,7 @@ module.exports = {
     }
     
     else {
-      throw new Error(requestType + ' is not a valid request type');  
+      throw new Error(requestType + ' is not a valid request type');
     }
     
     return [base, qs.stringify(query)].join('?');

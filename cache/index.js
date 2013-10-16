@@ -66,7 +66,7 @@ module.exports = function (forceRefresh, config) {
   // ### Return a document from the cache, adding or updating as neccessary
   function fetch(requestType, url, refresh, callback) {
     // Valid requestTypes
-    var validRequests = ['getrecords', 'getrecordbyid', 'getfeature'];
+    var validRequests = ['getrecords', 'getrecordbyid', 'getfeature', 'getcapabilities'];
     if (!_.contains(validRequests, requestType.toLowerCase())) {
       callback(new Error('System will only cache ' + validRequests.join(', ') + ' requests'));
     }
@@ -131,6 +131,14 @@ module.exports = function (forceRefresh, config) {
     // ### Get all WFS Urls available in the cache
     wfsUrls: function (callback) {
       db.view_with_list('usgin-cache', 'wfsUrls', 'threshold', {min:4}, callback);
+    },
+
+    // ### WFS GetCapabilities request
+    getCapabilities: function (wfsBaseUrl, callback) {
+      var requestType = 'getcapabilities',
+          url = urls.request(requestType, wfsBaseUrl);
+
+      fetch(requestType, url, forceRefresh, callback);
     },
 
     // ### WFS GetFeature request

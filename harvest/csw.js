@@ -14,11 +14,32 @@ module.exports = function (cache, cswUrl) {
         limit = 10;
       }
 
-      var start = 0,
-          totalRe = /numberOfRecordsMatched=(\d+)/i,
-          nextRe = /nextRecord=(\d+)/i;
+      // Queue up subsequent requests
+      cache.getRecords(cswUrl, 0, limit, function (err, doc) {
+        var totalRe = /numberOfRecordsMatched="(\d+)"/i,
+            returnedRe = /numberOfRecordsReturned="(\d+)"/i,
+            xml = doc.response,
 
-      cache.GetRecords(cswUrl, start, limit, finishedYet);
+            total = totalRe.exec(xml),
+            returned = returnedRe.exec(xml);
+
+        if ((!total || total.length < 2) || (!returned || returned.length < 2)) {
+          callback(new Error('CSW Response was invalid.')); return;
+        }
+
+        total = Number(total[1]);
+        returned = Number(returned[1]);
+        var start = returned + 1,
+            starts = [];
+        while (start < total) {
+          starts.push(start);
+          start = start + returned;
+        }
+        
+        async.eachLimit(starts, 10, function (start, callback) {
+          cache.getRecords(cswUrl, start, limit, callback);
+        }, callback);
+      });
 
       function finishedYet(err, doc) {
         if (err) { callback(err); return; }
@@ -33,7 +54,7 @@ module.exports = function (cache, cswUrl) {
         catch (error) { callback(error); return; }
         
         if (next !== 0 && next <= total) {
-          cache.GetRecords(cswUrl, next, limit, finishedYet);
+          cache.getRecords(cswUrl, next, limit, finishedYet);
         } else {
           callback(null);
         }
@@ -53,7 +74,9 @@ module.exports = function (cache, cswUrl) {
 
       // This routine actually fetches the IDS, fires the callback when done.
       function idsReady(err, ids) {
-        async.eachLimit(ids, 10, performRequest, callback);
+        async.eachLimit(ids, 10, performRequest, function (err) {
+          callback(err);
+        });
       }
 
       // Given one ID, make a GetRecordByID request

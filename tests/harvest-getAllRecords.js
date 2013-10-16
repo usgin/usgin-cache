@@ -25,22 +25,17 @@ var tests = {
         'database clear works': function (err, response) {
           assert.isNull(err);
         },
-        'a GetRecords request can be made': {
+        'all CSW records can be gathered': {
           topic: function () {
-            cache(false, testConfig).getRecords('http://localhost:8000', 0, 10, this.callback);
+            var harvester = csw(cache(false, testConfig), 'http://localhost:8000');
+            harvester.getAllRecords(this.callback);
           },
-          'followed by a CSW getRecordsById operation': {
+          'does not fail': function (err) {
+            assert(!err);
+          },
+          'before turning off the CSW server': {
             topic: function () {
-              var harvester = csw(cache(false, testConfig), 'http://localhost:8000');
-              harvester.getRecordsByIds(this.callback);
-            },
-            'does not fail': function (err, response) {
-              assert.isNull(err);
-            },
-            'before turning off the CSW server': {
-              topic: function () {
-                server.stop(this.callback);  
-              }
+              server.stop(this.callback);  
             }
           }
         }

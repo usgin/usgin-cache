@@ -1,7 +1,7 @@
 var assert = require('assert'),
     server = require('./cswServer'),
     cache = require('../cache'),
-    csw = require('../harvest/csw'),
+    harvest = require('../harvest'),
     vows = require('vows'),
     
     testConfig = {dbName: 'usgin-cache-test', dbUrl: 'http://localhost:5984'};
@@ -25,21 +25,24 @@ var tests = {
         'database clear works': function (err, response) {
           assert.isNull(err);
         },
-        'a GetRecords request can be made': {
+        'can harvest a CSW' : {
           topic: function () {
-            cache(false, testConfig).getRecords('http://localhost:8000', 0, 10, this.callback);
+            var harvester = harvest(false, testConfig)
+            harvester.harvestCsw('http://localhost:8000', this.callback);
           },
-          'followed by a CSW getRecordsById operation': {
+          'does not fail': function (err) {
+            assert(!err);
+          },
+          'and counting records': {
             topic: function () {
-              var harvester = csw(cache(false, testConfig), 'http://localhost:8000');
-              harvester.getRecordsByIds(this.callback);
+              cache(false, testConfig).db.list(this.callback);
             },
-            'does not fail': function (err, response) {
-              assert.isNull(err);
+            'returns the correct number': function (err, response) {
+              assert.equal(response.rows.length, 7);
             },
             'before turning off the CSW server': {
               topic: function () {
-                server.stop(this.callback);  
+                server.stop(this.callback);
               }
             }
           }

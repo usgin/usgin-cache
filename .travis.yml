@@ -10,4 +10,4 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install gdal-bin
   - ogr2ogr --formats
-  - pip install -r tests/cswSerer/pip-requirements.txt
+  - pip install -r tests/cswServer/pip-requirements.txt

@@ -1,5 +1,5 @@
 dateutils
-tz
+pytz
 sqlalchemy
 lxml
 shapely

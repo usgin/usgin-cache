@@ -58,8 +58,8 @@ module.exports = {
         
         server = spawn('python', [ path.join(pycswFolder, 'csw.wsgi') ], options);
         
-        server.stdout.pipe(process.stdout);
-        server.stderr.pipe(process.stderr);
+        //server.stdout.pipe(process.stdout);
+        //server.stderr.pipe(process.stderr);
         
         setTimeout(callback, 500);
     },
@@ -69,6 +69,6 @@ module.exports = {
         
         server.on('exit', callback);
         
-        server.kill();
+        server.kill('SIGKILL');
     }
 };

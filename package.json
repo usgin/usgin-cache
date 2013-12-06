@@ -4,7 +4,8 @@
   "description": "Cache data from CSW and WFS services",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/all.js"
+    "test": "node tests/all.js",
+    "prepublish": "git submodule init; git submodule update;"
   },
   "repository": {
     "type": "git",

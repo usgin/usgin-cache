@@ -43,6 +43,9 @@ var tests = {
             'before turning off the CSW server': {
               topic: function () {
                 server.stop(this.callback);
+              },
+              'and we are all smiling and happy': function (err, doc) {
+                assert.isNull(err);
               }
             }
           }

@@ -13,12 +13,12 @@ This workflow requires the user to do a lot of work _before they even get to see
 
 #### This software brings the data itself closer to the search experience
 
-The end goal is to provide the user with a dynamic map that _displays actual data_, or at least enough of the data to give the user a better, more immediate idea of exactly what is available. This is a high-priority target because its been shown that the first search priority for users searching for geoscientific data is location. We want a map that allows you to zoom to a location and see whats available there _before_ you begin any thematic or keyword filtering to narrow down the results.
+The end goal is to provide the user with a dynamic map that _displays actual data_, or at least enough of the data to give the user a better, more immediate idea of exactly what is available. This is an important target because its been shown that the first search priority for users searching for geoscientific data is location. We want a map that allows you to zoom to a location and see whats available there _before_ you begin any thematic or keyword filtering to narrow down the results.
 
 In order to achieve this, this software works as follows:
 
 1. A request is made to an aggregating CSW service in order to find WFS services that meet some particular criteria. The module for making these CSW requests allows for some configuration in order to specify what kinds of WFS services are of interest. 
-2. The resulting set of WFS services are queried in order to return ALL of the data that is available from that service. The entire WFS response document is cached in CouchDB. The resulting document is transformed into [GeoJSON](http://geojson.org) using [ogr2ogr](http://www.gdal.org/ogr2ogr.html) (see `wfs/wfs2geojson.js`). Each feature from the WFS response is then stored in CouchDB as a GeoJSON object. These cached objects can be refreshed whenever required.
+2. The resulting set of WFS services are queried in order to return ALL of the data that is available from that service. The entire WFS response document is cached in CouchDB. The resulting document is transformed into [GeoJSON](http://geojson.org) using [ogr2ogr](http://www.gdal.org/ogr2ogr.html) (see `features/toGeojson.js`). Each feature from the WFS response is then stored in CouchDB as a GeoJSON object. These cached objects can be refreshed whenever required.
 3. Mapping function are written which indicate how a single GeoJSON feature should be indexed. These function are passed one GeoJSON feature, and return a simple JSON object representing the key-value pairs that will be included in a [Solr index](http://lucene.apache.org/solr/).
 4. A cached document is read and the features it contains are each passed through the mapping function before being added to the Solr index.
 
@@ -32,22 +32,21 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 - [Node.js](http://nodejs.org/)
 - [Apache Solr]((http://lucene.apache.org/solr/)
 - [CouchDB](http://couchdb.apache.org/)
+- [GDAL/OGR](http://gdal.org)
 
 ### Then:
 
     git clone https://github.com/usgin/usgin-cache.git
-    cd wfs-index
+    cd usgin-cache
     npm install
     
 ## Configuration
 
+... hmm ...
+
 ### Connect to Solr
 
 ... coming soon ...
-
-### Writing mapping functions
-
-Starter mapping functions are included in the `maps` directory. See [the thermal springs example](https://rawgithub.com/usgin/wfs-index/master/docs/thermalSprings.html) for an introduction to how to write these functions.
 
 ## Running Tests:
 

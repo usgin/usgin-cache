@@ -1,4 +1,4 @@
-dateutil
+dateutils
 tz
 sqlalchemy
 lxml

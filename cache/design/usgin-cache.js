@@ -58,6 +58,18 @@ var wfsUrls = function (doc) {
   }
 };
 
+// A view function to find featuretypes in WFS Capabilities docs
+var wfsFeatureTypes = function (doc) {
+  // TODO: write this.
+};
+
+// A view function to find cached WFS responses of a particular featuretype
+var wfsFeaturesByType = function (doc) {
+  if (doc.featuretype) {
+    emit(doc.featuretype, doc.response);
+  }
+};
+
 // A list function that is intended to be used in tandem with the above `wfsUrls` view.
 // A request should look something like this:
 //
@@ -103,6 +115,12 @@ module.exports = {
     },
     wfsUrls : {
       map: wfsUrls.toString()
+    },
+    wfsFeatureTypes: {
+      map: wfsFeatureTypes.toString()
+    },
+    wfsFeaturesByType: {
+      map: wfsFeaturesByType.toString()
     }
   },
   lists: {

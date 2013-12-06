@@ -9,8 +9,12 @@ var nano = require('nano'),
 // ## Contructor
 // You should pass whether or not you want to refresh the cache and also a config obj.
 module.exports = function (forceRefresh, config) {
+  config = typeof forceRefresh === 'object' ? forceRefresh : config;
   forceRefresh = typeof forceRefresh === 'boolean' ? forceRefresh : false;
-  config = config || {dbUrl: 'http://localhost:5984', dbName: 'usgin-cache'};
+
+  config = config || {};
+  config.dbName = config.dbName || 'usgin-cache';
+  config.dbUrl = config.dbUrl || 'http://localhost:5984';
   
   var connection = nano(config.dbUrl),
       db = connection.use(config.dbName);
@@ -48,6 +52,11 @@ module.exports = function (forceRefresh, config) {
         response: response.body,
         endpoint: urls.base(url)
       };
+
+      // Need to capture featuretype for GetFeature requests
+      if (requestType === 'getfeature') {
+        cacheDoc.featuretype = decodeURIComponent(/typename=(.+?)(&|$)/i.exec(url)[1]);
+      }
       
       // Add the revision if a doc was passed in (if we're refreshing the cache)
       if (rev) cacheDoc['_rev'] = rev;
@@ -157,6 +166,13 @@ module.exports = function (forceRefresh, config) {
       fetch(requestType, url, forceRefresh, callback);
     },
     
+    // ### List WFS GetFeature responses by type
+    wfsFeaturesByType: function (featuretype, callback) {
+      callback = typeof featuretype === 'function' ? featuretype : callback;
+      var params = typeof featuretype === 'string' ? {key: featuretype} : {};
+      db.view('usgin-cache', 'wfsFeaturesByType', params, callback);
+    },
+
     // ### Clear everything except design documents from the database
     clear: function (callback) {
       callback = callback || function () {};

@@ -1,10 +1,10 @@
 {
   "name": "usgin-cache",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Cache data from CSW and WFS services",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "node tests/all.js"
   },
   "repository": {
     "type": "git",

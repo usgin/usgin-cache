@@ -32,6 +32,10 @@ When returning documents, the cache will return CouchDB docs, which look like th
       endpoint: 'The base url for the service from which this record was fetched'
     }
 
+In the case of WFS GetFeature responses, the document will also contain the following property:
+
+    featuretype: 'The type of feature contained in this document'
+
 ### cache.setup([callback])
 
 This function will make sure that the database exists, and create it if it does not. `callback` is fired once the database definitively exists. Loads the design document defined in `./design/usgin-cache.js`.
@@ -65,6 +69,10 @@ Performs a WFS GetCapabilities request. `callback` identical to above.
 ### cache.getFeature(wfsBaseUrl, featureType, [maxFeatures], [callback])
 
 Will perform a WFS GetFeature request. `wfsBaseUrl` and `featureType` are required, while `maxFeatures` is optional. `callback` identical to above.
+
+### cache.getFeaturesByType([featureType], [callback])
+
+Returns a document that represents the WFS GetFeature responses that are available in the cache. These responses are indexed by the name of the featureType that they contain. If a `featureType` is provided, then only responses of that type are returned.
 
 ### cache.db
 

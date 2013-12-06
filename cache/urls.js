@@ -61,7 +61,7 @@ module.exports = {
         service: 'WFS',
         version: params.version || '1.0.0',
         request: 'GetFeature',
-        typeName: params.featuretype || ''
+        typeName: params.featureType || ''
       };
       
       if (params.outputFormat) query.outputFormat = params.outputFormat;

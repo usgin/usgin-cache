@@ -50,7 +50,7 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 
 ## Code Docs
 
-Build documentation from code comments with [groc]. These docs live on the `gh-pages` branch and [are accessible here](http://usgin.github.io/usgin-cache/doc/cache/index.html).
+Build documentation from code comments with [groc]. These docs live on the `gh-pages` branch and [are accessible here](http://usgin.github.io/usgin-cache/doc/).
 
 To rebuild them, follow these instructions:
 

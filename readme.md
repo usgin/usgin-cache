@@ -73,6 +73,10 @@ After that's cloned, you can move into the `pycsw` folder and install it:
     cd pycsw
     python setup.py install
     
-That's pretty much just to get dependencies in place. Once you're finished you can just
+That's pretty much just to get dependencies in place. If you would rather, you can install dependencies with pip:
+
+    pip install -r tests/cswServer/pip-requirements.txt
+
+Once you're finished you can just
 
     npm test

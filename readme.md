@@ -48,6 +48,19 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 
 ... coming soon ...
 
+## Code Docs
+
+Build documentation from code comments with [groc]. These docs live on the `gh-pages` branch and [are accessible here](http://usgin.github.io/usgin-cache/doc/cache/index.html).
+
+To rebuild them, follow these instructions:
+
+```shell
+git checkout gh-pages
+git merge master
+npm install
+groc
+```
+
 ## Running Tests:
 
 The tests rely on an included version of [pycsw](http://pycsw.org). This comes as a Git Submodule. If you haven't already:

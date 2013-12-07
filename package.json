@@ -27,6 +27,7 @@
     "express": "~3.4.0"
   },
   "devDependencies": {
-    "vows": "~0.7.0"
+    "vows": "~0.7.0",
+    "groc": "~0.6.1"
   }
 }

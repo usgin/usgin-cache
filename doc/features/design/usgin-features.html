@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><title>features/design/usgin-features</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="features/design/usgin-features"><meta name="groc-project-path" content="features/design/usgin-features.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">features/design/usgin-features.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">cacheId</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">cacheId</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">cacheId</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">featureType</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">featuretype</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">featuretype</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">feature</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">featureCollection</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">head</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">start</span><span class="p">({</span><span class="s1">&#39;headers&#39;</span><span class="o">:</span> <span class="p">{</span><span class="s1">&#39;Content-type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}});</span>
+  <span class="nx">send</span><span class="p">(</span><span class="s1">&#39;{&quot;type&quot;:&quot;FeatureCollection&quot;,&quot;features&quot;:[&#39;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">row</span> <span class="o">=</span> <span class="nx">getRow</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">row</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">row</span><span class="p">.</span><span class="nx">value</span><span class="p">));</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">row</span> <span class="o">=</span> <span class="nx">getRow</span><span class="p">())</span> <span class="p">{</span>
+      <span class="nx">send</span><span class="p">(</span><span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">row</span><span class="p">.</span><span class="nx">value</span><span class="p">));</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">send</span><span class="p">(</span><span class="s1">&#39;]}&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;_design/usgin-features&#39;</span><span class="p">,</span>
+  <span class="nx">language</span><span class="o">:</span> <span class="s1">&#39;javascript&#39;</span><span class="p">,</span>
+  <span class="nx">views</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">cacheId</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="o">:</span> <span class="nx">cacheId</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">featureType</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="o">:</span> <span class="nx">featureType</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">lists</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">featureCollection</span><span class="o">:</span> <span class="nx">featureCollection</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">};</span></div></div></div></div></body></html>

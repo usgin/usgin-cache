@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><title>cache/design/usgin-cache</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="cache/design/usgin-cache"><meta name="groc-project-path" content="cache/design/usgin-cache.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">cache/design/usgin-cache.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="usgin-cache-design-document">usgin-cache Design Document</h1></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A view to index cached records by requestType</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">requests</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;requestType&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">requestType</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A view to list metadata IDs from the cached set of CSW GetRecords requests.
+These IDs are indexed by the CSW URL from which they were fetched</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">metadataIds</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">endpoint</span> <span class="o">&amp;&amp;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">response</span> <span class="o">&amp;&amp;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">requestType</span> <span class="o">&amp;&amp;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">requestType</span> <span class="o">===</span> <span class="s1">&#39;getrecords&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">re</span> <span class="o">=</span> <span class="sr">/&lt;gmd:fileIdentifier&gt;&lt;gco:CharacterString&gt;(.+?)&lt;\/gco:CharacterString&gt;&lt;\/gmd:fileIdentifier&gt;/g</span><span class="p">,</span>
+        <span class="nx">xml</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">response</span><span class="p">,</span>
+        <span class="nx">match</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="nx">re</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">xml</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">endpoint</span><span class="p">,</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A view to list WFS URLs that are found in metadata records in the cache.
+This finds all <code>&lt;gmd:URL&gt;</code> elements in the metadata record and ranks how likely it is to be a WFS URL.
+The URLs are indexed on this ranking, so that they can be sorted by it. See <code>threshold</code> below.
+Ranking points as follows:
+- 5 points: contains "service=wfs"
+- 3 points: contains "wfs"
+- 1 point: contains "request="
+- 1 point: contains "version="
+Points are cumulative -- that is, a URL containing <code>service=wfs</code> will always get at least 8 points.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">wfsUrls</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">response</span> <span class="o">&amp;&amp;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">requestType</span> <span class="o">&amp;&amp;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">requestType</span> <span class="o">===</span> <span class="s1">&#39;getrecordbyid&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">findUrls</span> <span class="o">=</span> <span class="sr">/&lt;gmd:URL&gt;(.+?)&lt;\/gmd:URL&gt;/g</span><span class="p">,</span>
+    <span class="nx">xml</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">response</span><span class="p">,</span>
+    <span class="nx">urls</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">match</span><span class="p">;</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="nx">match</span> <span class="o">=</span> <span class="nx">findUrls</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">xml</span><span class="p">))</span> <span class="p">{</span> <span class="nx">urls</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span> <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">exps</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="nx">re</span><span class="o">:</span> <span class="sr">/service=wfs/i</span><span class="p">,</span> <span class="nx">points</span><span class="o">:</span> <span class="mi">5</span><span class="p">},</span> <span class="p">{</span><span class="nx">re</span><span class="o">:</span> <span class="sr">/wfs/i</span><span class="p">,</span> <span class="nx">points</span><span class="o">:</span> <span class="mi">3</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">re</span><span class="o">:</span> <span class="sr">/request=/i</span><span class="p">,</span> <span class="nx">points</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="nx">re</span><span class="o">:</span> <span class="sr">/version=/i</span><span class="p">,</span> <span class="nx">points</span><span class="o">:</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="p">];</span>
+
+    <span class="nx">urls</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="nx">url</span><span class="p">,</span>
+        <span class="nx">rank</span><span class="o">:</span> <span class="nx">exps</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">exp</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">rank</span> <span class="o">=</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">re</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="o">?</span> <span class="nx">result</span><span class="p">.</span><span class="nx">points</span> <span class="o">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:</span> <span class="nx">result</span><span class="p">;</span>
+          <span class="k">return</span> <span class="nx">exp</span><span class="p">.</span><span class="nx">re</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span> <span class="o">?</span> <span class="nx">rank</span> <span class="o">+</span> <span class="nx">exp</span><span class="p">.</span><span class="nx">points</span> <span class="o">:</span> <span class="nx">rank</span><span class="p">;</span>
+        <span class="p">})</span>
+      <span class="p">};</span>
+    <span class="p">}).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">ranked</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">emit</span><span class="p">(</span><span class="nx">ranked</span><span class="p">.</span><span class="nx">rank</span><span class="p">,</span> <span class="nx">ranked</span><span class="p">.</span><span class="nx">url</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A view function to find featuretypes in WFS Capabilities docs</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">wfsFeatureTypes</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>TODO: write this.</p></div></div><div class="code"><div class="wrapper"><span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A view function to find cached WFS responses of a particular featuretype</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">wfsFeaturesByType</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">featuretype</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">featuretype</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A list function that is intended to be used in tandem with the above <code>wfsUrls</code> view.
+A request should look something like this:
+    /<em>design/usgin-cache/</em>list/threshold/wfsUrls?min=5
+This will return a list of URLs with a minimum ranking of 5. See <code>wfsUrls</code> for rank breakdown.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">threshold</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">head</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">min</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">min</span> <span class="o">||</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="nx">max</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">max</span> <span class="o">||</span> <span class="mi">9999</span><span class="p">,</span>
+      <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+  
+  <span class="nx">start</span><span class="p">({</span> <span class="s1">&#39;headers&#39;</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">}</span> <span class="p">});</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="nx">row</span> <span class="o">=</span> <span class="nx">getRow</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">row</span><span class="p">.</span><span class="nx">key</span> <span class="o">&gt;=</span> <span class="nx">min</span> <span class="o">&amp;&amp;</span> <span class="nx">row</span><span class="p">.</span><span class="nx">key</span> <span class="o">&lt;=</span> <span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">row</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">));</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A list function that simply returns a list of values. Save yourself one <code>.map</code> function.</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">values</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">head</span><span class="p">,</span> <span class="nx">req</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">while</span> <span class="p">(</span><span class="nx">row</span> <span class="o">=</span> <span class="nx">getRow</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">row</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">start</span><span class="p">({</span> <span class="s1">&#39;headers&#39;</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;Content-type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span> <span class="p">}</span> <span class="p">});</span>
+  <span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">));</span>
+<span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This is the design document itself</p></div></div><div class="code"><div class="wrapper"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;_design/usgin-cache&#39;</span><span class="p">,</span>
+  <span class="nx">language</span><span class="o">:</span> <span class="s1">&#39;javascript&#39;</span><span class="p">,</span>
+  <span class="nx">views</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">requests</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="o">:</span> <span class="nx">requests</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">metadataIds</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="o">:</span> <span class="nx">metadataIds</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">wfsUrls</span> <span class="o">:</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="o">:</span> <span class="nx">wfsUrls</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">wfsFeatureTypes</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="o">:</span> <span class="nx">wfsFeatureTypes</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="p">},</span>
+    <span class="nx">wfsFeaturesByType</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="o">:</span> <span class="nx">wfsFeaturesByType</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">lists</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">threshold</span><span class="o">:</span> <span class="nx">threshold</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span>
+    <span class="nx">values</span><span class="o">:</span> <span class="nx">values</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+  <span class="p">}</span>
+<span class="p">};</span></div></div></div></div></body></html>

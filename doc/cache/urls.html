@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><title>cache/urls</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="cache/urls"><meta name="groc-project-path" content="cache/urls.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">cache/urls.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">),</span>
+    <span class="nx">qs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;querystring&#39;</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Function that extracts the base url from whatever someone decided to give</p></div></div><div class="code"><div class="wrapper"><span class="kd">function</span> <span class="nx">cleanBaseUrl</span><span class="p">(</span><span class="nx">givenUrl</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">parsedUrl</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">givenUrl</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">url</span><span class="p">.</span><span class="nx">format</span><span class="p">({</span>
+    <span class="nx">protocol</span><span class="o">:</span> <span class="nx">parsedUrl</span><span class="p">.</span><span class="nx">protocol</span><span class="p">,</span>
+    <span class="nx">host</span><span class="o">:</span> <span class="nx">parsedUrl</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span>
+    <span class="nx">auth</span><span class="o">:</span> <span class="nx">parsedUrl</span><span class="p">.</span><span class="nx">auth</span><span class="p">,</span>
+    <span class="nx">pathname</span><span class="o">:</span> <span class="nx">parsedUrl</span><span class="p">.</span><span class="nx">pathname</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Given a request type and base url, construct the approriate OGC request URL</p></div></div><div class="code"><div class="wrapper">  <span class="nx">request</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">requestType</span><span class="p">,</span> <span class="nx">baseUrl</span><span class="p">,</span> <span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">base</span> <span class="o">=</span> <span class="nx">cleanBaseUrl</span><span class="p">(</span><span class="nx">baseUrl</span><span class="p">),</span>
+        <span class="nx">query</span> <span class="o">=</span> <span class="p">{};</span>
+    
+    <span class="nx">params</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">params</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">?</span> <span class="nx">params</span> <span class="o">:</span> <span class="p">{};</span>
+    <span class="nx">requestType</span> <span class="o">=</span> <span class="nx">requestType</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">requestType</span> <span class="o">===</span> <span class="s1">&#39;getrecords&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;CSW&#39;</span><span class="p">,</span>
+        <span class="nx">version</span><span class="o">:</span> <span class="s1">&#39;2.0.2&#39;</span><span class="p">,</span>
+        <span class="nx">request</span><span class="o">:</span> <span class="s1">&#39;GetRecords&#39;</span><span class="p">,</span>
+        <span class="nx">typeNames</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">typeNames</span> <span class="o">||</span> <span class="s1">&#39;gmd:MD_Metadata&#39;</span><span class="p">,</span>
+        <span class="nx">outputSchema</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">outputSchema</span> <span class="o">||</span> <span class="s1">&#39;http://www.isotc211.org/2005/gmd&#39;</span><span class="p">,</span>
+        <span class="nx">elementSetName</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">elementSetName</span> <span class="o">||</span> <span class="s1">&#39;brief&#39;</span><span class="p">,</span>
+        <span class="nx">resultType</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">resultType</span> <span class="o">||</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span>
+        <span class="nx">maxRecords</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">limit</span> <span class="o">||</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">startPosition</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">start</span> <span class="o">||</span> <span class="mi">0</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+    
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">requestType</span> <span class="o">===</span> <span class="s1">&#39;getrecordbyid&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;CSW&#39;</span><span class="p">,</span>
+        <span class="nx">version</span><span class="o">:</span> <span class="s1">&#39;2.0.2&#39;</span><span class="p">,</span>
+        <span class="nx">request</span><span class="o">:</span> <span class="s1">&#39;GetRecordById&#39;</span><span class="p">,</span>
+        <span class="nx">typeNames</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">typeNames</span> <span class="o">||</span> <span class="s1">&#39;gmd:MD_Metadata&#39;</span><span class="p">,</span>
+        <span class="nx">outputSchema</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">outputSchema</span> <span class="o">||</span> <span class="s1">&#39;http://www.isotc211.org/2005/gmd&#39;</span><span class="p">,</span>
+        <span class="nx">elementSetName</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">elementSetName</span> <span class="o">||</span> <span class="s1">&#39;full&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">id</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span>
+      <span class="p">};</span>
+    <span class="p">}</span>
+    
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">requestType</span> <span class="o">===</span> <span class="s1">&#39;getcapabilities&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;WFS&#39;</span><span class="p">,</span>
+        <span class="nx">request</span><span class="o">:</span> <span class="s1">&#39;GetCapabilities&#39;</span><span class="p">,</span>
+      <span class="p">};</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">version</span><span class="p">)</span> <span class="nx">query</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">version</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">requestType</span> <span class="o">===</span> <span class="s1">&#39;getfeature&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">query</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">service</span><span class="o">:</span> <span class="s1">&#39;WFS&#39;</span><span class="p">,</span>
+        <span class="nx">version</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">version</span> <span class="o">||</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">,</span>
+        <span class="nx">request</span><span class="o">:</span> <span class="s1">&#39;GetFeature&#39;</span><span class="p">,</span>
+        <span class="nx">typeName</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">featureType</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span>
+      <span class="p">};</span>
+      
+      <span class="k">if</span> <span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">outputFormat</span><span class="p">)</span> <span class="nx">query</span><span class="p">.</span><span class="nx">outputFormat</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">outputFormat</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">maxFeatures</span><span class="p">)</span> <span class="nx">query</span><span class="p">.</span><span class="nx">maxFeatures</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">maxFeatures</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">requestType</span> <span class="o">+</span> <span class="s1">&#39; is not a valid request type&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="p">[</span><span class="nx">base</span><span class="p">,</span> <span class="nx">qs</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">query</span><span class="p">)].</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">);</span>
+  <span class="p">},</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Just return the cleaned-up base URL</p></div></div><div class="code"><div class="wrapper">  <span class="nx">base</span><span class="o">:</span> <span class="nx">cleanBaseUrl</span>
+<span class="p">};</span>
+    </div></div></div></div></body></html>

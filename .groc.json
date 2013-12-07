@@ -1,0 +1,10 @@
+{
+    "glob": [
+        "**/*.js"
+    ],
+    "except": [
+        "tests/**/*.js",
+        "node_modules/**/*.js",
+        "cluster/leaflet.js"
+    ]
+}

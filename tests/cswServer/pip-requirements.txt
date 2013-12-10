@@ -1,6 +1,0 @@
-dateutils
-pytz
-sqlalchemy
-lxml
-shapely
-owslib

@@ -27,7 +27,7 @@ var tests = {
         },
         'all CSW records can be gathered': {
           topic: function () {
-            var harvester = csw(cache(false, testConfig), 'http://localhost:8000');
+            var harvester = csw(cache(false, testConfig), 'http://localhost:3010/csw');
             harvester.getAllRecords(this.callback);
           },
           'does not fail': function (err) {

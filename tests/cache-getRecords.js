@@ -26,14 +26,14 @@ var tests = {
         },
         'a GetRecords request can be made': {
           topic: function () {
-            cache(false, testConfig).getRecords('http://localhost:8000', 0, 2, this.callback);  
+            cache(false, testConfig).getRecords('http://localhost:3010/csw', 0, 2, this.callback);
           },
           'does not fail': function (err, response) {
             assert.isNull(err);
           },
           'and forced to refresh': {
             topic: function () {
-              cache(true, testConfig).getRecords('http://localhost:8000', 0, 2, this.callback);
+              cache(true, testConfig).getRecords('http://localhost:3010/csw', 0, 2, this.callback);
             },
             'does not fail': function (err, response) {
               assert.isNull(err);  
@@ -44,7 +44,7 @@ var tests = {
               },
               'and the doc can still be retrieved': {
                 topic: function () {
-                  cache(false, testConfig).getRecords('http://localhost:8000', 0, 2, this.callback);
+                  cache(false, testConfig).getRecords('http://localhost:3010/csw', 0, 2, this.callback);
                 },
                 'does not fail': function (err, response) {
                   assert.isNull(err);

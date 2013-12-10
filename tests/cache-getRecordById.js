@@ -26,14 +26,14 @@ var tests = {
         },
         'a GetRecordById request can be made': {
           topic: function () {
-            cache(false, testConfig).getRecordById('http://localhost:3010/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
+            cache(false, testConfig).getRecordById('http://localhost:3011/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
           },
           'does not fail': function (err, response) {
             assert.isNull(err);
           },
           'and forced to refresh': {
             topic: function () {
-              cache(true, testConfig).getRecordById('http://localhost:3010/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
+              cache(true, testConfig).getRecordById('http://localhost:3011/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
             },
             'does not fail': function (err, response) {
               assert.isNull(err);  
@@ -44,7 +44,7 @@ var tests = {
               },
               'and the doc can still be retrieved': {
                 topic: function () {
-                  cache(false, testConfig).getRecordById('http://localhost:3010/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
+                  cache(false, testConfig).getRecordById('http://localhost:3011/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
                 },
                 'does not fail': function (err, response) {
                   assert.isNull(err);
@@ -55,7 +55,7 @@ var tests = {
               },
               'and the doc cannot be refreshed': {
                 topic: function () {
-                  cache(true, testConfig).getRecordById('http://localhost:3010/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
+                  cache(true, testConfig).getRecordById('http://localhost:3011/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
                 },
                 'should fail': function (err, response) {
                   assert.isNotNull(err);

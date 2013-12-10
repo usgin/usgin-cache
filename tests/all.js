@@ -9,4 +9,5 @@ vows.describe('The USGIN Cache')
   .addBatch(require('./harvest-getRecordsById.js'))
   .addBatch(require('./harvest-harvestCsw.js'))
   .addBatch(require('./features-getFeatures.js'))
+  .addBatch(require('./harvest-wfs.js'))
   .export(module);

@@ -60,7 +60,17 @@ var wfsUrls = function (doc) {
 
 // A view function to find featuretypes in WFS Capabilities docs
 var wfsFeatureTypes = function (doc) {
-  // TODO: write this.
+  if (doc.response && doc.requestType && doc.requestType === 'getcapabilites') {
+    var findTypes = /Name>(.+?)<\//g,
+        xml = doc.response,
+        featureTypes = [], match;
+
+      while (match = findTypes.exec(xml)) featureTypes.push(match[1]);
+
+      featureTypes.forEach(function (featureType) {
+        emit(featureType, doc.endpoint);
+      });
+  }
 };
 
 // A view function to find cached WFS responses of a particular featuretype

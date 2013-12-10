@@ -1,74 +1,39 @@
-// WARNING: Blocking code in here.
-
-var fs = require('fs'),
+var express = require('express'),
     path = require('path'),
-    spawn = require('child_process').spawn,
-    
-    here = path.dirname(__filename),
-    pycswFolder = path.resolve(here, '..', '..', 'pycsw'),
-    sample = fs.readFileSync(path.join(pycswFolder, 'default-sample.cfg')).toString(),
-    
-    server;
+    app = express();
 
-sample = sample.replace('home=/var/www/pycsw', 'home=' + pycswFolder);
-sample = sample.replace('url=http://localhost/pycsw/csw.py', 'url=http://localhost:8000/');
-sample = sample.replace(
-    'database=sqlite:////var/www/pycsw/tests/suites/cite/data/records.db',
-    'database=sqlite:///' + path.join(here, 'records.db')
-);
-
-fs.writeFileSync(path.join(here, 'default.cfg'), sample);
-//fs.unlinkSync(path.join(here, 'records.db'));
-
-module.exports = {
-    setupDb: function (callback) {
-        callback = callback || function () {};
-        
-        var params = [
-                path.join(pycswFolder, 'sbin', 'pycsw-admin.py'),
-                '-c', 'setup_db',
-                '-f', path.join(here, 'default.cfg')
-            ],
-        
-            setup = spawn('python', params);
-        
-        setup.on('exit', callback);
-    },
-    
-    loadSamples: function (callback) {
-        callback = callback || function ()  {};
-        
-        var params = [
-                path.join(pycswFolder, 'sbin', 'pycsw-admin.py'),
-                '-c', 'load_records',
-                '-f', path.join(here, 'default.cfg'),
-                '-p', path.join(here, 'sampleMetadata')
-            ],
-            
-            loader = spawn('python', params);
-        
-        loader.on('exit', callback);
-    },
-    
-    start: function (callback) {
-        callback = callback || function () {};
-        
-        var options = { env: process.env };
-        options.env.PYCSW_CONFIG = path.join(here, 'default.cfg');
-        
-        server = spawn('python', [ path.join(pycswFolder, 'csw.wsgi') ], options);
-        
-        //server.stdout.pipe(process.stdout);
-        //server.stderr.pipe(process.stderr);
-        
-        setTimeout(callback, 500);
-    },
-    
-    stop: function (callback) {
-        callback = callback || function () {};
-        
-        server.on('exit', callback);
-        
-        server.kill('SIGKILL');
+app.get('/csw', function (req, res, next) {
+    if (req.query.request) {
+        switch (req.query.request.toLowerCase()) {
+            case 'getrecords':
+                return res.download(path.join(__dirname, 'cswResponse.xml'));
+                break;
+            case 'getrecordbyid':
+                if (req.query.id === '00570e7187459885e5c18c3a5f498d5d') {
+                    return res.download(path.join(__dirname, 'sampleMetadata', req.query.id + '.iso.xml'));
+                }
+                break;
+            default:
+                break;
+        }
     }
-};
+
+    next(new Error('invalid request'));
+});
+
+if (require.main === module) {
+    app.listen(3010);
+} else {
+    var p;
+    module.exports = {
+        start: function (callback) {
+            p = app.listen(3010);
+            setTimeout(callback, 500);
+        },
+
+        stop: function (callback) {
+            p.close();
+            setTimeout(callback, 500);
+        }
+    };
+}

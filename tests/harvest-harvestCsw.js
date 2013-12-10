@@ -28,7 +28,7 @@ var tests = {
         'can harvest a CSW' : {
           topic: function () {
             var harvester = harvest(false, testConfig)
-            harvester.harvestCsw('http://localhost:8000', this.callback);
+            harvester.harvestCsw('http://localhost:3010/csw', this.callback);
           },
           'does not fail': function (err) {
             assert(!err);

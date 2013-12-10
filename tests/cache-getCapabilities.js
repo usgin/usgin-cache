@@ -27,7 +27,7 @@ var tests = {
         },
         'a GetRecordById request can be made': {
           topic: function () {
-            cache(false, testConfig).getRecordById('http://localhost:3010/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
+            cache(false, testConfig).getRecordById('http://localhost:3011/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
           },
           'and wfs urls found': {
             topic: function () {

@@ -22,12 +22,12 @@ app.get('/csw', function (req, res, next) {
 });
 
 if (require.main === module) {
-    app.listen(3010);
+    app.listen(3011);
 } else {
     var p;
     module.exports = {
         start: function (callback) {
-            p = app.listen(3010);
+            p = app.listen(3011);
             setTimeout(callback, 500);
         },
 

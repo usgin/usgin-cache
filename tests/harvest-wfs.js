@@ -42,7 +42,7 @@ var assert = require('assert'),
 		    				},
 		    				'list wfs providers': {
 		    					topic: function () {
-		    						wfs(db).listWfsProviders( , this.callback);
+		    						wfs(db).listWfsProviders(featuretype, this.callback);
 		    					},
 		    					'worked': function (err, response) {
 		    						assert.isNull(err);

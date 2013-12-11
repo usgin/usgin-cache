@@ -9,7 +9,7 @@ app.get('/csw', function (req, res, next) {
                 return res.download(path.join(__dirname, 'cswResponse.xml'));
                 break;
             case 'getrecordbyid':
-                if (req.query.id === '00570e7187459885e5c18c3a5f498d5d') {
+                if (req.query.id) {
                     return res.download(path.join(__dirname, 'sampleMetadata', req.query.id + '.iso.xml'));
                 }
                 break;
@@ -22,12 +22,12 @@ app.get('/csw', function (req, res, next) {
 });
 
 if (require.main === module) {
-    app.listen(3010);
+    app.listen(3011);
 } else {
     var p;
     module.exports = {
         start: function (callback) {
-            p = app.listen(3010);
+            p = app.listen(3011);
             setTimeout(callback, 500);
         },
 

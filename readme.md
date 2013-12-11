@@ -63,20 +63,6 @@ groc
 
 ## Running Tests:
 
-The tests rely on an included version of [pycsw](http://pycsw.org). This comes as a Git Submodule. If you haven't already:
-
-    git submodule init
-    git submodule update
-    
-After that's cloned, you can move into the `pycsw` folder and install it:
-
-    cd pycsw
-    python setup.py install
-    
-That's pretty much just to get dependencies in place. If you would rather, you can install dependencies with pip:
-
-    pip install -r tests/cswServer/pip-requirements.txt
-
-Once you're finished you can just
+To run unit tests:
 
     npm test

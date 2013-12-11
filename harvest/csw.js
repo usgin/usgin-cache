@@ -16,6 +16,8 @@ module.exports = function (cache, cswUrl) {
 
       // Queue up subsequent requests
       cache.getRecords(cswUrl, 0, limit, function (err, doc) {
+        if (err) return callback(err);
+        
         var totalRe = /numberOfRecordsMatched="(\d+)"/i,
             returnedRe = /numberOfRecordsReturned="(\d+)"/i,
             xml = doc.response,

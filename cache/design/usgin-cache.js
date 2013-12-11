@@ -11,7 +11,7 @@ var requests = function (doc) {
 // These IDs are indexed by the CSW URL from which they were fetched
 var metadataIds = function (doc) {
   if (doc.endpoint && doc.response && doc.requestType && doc.requestType === 'getrecords') {
-    var re = /<gmd:fileIdentifier><gco:CharacterString>(.+?)<\/gco:CharacterString><\/gmd:fileIdentifier>/g,
+    var re = /<gmd:fileIdentifier>\n?<gco:CharacterString>(.+?)<\/gco:CharacterString>\n?<\/gmd:fileIdentifier>/g,
         xml = doc.response,
         match;
     while (match = re.exec(xml)) {
@@ -60,7 +60,7 @@ var wfsUrls = function (doc) {
 
 // A view function to find featuretypes in WFS Capabilities docs
 var wfsFeatureTypes = function (doc) {
-  if (doc.response && doc.requestType && doc.requestType === 'getcapabilites') {
+  if (doc.response && doc.requestType && doc.requestType === 'getcapabilities') {
     var findTypes = /Name>(.+?)<\//g,
         xml = doc.response,
         featureTypes = [], match;

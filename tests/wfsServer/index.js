@@ -5,6 +5,8 @@ var express = require('express'),
 app.get('/wfs', function (req, res, next) {
     if (req.query.request) {
         switch (req.query.request.toLowerCase()) {
+            case 'getcapabilities':
+                return res.download(path.join(__dirname, 'sampleWfsGetCapabilitiesResponses/00570e7187459885e5c18c3a5f498d5d.iso.xml'));
             case 'getfeature':
                 if (req.query.typeName === 'azgs:earthquakedata') {
                     return res.download(path.join(__dirname, 'wfsResponse.xml'));

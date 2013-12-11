@@ -16,8 +16,15 @@ module.exports = function (forceRefresh, config) {
     },
 
     // Populate the cache with features of the specified type
-    gatherFeatures: function (featuretype, callback) {
-      callback(new Error('Not Implemented'));
+    gatherFeatures: function (featuretype, maxfeatures, callback) {
+      var wfs = require('./wfs')(cache);
+      wfs.gatherCapabilities(function (err, response) {
+        if (err) return callback(err);
+        cache.wfsUrlsByType(featuretype, function (err, urls) {
+          if (err) return callback(err);
+          wfs.getFeatures(urls, featuretype, maxfeatures, callback);
+        })
+      });
     }
   };
 };

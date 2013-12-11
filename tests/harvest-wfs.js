@@ -2,6 +2,7 @@ var assert = require('assert'),
     vows = require('vows'),
     server = require('./cswServer'),
     cache = require('../cache'),
+    harvest = require('../harvest'),
     wfs = require('../harvest/wfs');
     
     testConfig = {dbName: 'usgin-cache-test', dbUrl: 'http://localhost:5984'}, 
@@ -58,8 +59,9 @@ var assert = require('assert'),
 			    					'get some features by type': {
 			    						topic: function () {
 			    							var urls = [ 'http://geothermal.isgs.illinois.edu/ArcGIS/services/aasggeothermal/MOBoreholeLithIntervals/MapServer/WFSServer?request=GetCapabilities&amp;service=WFS' ],
-			    								featuretype = "aasg:BoreholeLithInterval";
-			    							wfs(db).getFeatures(urls, featuretype, 10, this.callback);
+			    								featuretype = "aasg:BoreholeLithInterval",
+			    								maxfeatures = 10;
+			    							wfs(db).getFeatures(urls, featuretype, maxfeatures, this.callback);
 			    						},
 			    						'did not fail': function (err, response) {
 			    							assert(!err);
@@ -71,14 +73,14 @@ var assert = require('assert'),
 			    							'has features': function (err, response) {
 			    								assert.equal(response.rows.length, 1);
 			    							},
-							    			'turn off csw server': {
-							    				topic: function () {
-							    					server.stop(this.callback);
+									    	'turn off csw server': {
+									   			topic: function () {
+								 					server.stop(this.callback);
 							    				},
 							    				'worked': function (err, response) {
 							    					assert.isNull(err);
-							    				}
-							    			}
+									    		}
+			    							}
 			    						}		    						
 		    						}			    					
 		    					}	    				

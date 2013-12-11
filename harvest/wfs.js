@@ -1,4 +1,5 @@
-var _ = require('underscore');
+var async = require('async'),
+    _ = require('underscore');
 
 module.exports = function (cache) {
 
@@ -7,21 +8,15 @@ module.exports = function (cache) {
     gatherCapabilities: function (callback) {
         cache.wfsUrls(function (err, urls) {
             if (err) return callback(err);
-            cache.getCapabilities(urls[0], function(err, capabilities) {
-                if (err) return callback(err);
-                callback(null, capabilities);
-            })
+            async.eachLimit(urls, 10, cache.getCapabilities, callback);
         });
     },
 
-    // Find WFS Services that contain a particular featuretype
-    listWfsProviders: function (featuretype, callback) {
-
-    },
-
     // Get all the features from a set of WFS urls
-    getFeatures: function (urls, callback) {
-
+    getFeatures: function (urls, featuretype, maxfeatures, callback) {
+        async.eachLimit(urls, 10, function (url, callback) {
+            cache.getFeature(url, featuretype, maxfeatures, callback);
+        }, callback);
     }
   };
 };

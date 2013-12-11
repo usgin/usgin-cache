@@ -2,6 +2,7 @@ var vows = require('vows');
 
 vows.describe('The USGIN Cache')
   .addBatch(require('./cache-getRecords'))
+  .addBatch(require('./cache-idsFromCsw'))
   .addBatch(require('./cache-getRecordById'))
   .addBatch(require('./cache-getCapabilities.js'))
   .addBatch(require('./cache-getFeature.js'))

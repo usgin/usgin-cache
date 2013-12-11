@@ -14,8 +14,12 @@ module.exports = function (cache) {
 
     // Get all the features from a set of WFS urls
     getFeatures: function (urls, featuretype, maxfeatures, callback) {
+        var limit = null;
+        if (typeof maxfeatures === 'function') callback = maxfeatures;
+        if (!isNaN(maxfeatures)) limit = maxfeatures;
+
         async.eachLimit(urls, 10, function (url, callback) {
-            cache.getFeature(url, featuretype, maxfeatures, callback);
+            cache.getFeature(url, featuretype, limit, callback);
         }, callback);
     }
   };

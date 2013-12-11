@@ -29,7 +29,7 @@ var assert = require('assert'),
 	    			},
 		    		'get record by id': {
 		    			topic: function () {
-		    				db.getRecordById('http://localhost:3010/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
+		    				db.getRecordById('http://localhost:3011/csw', '00570e7187459885e5c18c3a5f498d5d', this.callback);
 		    			},
 		    			'and works': function (err, response) {
 		    				assert.isNull(err);

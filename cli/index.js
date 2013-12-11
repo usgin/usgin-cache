@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var argv = require('optimist')
   .alias('cswUrl', 'c')
   .demand('cswUrl')
@@ -27,7 +28,7 @@ var argv = require('optimist')
 // Make sure that the database is set up first.
 cache.setup(function (err) {
   if (err) return console.log(err);
-  
+
   // Then, harvest from the CSW
   harvest.harvestCsw(argv.cswUrl, function (err) {
     if (err) return console.log(err);

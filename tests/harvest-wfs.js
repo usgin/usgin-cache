@@ -37,26 +37,51 @@ var assert = require('assert'),
 		    				topic: function () {
 		    					wfs(db).gatherCapabilities(this.callback);
 		    				},
-		    				'worked maybe': function (err, response) {
-		    					assert.isNull(err);
+		    				'did not fail': function (err) {
+		    					assert(!err);
 		    				},
-		    				'list wfs providers': {
+		    				'and has some capabilities in the db': {
 		    					topic: function () {
-		    						wfs(db).listWfsProviders(featuretype, this.callback);
+		    						db.db.view('usgin-cache', 'requests', {key: 'getcapabilities'}, this.callback);
 		    					},
-		    					'worked': function (err, response) {
-		    						assert.isNull(err);
+		    					'has a capabilities doc': function (err, response) {
+		    						assert.equal(response.rows.length, 1);
 		    					},
-	////////////////////////////////////////////////////////////////////////////
-				    			'turn off csw server': {
-				    				topic: function () {
-				    					server.stop(this.callback);
-				    				},
-				    				'worked': function (err, response) {
-				    					assert.isNull(err);
-				    				}
-				    			}
-	////////////////////////////////////////////////////////////////////////////		    				
+		    					'get wfs urls by type': {
+		    						topic: function () {
+		    							featuretype = "aasg:BoreholeLithInterval";
+		    							db.wfsUrlsByType(featuretype, this.callback);
+		    						},
+		    						'did not fail': function (err, response) {
+		    							assert(!err);
+		    						},
+			    					'get some features by type': {
+			    						topic: function () {
+			    							var urls = [ 'http://geothermal.isgs.illinois.edu/ArcGIS/services/aasggeothermal/MOBoreholeLithIntervals/MapServer/WFSServer?request=GetCapabilities&amp;service=WFS' ],
+			    								featuretype = "aasg:BoreholeLithInterval";
+			    							wfs(db).getFeatures(urls, featuretype, 10, this.callback);
+			    						},
+			    						'did not fail': function (err, response) {
+			    							assert(!err);
+			    						},
+			    						'and has some features in the db': {
+			    							topic: function () {
+			    								db.db.view('usgin-cache', 'requests', {key: 'getfeature'}, this.callback);
+			    							},
+			    							'has features': function (err, response) {
+			    								assert.equal(response.rows.length, 1);
+			    							},
+							    			'turn off csw server': {
+							    				topic: function () {
+							    					server.stop(this.callback);
+							    				},
+							    				'worked': function (err, response) {
+							    					assert.isNull(err);
+							    				}
+							    			}
+			    						}		    						
+		    						}			    					
+		    					}	    				
 		    				}
 		    			}
 	    			}

@@ -41,9 +41,15 @@ module.exports = function (forceRefresh, config) {
     if (typeof doc === 'function') callback = doc;
     
     // Now, request the URL
-    request(url, function (err, response) {
-      // If the request failed, send back the error
-      if (err) { callback(err); return; }
+    request(url, function (err, response) {      
+      if (err && err.code !== 'ETIMEDOUT') {
+        // If the request failed for any reason other than a timeout, send back the error
+        return callback(err);
+      } else if (err) {
+        // If the request timed out, make a fake response doc that will be added to CouchDB.
+        // This will allow code to continue to execute when timeouts happen (and they will).
+        response = {body: 'Request for ' + url + ' timed out'};
+      }
       
       // If the request did not fail, build the cache document
       var cacheDoc = {

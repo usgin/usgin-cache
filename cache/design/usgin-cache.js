@@ -61,7 +61,7 @@ var wfsUrls = function (doc) {
 // A view function to find featuretypes in WFS Capabilities docs
 var wfsFeatureTypes = function (doc) {
   if (doc.response && doc.requestType && doc.requestType === 'getcapabilities') {
-    var findTypes = /Name>(.+?)<\//g,
+    var findTypes = /FeatureTypeList>.+?Name>(.+?)<\//g,
         xml = doc.response,
         featureTypes = [], match;
 

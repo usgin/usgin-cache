@@ -142,6 +142,15 @@ module.exports = function (forceRefresh, config) {
       db.view_with_list('usgin-cache', 'wfsUrls', 'threshold', {min:4}, callback);
     },
 
+    wfsUrlsByType: function (featuretype, callback) {
+      db.view('usgin-cache', 'wfsFeatureTypes', {key: featuretype}, function (err, response) {
+        if (err) return callback(err);
+        callback(null, response.rows.map(function (row) {
+          return row.value;
+        }));
+      });
+    },
+
     // ### WFS GetCapabilities request
     getCapabilities: function (wfsBaseUrl, callback) {
       var requestType = 'getcapabilities',

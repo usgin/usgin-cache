@@ -118,7 +118,8 @@ module.exports = {
   language: 'javascript',
   views: {
     requests: {
-      map: requests.toString()
+      map: requests.toString(),
+      reduce: function (keys, values) { return sum(values); }
     },
     metadataIds: {
       map: metadataIds.toString()

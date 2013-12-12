@@ -45,14 +45,14 @@ var assert = require('assert'),
 			    			},
 							'and see if getfeature worked': {
 			    				topic: function () {
-			   						db.db.view('usgin-cache', 'requests', {key: 'getfeature'}, this.callback);
+			   						db.db.view('usgin-cache', 'requests', {key: 'getfeature', reduce: false}, this.callback);
 			    				},
 			   					'has features in db': function (err, response) {
 			    					assert(response.rows.length, 1);
 								},
 								'and see if getcapabilities worked': {
 									topic: function () {
-										db.db.view('usgin-cache', 'requests', {key: 'getcapabilities'}, this.callback);
+										db.db.view('usgin-cache', 'requests', {key: 'getcapabilities', reduce: false}, this.callback);
 									},
 									'has features in db': function (err, response) {
 										assert(response.rows.length, 1);

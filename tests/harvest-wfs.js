@@ -43,7 +43,7 @@ var assert = require('assert'),
 		    				},
 		    				'and has some capabilities in the db': {
 		    					topic: function () {
-		    						db.db.view('usgin-cache', 'requests', {key: 'getcapabilities'}, this.callback);
+		    						db.db.view('usgin-cache', 'requests', {key: 'getcapabilities', reduce: false}, this.callback);
 		    					},
 		    					'has a capabilities doc': function (err, response) {
 		    						assert.equal(response.rows.length, 1);
@@ -68,7 +68,7 @@ var assert = require('assert'),
 			    						},
 			    						'and has some features in the db': {
 			    							topic: function () {
-			    								db.db.view('usgin-cache', 'requests', {key: 'getfeature'}, this.callback);
+			    								db.db.view('usgin-cache', 'requests', {key: 'getfeature', reduce: false}, this.callback);
 			    							},
 			    							'has features': function (err, response) {
 			    								assert.equal(response.rows.length, 1);

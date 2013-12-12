@@ -8,7 +8,18 @@ var featureType = function (doc) {
   if (doc.featuretype) {
     emit(doc.featuretype, doc.feature);
   }
-}
+};
+
+var simple = function (doc) {
+  if (doc.featuretype) {
+    emit(doc.featuretype, {
+      type: "Feature",
+      id: doc._id,
+      properties: {},
+      geometry: doc.feature.geometry
+    });
+  }
+};
 
 var featureCollection = function (head, req) {
   start({'headers': {'Content-type': 'application/json'}});
@@ -34,6 +45,9 @@ module.exports = {
     },
     featureType: {
       map: featureType.toString()
+    },
+    simple: {
+      map: simple.toString()
     }
   },
   lists: {

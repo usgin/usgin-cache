@@ -53,7 +53,7 @@ var wfsUrls = function (doc) {
         })
       };
     }).forEach(function (ranked) {
-      emit(ranked.rank, ranked.url);
+      emit(ranked.rank, ranked.url.trim());
     });
   }
 };

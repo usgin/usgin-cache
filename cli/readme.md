@@ -4,7 +4,7 @@ This tool is used for interacting with the USGIN-Cache tools through a UNIX comm
 
 ## Command Line Interface API
 
-In the root folder, issuing the command `pc:user$ node cli` will generate a list of options and parameters that can be passed into the CLI.
+In the root folder, issuing the command `pc:user$ node cli` will generate a list of options and parameters that can be passed into the CLI.  Or, by globally installing the program (`npm install -g`), the CLI tool will be available via `usginCache -c`.
 
 ### --cswUrl, -c [required]
 The URL for a csw containing feature you'd like to cache

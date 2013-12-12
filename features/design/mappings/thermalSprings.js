@@ -3,14 +3,14 @@
 // This function generates a Solr index document from a GeoJSON representation of a ThermalSprings feature.
 // Here we're presenting a relatively simple pattern that all such functions should follow:
 // 
-// - Define the function as `module.exports = function (feature) {...}`. This will allow the program to find the function and include it in CouchDB.
+// - Define the function as `module.exports = function (doc) {...}`. This will allow the program to find the function and include it in CouchDB.
 // - The name of the file (striped of `.js`) will become the name of the "view" in CouchDB.
-// - This function is given one GeoJSON feature, and must return an object that represents the Solr index document for this feature.
-// - Once included in the database, the view will be accessible at http://localhost:5984/feature-cache/_design/forIndexes/_view/yourFileName.
+// - This function is given one CouchDB document, and must return an object that represents the Solr index document for this feature.
+// - Once included in the database, the view will be accessible at http://localhost:5984/usgin-features/_design/usgin-features/_view/yourFileName.
 module.exports = function (doc) {
     // A GeoJSON objects stores attributes inside an object called `properties`.
     var props = doc.feature.properties || {};
-    // It is important to include a condition limiting what should be indexed in this fashion.
+    // It is important to include a condition limiting what should be indexed by this function.
     if (doc.featuretype === 'aasg:ThermalSpring') {
         // Build an object that represents the key/value pairs that Solr will index.
         // These will become the fields that you can search the Solr index on.

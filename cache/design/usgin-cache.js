@@ -95,7 +95,7 @@ var threshold = function (head, req) {
 
   while (row = getRow()) {
     if (row.key >= min && row.key <= max) {
-      result.push(row.value);
+      result.push(row.value.split('?')[0]);
     }
   }
 

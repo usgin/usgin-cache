@@ -16,6 +16,6 @@ module.exports = function toGeoJson(wfsFeaturesString, callback) {
     callback(err, result);
   });
   
-  ogr.stdin.write(wfsFeaturesString);
+  ogr.stdin.write(wfsFeaturesString.toString());
   ogr.stdin.end();
 };

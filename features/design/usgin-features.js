@@ -1,3 +1,6 @@
+var _ = require('underscore'),
+    mappings = require('./mappings');
+
 var cacheId = function (doc) {
   if (doc.cacheId) {
     emit(doc.cacheId, 1);
@@ -39,7 +42,7 @@ var featureCollection = function (head, req) {
 module.exports = {
   _id: '_design/usgin-features',
   language: 'javascript',
-  views: {
+  views: _.extend(mappings, {
     cacheId: {
       map: cacheId.toString()
     },
@@ -49,7 +52,7 @@ module.exports = {
     simple: {
       map: simple.toString()
     }
-  },
+  }),
   lists: {
     featureCollection: featureCollection.toString()
   }

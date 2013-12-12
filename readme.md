@@ -46,7 +46,10 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 
 ### Connect to Solr
 
-... coming soon ...
+There is a bash script included that will download, configure, and run Solr for you. To use it, just type
+
+    chmod 755 run-solr.sh
+    ./run-solr.sh
 
 ## Code Docs
 

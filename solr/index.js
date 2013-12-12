@@ -1,11 +1,11 @@
 var solr = require('solr-client'),
     _ = require('underscore');
 
-client.autoCommit = true;
-
 module.exports = function (featureConfig) {
-  var feature = require('./features')(featureConfig),
+  var feature = require('../features')(featureConfig),
       client = solr.createClient();
+
+  client.autoCommit = true;
 
   return {
     addToIndex: function (mappingName, callback) {
@@ -26,4 +26,4 @@ module.exports = function (featureConfig) {
       client.delete('id', '*', callback);
     }
   };
-}
+};

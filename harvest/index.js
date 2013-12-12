@@ -7,8 +7,10 @@ module.exports = function (forceRefresh, config) {
 
   return {
     // Populate the cache with metadata from a particular CSW
-    harvestCsw: function (cswBaseUrl, callback) {
+    harvestCsw: function (cswBaseUrl, callback, verbose) {
+      verbose = typeof verbose !== 'undefined' ? verbose : false;
       var csw = require('./csw')(cache, cswBaseUrl);
+      process.stdout.write('Starting Harvest' + '\n');
       csw.getAllRecords(function (err) {
         if (err) return callback(err);
         csw.getRecordsByIds(callback);
@@ -16,7 +18,7 @@ module.exports = function (forceRefresh, config) {
     },
 
     // Populate the cache with features of the specified type
-    gatherFeatures: function (featuretype, maxfeatures, callback) {
+    gatherFeatures: function (featuretype, maxfeatures, log, callback) {
       var limit = null;
       if (typeof maxfeatures === 'function') callback = maxfeatures;
       if (!isNaN(maxfeatures)) limit = maxfeatures;

@@ -19,18 +19,23 @@ var argv = require('optimist')
   .alias('refresh', 'r')
   .boolean('refresh')
   .describe('refresh', '[optional] If specified, data already in the cache will be replaced')
+
+  .alias('verbose', 'v')
+  .boolean('verbose')
+  .describe('verbose', '[optional] If specified, do some logging')
   .argv,
 
   config = {dbUrl: argv.dbUrl, dbName: argv.dbName},
   cache = require('../cache')(argv.refresh, config),
   harvest = require('../harvest')(argv.refresh, config);
 
+
 // Make sure that the database is set up first.
 cache.setup(function (err) {
   if (err) return console.log(err);
 
   // Then, harvest from the CSW
-  harvest.harvestCsw(argv.cswUrl, function (err) {
+  harvest.harvestCsw(argv.cswUrl, argv.verbose, function (err) {
     if (err) return console.log(err);
 
     // Now, if asked, gather features of the specified type

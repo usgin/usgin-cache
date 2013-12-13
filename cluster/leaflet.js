@@ -1916,8 +1916,8 @@ function leaflet(document, window) {
         getSize: function () {
             if (!this._size || this._sizeChanged) {
                 this._size = new L.Point(
-                    1024, // this._container.clientWidth,
-                    1024); // this._container.clientHeight);
+                    25600, // this._container.clientWidth,
+                    25600); // this._container.clientHeight);
     
                 this._sizeChanged = false;
             }

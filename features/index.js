@@ -125,6 +125,12 @@ module.exports = function (config) {
         });
       });
     },
+
+    // ### Get cluster features
+    getClusters: function (zoom, callback) {
+      callback = callback || function () {};
+      db.view_with_list('usgin-features', 'cacheId', 'featureCollection', {include_docs: true, key: zoom.toString()}, callback);
+    },
     
     // ### Setup the database
     setup: function (callback) {

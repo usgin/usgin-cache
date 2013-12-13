@@ -48,7 +48,7 @@
         weight: 2,
         radius: 6,
         fillOpacity: 0.7,
-        fillColor: '#9EADE8'
+        fillColor: f.properties.children ? 'red' : '#9EADE8'
       });
     }
   }).addTo(map);

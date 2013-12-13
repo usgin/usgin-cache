@@ -1,7 +1,7 @@
 var _ = require('underscore'),
   async = require('async');
 
-function cluster(solrData, zoom, callback) {
+function cluster(geojson, zoom, callback) {
   var L = require('./leaflet')(),
     
     map = L.map('map', {
@@ -10,7 +10,7 @@ function cluster(solrData, zoom, callback) {
       maxZoom: 10
     }),
     
-    dataLayer = L.geoJson(solrData),
+    dataLayer = L.geoJson(geojson),
     clusterLayer = new L.MarkerClusterGroup();
   
   map.addLayer(clusterLayer);
@@ -18,7 +18,8 @@ function cluster(solrData, zoom, callback) {
   
   var features = clusterLayer._featureGroup.getLayers().map(function (layer) {
     var f = layer.toGeoJSON();
-    f.properties.children = layer.getAllChildMarkers().map(function (marker) {
+    var children = typeof layer.getAllChildMarkers === 'function' ? layer.getAllChildMarkers() : [];
+    f.properties.children = children.map(function (marker) {
       return marker.feature;
     });
     return f;

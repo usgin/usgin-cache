@@ -38,7 +38,7 @@ var argv = require('optimist')
   config = {dbUrl: argv.dbUrl, dbName: argv.dbName},
   featureConfig = {dbUrl: argv.dbUrl, dbName: argv.featuresName, cacheName: argv.dbName},
   cache = require('../cache')(argv.refresh, config),
-  features = require('../features')(argv.refresh, featureConfig),
+  features = require('../features')(featureConfig),
   harvest = require('../harvest')(argv.refresh, config);
 
 // Make sure that the databases are set up first.

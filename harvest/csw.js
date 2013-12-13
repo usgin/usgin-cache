@@ -95,8 +95,9 @@ module.exports = function (cache, cswUrl) {
 
       // Given one ID, make a GetRecordByID request
       function performRequest(id, callback) {
-        cache.getRecordById(cswUrl, id, function (err) {
+        cache.getRecordById(cswUrl, id, function (err, response) {
           if (err) return callback(err);
+          if (!id) process.stdout.write('\n' + 'getRecordById complete' + '\n');
           process.stdout.write('.');
           callback(null);
         });

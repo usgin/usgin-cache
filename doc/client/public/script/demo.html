@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><title>client/public/script/demo</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="client/public/script/demo"><meta name="groc-project-path" content="client/public/script/demo.js"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">client/public/script/demo.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">cacheDemo</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="kd">var</span> <span class="nx">NgdsCache</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      
+      <span class="nx">L</span><span class="p">.</span><span class="nx">GeoJSON</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">initialize</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+    <span class="p">},</span>
+    
+    <span class="nx">onAdd</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">L</span><span class="p">.</span><span class="nx">LayerGroup</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">onAdd</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">map</span><span class="p">);</span>
+      <span class="nx">map</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;moveend&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">getData</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">getData</span><span class="p">();</span>
+    <span class="p">},</span>
+    
+    <span class="nx">onRemove</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">map</span><span class="p">.</span><span class="nx">off</span><span class="p">(</span><span class="s1">&#39;moveend&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">getData</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+      <span class="nx">L</span><span class="p">.</span><span class="nx">LayerGroup</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">onRemove</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">map</span><span class="p">);</span>
+    <span class="p">},</span>
+    
+    <span class="nx">getData</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_map</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">zoom</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_map</span><span class="p">.</span><span class="nx">getZoom</span><span class="p">(),</span>
+            <span class="nx">bounds</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_map</span><span class="p">.</span><span class="nx">getBounds</span><span class="p">().</span><span class="nx">toBBoxString</span><span class="p">();</span>
+        <span class="nx">d3</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="s1">&#39;/data/&#39;</span> <span class="o">+</span> <span class="nx">zoom</span> <span class="o">+</span> <span class="s1">&#39;?bbox=&#39;</span> <span class="o">+</span> <span class="nx">bounds</span><span class="p">,</span> <span class="nx">L</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">clearLayers</span><span class="p">();</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">addData</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Drew &quot;</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">features</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="s2">&quot; features&quot;</span><span class="p">);</span>
+        <span class="p">},</span> <span class="k">this</span><span class="p">));</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="kd">var</span> <span class="nx">ngdsCache</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">cacheDemo</span><span class="p">.</span><span class="nx">ngdsCache</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">NgdsCache</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">map</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">cacheDemo</span><span class="p">.</span><span class="nx">map</span> <span class="o">=</span> <span class="nx">L</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="s1">&#39;map&#39;</span><span class="p">).</span><span class="nx">setView</span><span class="p">([</span><span class="mf">40.346</span><span class="p">,</span> <span class="o">-</span><span class="mf">97.448</span><span class="p">],</span> <span class="mi">5</span><span class="p">);</span>
+  <span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">subdomains</span><span class="o">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">,</span>
+    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Tiles &amp;copy; &lt;a href=&quot;http://www.mapquest.com/&quot; target=&quot;_blank&quot;&gt;MapQuest&lt;/a&gt; &lt;img src=&quot;http://developer.mapquest.com/content/osm/mq_logo.png&quot; /&gt;&#39;</span>
+  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+
+  <span class="nx">ngdsCache</span><span class="p">({</span>
+    <span class="nx">pointToLayer</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">f</span><span class="p">,</span> <span class="nx">ll</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">L</span><span class="p">.</span><span class="nx">circleMarker</span><span class="p">(</span><span class="nx">ll</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">weight</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nx">radius</span><span class="o">:</span> <span class="mi">6</span><span class="p">,</span>
+        <span class="nx">fillOpacity</span><span class="o">:</span> <span class="mf">0.7</span><span class="p">,</span>
+        <span class="nx">fillColor</span><span class="o">:</span> <span class="nx">f</span><span class="p">.</span><span class="nx">properties</span><span class="p">.</span><span class="nx">children</span> <span class="o">?</span> <span class="s1">&#39;red&#39;</span> <span class="o">:</span> <span class="s1">&#39;#9EADE8&#39;</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+
+<span class="p">}).</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span></div></div></div></div></body></html>

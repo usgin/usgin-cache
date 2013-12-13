@@ -441,6 +441,86 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     }, {
       "type": "folder",
       "data": {
+        "path": "client",
+        "title": "client"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/r/gh/usgin/usgin-cache/client/index.js",
+            "projectPath": "client/index.js",
+            "targetPath": "client/index",
+            "pageTitle": "client/index",
+            "title": "index"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Getting Data",
+                "slug": "getting-data"
+              },
+              "depth": 2
+            }
+          ]
+        }, {
+          "type": "folder",
+          "data": {
+            "path": "client/public",
+            "title": "public"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "folder",
+              "data": {
+                "path": "client/public/script",
+                "title": "script"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/r/gh/usgin/usgin-cache/client/public/script/demo.js",
+                    "projectPath": "client/public/script/demo.js",
+                    "targetPath": "client/public/script/demo",
+                    "pageTitle": "client/public/script/demo",
+                    "title": "demo"
+                  },
+                  "depth": 4,
+                  "outline": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
         "path": "cluster",
         "title": "cluster"
       },
@@ -671,6 +751,22 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "level": 3,
                     "title": "Clear everything except design documents from the database",
                     "slug": "clear-everything-except-design-documents-from-the-database"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Builds clustered features into the cache",
+                    "slug": "builds-clustered-features-into-the-cache"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Get cluster features",
+                    "slug": "get-cluster-features"
                   },
                   "depth": 3
                 }, {

@@ -32,6 +32,24 @@
         <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
         <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">numFound</span><span class="p">);</span>
       <span class="p">});</span>
+    <span class="p">},</span>
+
+    <span class="nx">getAll</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">q</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">createQuery</span><span class="p">().</span><span class="nx">q</span><span class="p">(</span><span class="s1">&#39;*.*&#39;</span><span class="p">).</span><span class="nx">rows</span><span class="p">(</span><span class="mi">100000000</span><span class="p">);</span>
+      <span class="nx">client</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">q</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nx">docs</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">geo</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">geo</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">);</span>
+          <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
+            <span class="nx">properties</span><span class="o">:</span> <span class="nx">doc</span><span class="p">,</span>
+            <span class="nx">geometry</span><span class="o">:</span> <span class="p">{</span>
+              <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
+              <span class="nx">coordinates</span><span class="o">:</span> <span class="p">[</span><span class="nb">Number</span><span class="p">(</span><span class="nx">geo</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">geo</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+            <span class="p">}</span>
+          <span class="p">};</span>
+        <span class="p">}));</span>
+      <span class="p">});</span>
     <span class="p">}</span>
   <span class="p">};</span>
 <span class="p">};</span></div></div></div></div></body></html>

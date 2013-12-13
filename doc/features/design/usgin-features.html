@@ -3,7 +3,7 @@
 
 <span class="kd">var</span> <span class="nx">cacheId</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">cacheId</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">cacheId</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="nx">emit</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">cacheId</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">feature</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">};</span>
 

@@ -5,6 +5,7 @@
     "except": [
         "tests/**/*.js",
         "node_modules/**/*.js",
-        "cluster/leaflet.js"
+        "cluster/leaflet.js",
+        "solr-4.4.0/**/*.*"
     ]
 }

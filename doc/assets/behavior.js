@@ -411,6 +411,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     }, {
       "type": "folder",
       "data": {
+        "path": "cli",
+        "title": "cli"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/r/gh/usgin/usgin-cache/cli/index.js",
+            "projectPath": "cli/index.js",
+            "targetPath": "cli/index",
+            "pageTitle": "cli/index",
+            "title": "index"
+          },
+          "depth": 2,
+          "outline": []
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
         "path": "cluster",
         "title": "cluster"
       },
@@ -455,6 +485,77 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "depth": 2,
           "children": [
             {
+              "type": "folder",
+              "data": {
+                "path": "features/design/mappings",
+                "title": "mappings"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/r/gh/usgin/usgin-cache/features/design/mappings/index.js",
+                    "projectPath": "features/design/mappings/index.js",
+                    "targetPath": "features/design/mappings/index",
+                    "pageTitle": "features/design/mappings/index",
+                    "title": "index"
+                  },
+                  "depth": 4,
+                  "outline": []
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/r/gh/usgin/usgin-cache/features/design/mappings/thermalSprings.js",
+                    "projectPath": "features/design/mappings/thermalSprings.js",
+                    "targetPath": "features/design/mappings/thermalSprings",
+                    "pageTitle": "features/design/mappings/thermalSprings",
+                    "title": "thermalSprings"
+                  },
+                  "depth": 4,
+                  "outline": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 2,
+                        "title": "An Example of a Map Function",
+                        "slug": "an-example-of-a-map-function"
+                      },
+                      "depth": 2,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 3,
+                            "title": "Index the geometry",
+                            "slug": "index-the-geometry"
+                          },
+                          "depth": 3
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }, {
               "type": "file",
               "data": {
                 "language": {
@@ -681,6 +782,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "targetPath": "harvest/wfs",
             "pageTitle": "harvest/wfs",
             "title": "wfs"
+          },
+          "depth": 2,
+          "outline": []
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "solr",
+        "title": "solr"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/r/gh/usgin/usgin-cache/solr/index.js",
+            "projectPath": "solr/index.js",
+            "targetPath": "solr/index",
+            "pageTitle": "solr/index",
+            "title": "index"
           },
           "depth": 2,
           "outline": []

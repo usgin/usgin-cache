@@ -36,6 +36,8 @@ In the case of WFS GetFeature responses, the document will also contain the foll
 
     featuretype: 'The type of feature contained in this document'
 
+Also, in the case of WFS GetFeature reponses, the response XML will not be included in the DouchDB doc. Instead, the response XML will be contained in an attached file.
+
 ### cache.setup([callback])
 
 This function will make sure that the database exists, and create it if it does not. `callback` is fired once the database definitively exists. Loads the design document defined in `./design/usgin-cache.js`.

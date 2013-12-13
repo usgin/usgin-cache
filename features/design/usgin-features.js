@@ -1,3 +1,6 @@
+var _ = require('underscore'),
+    mappings = require('./mappings');
+
 var cacheId = function (doc) {
   if (doc.cacheId) {
     emit(doc.cacheId, 1);
@@ -8,7 +11,18 @@ var featureType = function (doc) {
   if (doc.featuretype) {
     emit(doc.featuretype, doc.feature);
   }
-}
+};
+
+var simple = function (doc) {
+  if (doc.featuretype) {
+    emit(doc.featuretype, {
+      type: "Feature",
+      id: doc._id,
+      properties: {},
+      geometry: doc.feature.geometry
+    });
+  }
+};
 
 var featureCollection = function (head, req) {
   start({'headers': {'Content-type': 'application/json'}});
@@ -28,14 +42,17 @@ var featureCollection = function (head, req) {
 module.exports = {
   _id: '_design/usgin-features',
   language: 'javascript',
-  views: {
+  views: _.extend(mappings, {
     cacheId: {
       map: cacheId.toString()
     },
     featureType: {
       map: featureType.toString()
+    },
+    simple: {
+      map: simple.toString()
     }
-  },
+  }),
   lists: {
     featureCollection: featureCollection.toString()
   }

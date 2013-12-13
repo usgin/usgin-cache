@@ -3,6 +3,7 @@ var nano = require('nano'),
     crypto = require('crypto'),
     request = require('request'),
     _ = require('underscore'),
+    async = require('async'),
     urls = require('./urls'),
     designDoc = require('./design/usgin-cache');
 
@@ -41,21 +42,28 @@ module.exports = function (forceRefresh, config) {
     if (typeof doc === 'function') callback = doc;
     
     // Now, request the URL
-    request(url, function (err, response) {
-      // If the request failed, send back the error
-      if (err) { callback(err); return; }
+    request(url, function (err, response) {      
+      if (err && err.code !== 'ETIMEDOUT') {
+        // If the request failed for any reason other than a timeout, send back the error
+        return callback(err);
+      } else if (err) {
+        // If the request timed out, make a fake response doc that will be added to CouchDB.
+        // This will allow code to continue to execute when timeouts happen (and they will).
+        response = {body: 'Request for ' + url + ' timed out'};
+      }
       
       // If the request did not fail, build the cache document
       var cacheDoc = {
         _id: id,
         requestType: requestType.toLowerCase(),
-        response: response.body,
         endpoint: urls.base(url)
       };
 
       // Need to capture featuretype for GetFeature requests
       if (requestType === 'getfeature') {
         cacheDoc.featuretype = decodeURIComponent(/typename=(.+?)(&|$)/i.exec(url)[1]);
+      } else {
+        cacheDoc.response = response.body;
       }
       
       // Add the revision if a doc was passed in (if we're refreshing the cache)
@@ -66,8 +74,18 @@ module.exports = function (forceRefresh, config) {
         // If the insert failed, send back the error
         if (err) { callback(err); return; }
         
-        // Otherwise, send back the doc that's now cached
-        callback(null, cacheDoc);
+        if (requestType === 'getfeature') {
+          db.attachment.insert(
+            id, 'response.xml', response.body, 'application/xml', {rev: dbResponse.rev},
+            function (err, attachResponse) {
+              if (err) return callback(err);
+              callback(null, cacheDoc);
+            }
+          );
+        } else {
+          // Otherwise, send back the doc that's now cached
+          callback(null, cacheDoc);
+        }
       });
     });
   }
@@ -139,7 +157,9 @@ module.exports = function (forceRefresh, config) {
     
     // ### Get all WFS Urls available in the cache
     wfsUrls: function (callback) {
-      db.view_with_list('usgin-cache', 'wfsUrls', 'threshold', {min:4}, callback);
+      db.view_with_list('usgin-cache', 'wfsUrls', 'threshold', {min:4}, function (err, urls) {
+        callback(err, _.uniq(urls));
+      });
     },
 
     wfsUrlsByType: function (featuretype, callback) {
@@ -179,7 +199,17 @@ module.exports = function (forceRefresh, config) {
     wfsFeaturesByType: function (featuretype, callback) {
       callback = typeof featuretype === 'function' ? featuretype : callback;
       var params = typeof featuretype === 'string' ? {key: featuretype} : {};
-      db.view('usgin-cache', 'wfsFeaturesByType', params, callback);
+      db.view('usgin-cache', 'wfsFeaturesByType', params, function (err, response) {
+        if (err) return callback(err);
+
+        async.map(
+          response.rows, function (row, callback) {
+            db.attachment.get(row.id, 'response.xml', function (err, response) {
+              row.value = response;
+              callback(null, row);
+            });
+          }, callback);
+      });
     },
 
     // ### Clear everything except design documents from the database

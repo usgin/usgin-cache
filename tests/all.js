@@ -12,4 +12,5 @@ vows.describe('The USGIN Cache')
   .addBatch(require('./harvest-wfs.js'))
   .addBatch(require('./harvest-gatherFeatures.js'))
   .addBatch(require('./features-getFeatures.js'))
+  .addBatch(require('./solr-everything.js'))
   .export(module);

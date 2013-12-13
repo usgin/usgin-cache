@@ -53,7 +53,7 @@ var wfsUrls = function (doc) {
         })
       };
     }).forEach(function (ranked) {
-      emit(ranked.rank, ranked.url);
+      emit(ranked.rank, ranked.url.trim());
     });
   }
 };
@@ -95,7 +95,7 @@ var threshold = function (head, req) {
 
   while (row = getRow()) {
     if (row.key >= min && row.key <= max) {
-      result.push(row.value);
+      result.push(row.value.split('?')[0]);
     }
   }
 
@@ -118,7 +118,8 @@ module.exports = {
   language: 'javascript',
   views: {
     requests: {
-      map: requests.toString()
+      map: requests.toString(),
+      reduce: function (keys, values) { return sum(values); }
     },
     metadataIds: {
       map: metadataIds.toString()

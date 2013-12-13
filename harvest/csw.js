@@ -8,13 +8,11 @@ module.exports = function (cache, cswUrl) {
   // Public API
   return  {
     // Paginate through GetRecords requests until the entire CSW is harvested
-    getAllRecords: function (limit, callback) {
+    getAllRecords: function (limit, callback, verbose) {
       if (typeof limit === 'function' || !limit) {
         callback = limit ? limit : function () {};
         limit = 10;
       }
-
-      process.stdout.write('Start CSW getRecords' + '\n');
 
       // Queue up subsequent requests
       cache.getRecords(cswUrl, 0, limit, function (err, doc) {
@@ -41,16 +39,8 @@ module.exports = function (cache, cswUrl) {
         }
         
         async.eachLimit(starts, 10, function (start, callback) {
-          cache.getRecords(cswUrl, start, limit, function (err, response) {
-            if (err) return callback(err);
-            process.stdout.write('.');
-            callback(null);
-          });
-        }, function (err) {
-            if (err) return callback(err);
-            process.stdout.write('\n' + 'CSW getRecords complete' + '\n');
-            callback(null);
-        });
+          cache.getRecords(cswUrl, start, limit, callback);
+        }, callback);
       });
 
       function finishedYet(err, doc) {
@@ -84,8 +74,6 @@ module.exports = function (cache, cswUrl) {
         idsReady(null, ids);
       }
 
-      process.stdout.write('Start getRecordById' + '\n');
-
       // This routine actually fetches the IDS, fires the callback when done.
       function idsReady(err, ids) {
         async.eachLimit(ids, 10, performRequest, function (err) {
@@ -95,12 +83,7 @@ module.exports = function (cache, cswUrl) {
 
       // Given one ID, make a GetRecordByID request
       function performRequest(id, callback) {
-        cache.getRecordById(cswUrl, id, function (err, response) {
-          if (err) return callback(err);
-          if (!id) process.stdout.write('\n' + 'getRecordById complete' + '\n');
-          process.stdout.write('.');
-          callback(null);
-        });
+        cache.getRecordById(cswUrl, id, callback);
       }
     }
   };

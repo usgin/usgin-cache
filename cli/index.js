@@ -79,5 +79,5 @@ cache.setup(function (err) {
         });
       });
     }
-  });
+  }, argv.verbose);
 });

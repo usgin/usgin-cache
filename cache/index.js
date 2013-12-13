@@ -41,53 +41,60 @@ module.exports = function (forceRefresh, config) {
     // If a doc was not passed, then we've got to get our function straight
     if (typeof doc === 'function') callback = doc;
     
-    // Now, request the URL
-    request(url, function (err, response) {      
-      if (err && err.code !== 'ETIMEDOUT') {
-        // If the request failed for any reason other than a timeout, send back the error
-        return callback(err);
-      } else if (err) {
-        // If the request timed out, make a fake response doc that will be added to CouchDB.
-        // This will allow code to continue to execute when timeouts happen (and they will).
-        response = {body: 'Request for ' + url + ' timed out'};
-      }
-      
-      // If the request did not fail, build the cache document
-      var cacheDoc = {
-        _id: id,
-        requestType: requestType.toLowerCase(),
-        endpoint: urls.base(url)
-      };
 
-      // Need to capture featuretype for GetFeature requests
-      if (requestType === 'getfeature') {
-        cacheDoc.featuretype = decodeURIComponent(/typename=(.+?)(&|$)/i.exec(url)[1]);
-      } else {
-        cacheDoc.response = response.body;
-      }
-      
-      // Add the revision if a doc was passed in (if we're refreshing the cache)
-      if (rev) cacheDoc['_rev'] = rev;
-      
-      // Insert the document
+    // Build the cache document
+    var cacheDoc = {
+      _id: id,
+      requestType: requestType.toLowerCase(),
+      endpoint: urls.base(url)
+    };
+
+    // Need to capture featuretype for GetFeature requests
+    if (requestType === 'getfeature') cacheDoc.featuretype = decodeURIComponent(/typename=(.+?)(&|$)/i.exec(url)[1]);
+
+    // Add the revision if a doc was passed in (if we're refreshing the cache)
+    if (rev) cacheDoc['_rev'] = rev;
+
+    // **Strange Distinction Here**
+    // - If it is a GetFeature request, we'll be piping the response into an attachment.
+    // - If it is any other request, we'll attach the response as a big string in the CouchDB doc.
+    if (requestType === 'getfeature') {
+      // First insert the document.
       db.insert(cacheDoc, id, function (err, dbResponse) {
-        // If the insert failed, send back the error
+        // if the insert failed, send back the Error
         if (err) { callback(err); return; }
-        
-        if (requestType === 'getfeature') {
-          db.attachment.insert(
-            id, 'response.xml', response.body, 'application/xml', {rev: dbResponse.rev},
-            function (err, attachResponse) {
-              if (err) return callback(err);
-              callback(null, cacheDoc);
-            }
-          );
-        } else {
-          // Otherwise, send back the doc that's now cached
-          callback(null, cacheDoc);
-        }
+        // Now, request the doc and pipe it into an attachment
+        request(url)
+          .on('error', callback)
+          .pipe(db.attachment.insert(id, 'response.xml', null, 'application/xml', {rev: dbResponse.rev}))
+          .on('end', function () {
+            callback(null, cacheDoc);
+          });
       });
-    });
+    }
+
+    else {
+      // Now, request the URL
+      request(url, function (err, response) {      
+        if (err && err.code !== 'ETIMEDOUT') {
+          // If the request failed for any reason other than a timeout, send back the error
+          return callback(err);
+        } else if (err) {
+          // If the request timed out, make a fake response doc that will be added to CouchDB.
+          // This will allow code to continue to execute when timeouts happen (and they will).
+          response = {body: 'Request for ' + url + ' timed out'};
+        }
+        
+        cacheDoc.response = response.body;
+        
+        // Insert the document
+        db.insert(cacheDoc, id, function (err, dbResponse) {
+          // If the insert failed, send back the error
+          if (err) { callback(err); return; }
+          callback(null, cacheDoc);
+        });
+      });
+    }
   }
   
   // ### Return a document from the cache, adding or updating as neccessary
@@ -201,14 +208,9 @@ module.exports = function (forceRefresh, config) {
       var params = typeof featuretype === 'string' ? {key: featuretype} : {};
       db.view('usgin-cache', 'wfsFeaturesByType', params, function (err, response) {
         if (err) return callback(err);
-
-        async.map(
-          response.rows, function (row, callback) {
-            db.attachment.get(row.id, 'response.xml', function (err, response) {
-              row.value = response;
-              callback(null, row);
-            });
-          }, callback);
+        callback(null, response.rows.map(function (row) {
+          return {id: row.id, key: row.key};
+        }));
       });
     },
 

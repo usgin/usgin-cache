@@ -73,11 +73,13 @@ module.exports = function (config) {
 
       function convert(row, callback) {
         // Convert the WFS GetFeature doc to an array of GeoJSON features
-        toGeoJson(row.value || '', function (err, results) {
+        var converter = toGeoJson(function (err, result) {
           if (err) return callback(err);
           // Insert those features into the database
-          insertFeatures(row.id, row.key, results, callback);
+          insertFeatures(row.id, row.key, result, callback);
         });
+
+        thisCache.db.attachment.get(row.id, 'response.xml').pipe(converter);
       }
     },
 

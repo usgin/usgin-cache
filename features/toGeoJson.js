@@ -8,11 +8,13 @@ module.exports = function toGeoJson(wfsFeaturesString, callback) {
   ogr.stdout.on('data', function (chunk) { geojson += chunk; });
   ogr.stdout.on('error', callback);
   ogr.stdout.on('end', function () {
-    var err, result;
+    var err, result = [];
     
-    try { result = JSON.parse(geojson).features || []; }
-    catch (oops) { err = oops; }
-    
+    if (geojson.length > 16) {
+      try { result = JSON.parse(geojson).features || []; }
+      catch (oops) { console.log('error parsing this: ' + geojson); }
+    }
+
     callback(err, result);
   });
   

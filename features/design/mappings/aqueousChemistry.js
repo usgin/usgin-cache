@@ -16,16 +16,16 @@ module.exports = function (doc) {
         // These will become the fields that you can search the Solr index on.
         var result = {
             // It is always important to include an ID value.
-            id: props.AqueousChemistryURI,
+            id: props.AnalysisURI,
             // It is useful to include the identifier for the content model for NGDS purposes.
             content_model: 'http://schemas.usgin.org/uri-gin/ngds/dataschema/aqueouschemistry/',
             // It is great if you can include a normative URL for this feature.
-            url: props.AqueousChemistryURI,
+            url: props.AnalysisURI,
             // *_t fields will be indexed as text, and also added to the default full-text index field.
             aqchemname_t: props.SpringName,
             label_t: props.Label,
-            othername_t: props.OtherName,
-            otheridentifier_t: props.OtherIdentifier,
+            othername_t: props.AnalysisName,
+            otheridentifier_t: props.SamplingFeatureURI,
             description_t: props.Description,
             // ### Index the geometry
             // It is very important to index the geometry properly.

@@ -1,2 +1,4 @@
 node_modules/
 .DS_Store
+.idea/
+solr-4.4.0/

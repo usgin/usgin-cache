@@ -27,11 +27,11 @@ var tests = {
         },
         'a GetRecords request can be made': {
           topic: function () {
-            cache(false, testConfig).getRecords('http://localhost:8000', 0, 10, this.callback);
+            cache(false, testConfig).getRecords('http://localhost:3011/csw', 0, 10, this.callback);
           },
           'followed by a CSW getRecordsById operation': {
             topic: function () {
-              var harvester = csw(cache(false, testConfig), 'http://localhost:8000');
+              var harvester = csw(cache(false, testConfig), 'http://localhost:3011/csw');
               harvester.getRecordsByIds(this.callback);
             },
             'does not fail': function (err, response) {

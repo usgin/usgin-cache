@@ -4,8 +4,7 @@
   "description": "Cache data from CSW and WFS services",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/all.js",
-    "prepublish": "git submodule init; git submodule update;"
+    "test": "node tests/all.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +15,9 @@
   "bugs": {
     "url": "https://github.com/usgin/usgin-cache/issues"
   },
+  "bin": {
+    "usginCache": "./cli/index.js"
+  },
   "dependencies": {
     "underscore": "~1.5.2",
     "async": "~0.2.9",
@@ -24,7 +26,8 @@
     "nano": "~4.1.4",
     "node-expat": "~2.0.0",
     "jsdom": "~0.8.6",
-    "express": "~3.4.0"
+    "express": "~3.4.0",
+    "optimist": "~0.6.0"
   },
   "devDependencies": {
     "vows": "~0.7.0",

@@ -11,7 +11,7 @@ var requests = function (doc) {
 // These IDs are indexed by the CSW URL from which they were fetched
 var metadataIds = function (doc) {
   if (doc.endpoint && doc.response && doc.requestType && doc.requestType === 'getrecords') {
-    var re = /<gmd:fileIdentifier><gco:CharacterString>(.+?)<\/gco:CharacterString><\/gmd:fileIdentifier>/g,
+    var re = /<gmd:fileIdentifier>\n?<gco:CharacterString>(.+?)<\/gco:CharacterString>\n?<\/gmd:fileIdentifier>/g,
         xml = doc.response,
         match;
     while (match = re.exec(xml)) {
@@ -53,14 +53,24 @@ var wfsUrls = function (doc) {
         })
       };
     }).forEach(function (ranked) {
-      emit(ranked.rank, ranked.url);
+      emit(ranked.rank, ranked.url.trim());
     });
   }
 };
 
 // A view function to find featuretypes in WFS Capabilities docs
 var wfsFeatureTypes = function (doc) {
-  // TODO: write this.
+  if (doc.response && doc.requestType && doc.requestType === 'getcapabilities') {
+    var findTypes = /FeatureTypeList>.+?Name>(.+?)<\//g,
+        xml = doc.response,
+        featureTypes = [], match;
+
+      while (match = findTypes.exec(xml)) featureTypes.push(match[1]);
+
+      featureTypes.forEach(function (featureType) {
+        emit(featureType, doc.endpoint);
+      });
+  }
 };
 
 // A view function to find cached WFS responses of a particular featuretype
@@ -85,7 +95,7 @@ var threshold = function (head, req) {
 
   while (row = getRow()) {
     if (row.key >= min && row.key <= max) {
-      result.push(row.value);
+      result.push(row.value.split('?')[0]);
     }
   }
 
@@ -108,7 +118,8 @@ module.exports = {
   language: 'javascript',
   views: {
     requests: {
-      map: requests.toString()
+      map: requests.toString(),
+      reduce: function (keys, values) { return sum(values); }
     },
     metadataIds: {
       map: metadataIds.toString()

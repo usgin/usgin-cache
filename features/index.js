@@ -68,12 +68,13 @@ module.exports = function (config) {
 
       function createGeoJson(err, response) {
         if (err) return callback(err);
-        async.eachLimit(response.rows, 4, convert, callback);
+        async.eachLimit(response, 4, convert, callback);
       }
 
       function convert(row, callback) {
         // Convert the WFS GetFeature doc to an array of GeoJSON features
         toGeoJson(row.value, function (err, results) {
+          if (err) return callback(err);
           // Insert those features into the database
           insertFeatures(row.id, row.key, results, callback);
         });

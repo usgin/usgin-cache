@@ -50,7 +50,7 @@ module.exports = {
     else if (requestType === 'getcapabilities') {
       query = {
         service: 'WFS',
-        request: 'GetCapabilities',
+        request: 'GetCapabilities'
       };
 
       if (params.version) query.version = params.version;

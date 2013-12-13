@@ -1,5 +1,5 @@
 # usgin-cache
-[![Build Status](https://travis-ci.org/usgin/usgin-cache.png)](https://travis-ci.org/usgin/usgin-cache) 
+[![Build Status](https://travis-ci.org/usgin/usgin-cache.png?branch=master)](https://travis-ci.org/usgin/usgin-cache) 
 
 In a [USGIN-style](http://usgin.org) data systems, data sets are conveyed as OGC Web-Feature Services (WFS), and are served by a distributed network of data providers. Each of these services is cataloged in one (or several) metadata-aggregating services that conform to the OGC's Catalog Service for the Web (CSW).
 
@@ -46,20 +46,26 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 
 ### Connect to Solr
 
-... coming soon ...
+There is a bash script included that will download, configure, and run Solr for you. To use it, just type
+
+    chmod 755 run-solr.sh
+    ./run-solr.sh
+
+## Code Docs
+
+Build documentation from code comments with [groc]. These docs live on the `gh-pages` branch and [are accessible here](http://usgin.github.io/usgin-cache/doc/).
+
+To rebuild them, follow these instructions:
+
+```shell
+git checkout gh-pages
+git merge master
+npm install
+groc
+```
 
 ## Running Tests:
 
-The tests rely on an included version of [pycsw](http://pycsw.org). This comes as a Git Submodule. If you haven't already:
-
-    git submodule init
-    git submodule update
-    
-After that's cloned, you can move into the `pycsw` folder and install it:
-
-    cd pycsw
-    python setup.py install
-    
-That's pretty much just to get dependencies in place. Once you're finished you can just
+To run unit tests:
 
     npm test

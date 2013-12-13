@@ -39,7 +39,7 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
     git clone https://github.com/usgin/usgin-cache.git
     cd usgin-cache
     npm install
-    
+
 ## Configuration
 
 ... hmm ...
@@ -50,6 +50,12 @@ There is a bash script included that will download, configure, and run Solr for 
 
     chmod 755 run-solr.sh
     ./run-solr.sh
+
+### Writing Mapping Functions
+
+Mapping functions define how certain kinds of features are indexed by Solr. These function read GeoJSON data from CouchDB and convert it to an object that can be easily ingested by Solr. The properties of the converted object become the fields on which you can search.
+
+For the NGDS, the idea is to write mapping functions only for [USGIN Content Models of Interest](http://schemas.usgin.org/models). As an example, see the documented code describing the mapping of the [aasg:ThermalSpring model](http://usgin.github.io/usgin-cache/doc/features/design/mappings/thermalSprings.html).
 
 ## Code Docs
 

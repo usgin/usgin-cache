@@ -8,6 +8,7 @@ module.exports = function (cache) {
     gatherCapabilities: function (callback) {
         cache.wfsUrls(function (err, urls) {
             if (err) return callback(err);
+            console.log(urls);
             async.eachLimit(urls, 10, cache.getCapabilities, callback);
         });
     },

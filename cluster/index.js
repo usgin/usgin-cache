@@ -20,7 +20,10 @@ function cluster(geojson, zoom, callback) {
     var f = layer.toGeoJSON();
     var children = typeof layer.getAllChildMarkers === 'function' ? layer.getAllChildMarkers() : [];
     f.properties.children = children.map(function (marker) {
-      return marker.feature;
+      return {
+        id: marker.feature.properties.id,
+        content_model: marker.feature.properties.content_model
+      };
     });
     return f;
   });

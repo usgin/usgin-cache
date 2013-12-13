@@ -28,7 +28,7 @@ var tests = {
         },
         'a GetFeature request can be made': {
           topic: function () {
-            cache(false, cacheConfig).getFeature('http://localhost:3010/wfs', 'azgs:earthquakedata', this.callback);
+            cache(false, cacheConfig).getFeature('http://localhost:3010/wfs/00570e7187459885e5c18c3a5f498d5d', 'aasg:BoreholeLithInterval', this.callback);
           },
           'does not fail': function (err, doc) {
             assert.isNull(err);
@@ -59,8 +59,8 @@ var tests = {
                     topic: function () {
                       features(featureConfig).db.list(this.callback);
                     },
-                    'there should be 11' : function (err, response) {
-                      assert.equal(11, response.rows.length);
+                    'there should be 75' : function (err, response) {
+                      assert.equal(75, response.rows.length - 1);
                     }
                   }
                 }

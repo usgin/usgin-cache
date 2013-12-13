@@ -68,12 +68,13 @@ module.exports = function (config) {
 
       function createGeoJson(err, response) {
         if (err) return callback(err);
-        async.eachLimit(response.rows, 4, convert, callback);
+        async.eachLimit(response, 4, convert, callback);
       }
 
       function convert(row, callback) {
         // Convert the WFS GetFeature doc to an array of GeoJSON features
         toGeoJson(row.value, function (err, results) {
+          if (err) return callback(err);
           // Insert those features into the database
           insertFeatures(row.id, row.key, results, callback);
         });
@@ -106,6 +107,29 @@ module.exports = function (config) {
         
         db.bulk({docs: docs}, callback);
       });
+    },
+
+    // ### Builds clustered features into the cache
+    buildClusters: function (callback) {
+      callback = callback || function () {};
+
+      require('../solr')(config).getAll(function (err, response) {
+        if (err) return callback(err);
+
+        require('../cluster').clusterRange(response, [0,1,2,3,4,5,6,7,8,9,10], function (err, result) {
+          if (err) return callback(err);
+
+          async.each(_.keys(result), function (zoom, cb) {
+            insertFeatures(zoom, 'cluster', result[zoom], cb)
+          }, callback);
+        });
+      });
+    },
+
+    // ### Get cluster features
+    getClusters: function (zoom, callback) {
+      callback = callback || function () {};
+      db.view_with_list('usgin-features', 'cacheId', 'featureCollection', {include_docs: true, key: zoom.toString()}, callback);
     },
     
     // ### Setup the database

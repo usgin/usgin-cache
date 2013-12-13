@@ -1,5 +1,5 @@
 # usgin-cache
-[![Build Status](https://travis-ci.org/usgin/usgin-cache.png)](https://travis-ci.org/usgin/usgin-cache) 
+[![Build Status](https://travis-ci.org/usgin/usgin-cache.png?branch=master)](https://travis-ci.org/usgin/usgin-cache) 
 
 In a [USGIN-style](http://usgin.org) data systems, data sets are conveyed as OGC Web-Feature Services (WFS), and are served by a distributed network of data providers. Each of these services is cataloged in one (or several) metadata-aggregating services that conform to the OGC's Catalog Service for the Web (CSW).
 
@@ -39,14 +39,23 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
     git clone https://github.com/usgin/usgin-cache.git
     cd usgin-cache
     npm install
-    
+
 ## Configuration
 
 ... hmm ...
 
 ### Connect to Solr
 
-... coming soon ...
+There is a bash script included that will download, configure, and run Solr for you. To use it, just type
+
+    chmod 755 run-solr.sh
+    ./run-solr.sh
+
+### Writing Mapping Functions
+
+Mapping functions define how certain kinds of features are indexed by Solr. These function read GeoJSON data from CouchDB and convert it to an object that can be easily ingested by Solr. The properties of the converted object become the fields on which you can search.
+
+For the NGDS, the idea is to write mapping functions only for [USGIN Content Models of Interest](http://schemas.usgin.org/models). As an example, see the documented code describing the mapping of the [aasg:ThermalSpring model](http://usgin.github.io/usgin-cache/doc/features/design/mappings/thermalSprings.html).
 
 ## Code Docs
 

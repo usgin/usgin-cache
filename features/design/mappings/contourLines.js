@@ -16,16 +16,16 @@ module.exports = function (doc) {
         // These will become the fields that you can search the Solr index on.
         var result = {
             // It is always important to include an ID value.
-            id: props.ThermalSpringURI,
+            id: props.contourURI,
             // It is useful to include the identifier for the content model for NGDS purposes.
             content_model: 'http://schemas.usgin.org/uri-gin/ngds/dataschema/contourlines/',
             // It is great if you can include a normative URL for this feature.
-            url: props.ThermalSpringURI,
+            url: props.contourURI,
             // *_t fields will be indexed as text, and also added to the default full-text index field.
-            springname_t: props.SpringName,
-            label_t: props.Label,
-            othername_t: props.OtherName,
-            otheridentifier_t: props.OtherIdentifier,
+            countourname_t: props.name,
+            label_t: props.contourValue,
+            othername_t: props.name,
+            otheridentifier_t: props.contourType_uri,
             description_t: props.Description,
             // ### Index the geometry
             // It is very important to index the geometry properly.

@@ -24,8 +24,8 @@ module.exports = function (doc) {
             // *_t fields will be indexed as text, and also added to the default full-text index field.
             faultname_t: props.Name,
             label_t: props.Label,
-            othername_t: props.OtherName,
-            otheridentifier_t: props.OtherIdentifier,
+            othername_t: props.Name,
+            otheridentifier_t: props.SpecificationURI,
             description_t: props.Description,
             // ### Index the geometry
             // It is very important to index the geometry properly.

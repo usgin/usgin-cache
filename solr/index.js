@@ -32,6 +32,24 @@ module.exports = function (featureConfig) {
         if (err) return callback(err);
         callback(null, result.response.numFound);
       });
+    },
+
+    getAll: function (callback) {
+      var q = client.createQuery().q('*.*').rows(100000000);
+      client.search(q, function (err, result) {
+        if (err) return callback(err);
+        callback(null, result.response.docs.map(function (doc) {
+          var geo = doc.geo[0].split(' ');
+          return {
+            type: "Feature",
+            properties: doc,
+            geometry: {
+              type: "Point",
+              coordinates: [Number(geo[0]), Number(geo[1])]
+            }
+          };
+        }));
+      });
     }
   };
 };

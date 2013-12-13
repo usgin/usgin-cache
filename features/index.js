@@ -111,10 +111,12 @@ module.exports = function (config) {
 
     // ### Builds clustered features into the cache
     buildClusters: function (callback) {
-      db.view_with_list('usgin-features', 'featureType', 'featureCollection', function (err, response) {
+      callback = callback || function () {};
+
+      require('../solr')(config).getAll(function (err, response) {
         if (err) return callback(err);
 
-        require('../cluster').clusterRange(response.features, [0,1,2,3,4,5,6,7,8,9,10], function (err, result) {
+        require('../cluster').clusterRange(response, [0,1,2,3,4,5,6,7,8,9,10], function (err, result) {
           if (err) return callback(err);
 
           async.each(_.keys(result), function (zoom, cb) {

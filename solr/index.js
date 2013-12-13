@@ -24,6 +24,14 @@ module.exports = function (featureConfig) {
     purgeIndex: function (callback) {
       callback = callback || function () {};
       client.delete('id', '*', callback);
+    },
+
+    countRecords: function (callback) {
+      var q = client.createQuery().q('*.*').rows(0);
+      client.search(q, function (err, result) {
+        if (err) return callback(err);
+        callback(null, result.response.numFound);
+      });
     }
   };
 };

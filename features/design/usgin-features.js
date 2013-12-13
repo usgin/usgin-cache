@@ -3,7 +3,7 @@ var _ = require('underscore'),
 
 var cacheId = function (doc) {
   if (doc.cacheId) {
-    emit(doc.cacheId, 1);
+    emit(doc.cacheId, doc.feature);
   }
 };
 

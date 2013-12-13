@@ -15,6 +15,12 @@ module.exports = function (forceRefresh, config) {
       });
     },
 
+    // Populate the cace with GetCapabilities docs from WFS servers
+    gatherCapabilities: function (callback) {
+      var wfs = require('./wfs')(cache);
+      wfs.gatherCapabilities(callback);
+    },
+
     // Populate the cache with features of the specified type
     gatherFeatures: function (featuretype, maxfeatures, callback) {
       var limit = null;
@@ -22,12 +28,9 @@ module.exports = function (forceRefresh, config) {
       if (!isNaN(maxfeatures)) limit = maxfeatures;
 
       var wfs = require('./wfs')(cache);
-      wfs.gatherCapabilities(function (err, response) {
+      cache.wfsUrlsByType(featuretype, function (err, urls) {
         if (err) return callback(err);
-        cache.wfsUrlsByType(featuretype, function (err, urls) {
-          if (err) return callback(err);
-          wfs.getFeatures(urls, featuretype, limit, callback);
-        })
+        wfs.getFeatures(urls, featuretype, limit, callback);
       });
     }
   };

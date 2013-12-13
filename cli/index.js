@@ -31,15 +31,17 @@ var argv = require('optimist')
   .default('featuresName', 'usgin-features')
 
   .alias('refresh', 'r')
-  .boolean('refresh')
-  .describe('refresh', '[optional] If specified, data already in the cache will be replaced')
+  .describe('refresh', '[optional] Comma-separated list of aspects of the system to refresh. Options are csw|capabilities|features.')
+  .default('refresh', '')
   .argv,
 
   config = {dbUrl: argv.dbUrl, dbName: argv.dbName},
   featureConfig = {dbUrl: argv.dbUrl, dbName: argv.featuresName, cacheName: argv.dbName},
-  cache = require('../cache')(argv.refresh, config),
+  refresh = argv.refresh.split(','),
+  cache = require('../cache')(false, config),
   features = require('../features')(featureConfig),
-  harvest = require('../harvest')(argv.refresh, config);
+  refreshHarvest = require('../harvest')(true, config),
+  doNotRefreshHarvest = require('../harvest')(false, config);
 
 // Make sure that the databases are set up first.
 console.log('Setting up the OGC cache...');
@@ -60,6 +62,7 @@ cache.setup(function (err) {
 
 function cswHarvest(callback) {
   console.log('Starting the CSW Harvest...')
+  var harvest = refresh.indexOf('csw') !== -1 ? refreshHarvest : doNotRefreshHarvest;
   harvest.harvestCsw(argv.cswUrl, function (err) {
     var msg = err ? err : 'CSW Harvested!';
     console.log(msg);
@@ -68,16 +71,21 @@ function cswHarvest(callback) {
 }
 
 function wfsHarvest(callback) {
-  console.log('Gathering WFS Features of type: ' + argv.featureType + '...');
-  harvest.gatherFeatures(argv.featureType, function (err) {
-    var msg = err ? err : 'WFS Features Harvested!';
-    console.log(msg);
-    if (err) return callback(err);
-    console.log('Populating the feature cache...')
-    features.getFeatures(argv.featureType, function (err) {
-      var msg = err ? err : 'Features Ready!';
+  console.log('Gathering WFS GetCapabilities documents...');
+  var harvest = refresh.indexOf('capabilities') !== -1 ? refreshHarvest : doNotRefreshHarvest;
+  harvest.gatherCapabilities(function (err) {
+    console.log('Gathering WFS Features of type: ' + argv.featureType + '...');
+    harvest = refresh.indexOf('features') !== -1 ? refreshHarvest : doNotRefreshHarvest;
+    harvest.gatherFeatures(argv.featureType, function (err) {
+      var msg = err ? err : 'WFS Features Harvested!';
       console.log(msg);
-      callback(err);
+      if (err) return callback(err);
+      console.log('Populating the feature cache...')
+      features.getFeatures(argv.featureType, function (err) {
+        var msg = err ? err : 'Features Ready!';
+        console.log(msg);
+        callback(err);
+      });
     });
   });
 }

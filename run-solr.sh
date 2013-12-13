@@ -20,7 +20,12 @@ wait_for_solr(){
 run() {
     echo "Starting solr ..."
     cd $1/example
-    java -jar start.jar
+    if [ $BG = "yes" ]
+    then
+        java -jar start.jar > /dev/null 2>&1 &
+    else
+        java -jar start.jar
+    fi
     wait_for_solr
     cd ../../
     echo "Started"

@@ -3,7 +3,7 @@ module.exports = function (doc) {
     if (doc.featuretype === 'aasg:BoreholeTemperature') {
         var result = {
             id: props.ObservationURI,
-            content_model: 'http://stategeothermaldata.org/uri-gin/aasg/xmlschema/boreholetemperature/',
+            content_model: 'http://schemas.usgin.org/uri-gin/ngds/dataschema/boreholetemperature/',
             url: props.ObservationURI,
             header_t: props.HeaderURI,
             label_t: props.Label,

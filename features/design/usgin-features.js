@@ -39,6 +39,32 @@ var featureCollection = function (head, req) {
   send(']}');
 };
 
+var solrToFeatureCollection = function (head, req) {
+  function solr2GeoJson(solrDoc) {
+    var geo = solrDoc.geo.split(' ');
+    return {
+      type: "Feature",
+      properties: solrDoc,
+      geometry: {
+        type: "Point",
+        coordinates: [Number(geo[0]), Number(geo[1])]
+      }
+    };
+  }
+
+  start({'headers': {'Content-type': 'application/json'}});
+  send('{"type":"FeatureCollection","features":[');
+
+  var row = getRow();
+  if (row) {
+    send(JSON.stringify(solr2GeoJson(row.value)));
+    while (row = getRow()) {
+      send(',' + JSON.stringify(solr2GeoJson(row.value)));
+    }
+  }
+  send(']}');
+}
+
 module.exports = {
   _id: '_design/usgin-features',
   language: 'javascript',
@@ -54,6 +80,7 @@ module.exports = {
     }
   }),
   lists: {
-    featureCollection: featureCollection.toString()
+    featureCollection: featureCollection.toString(),
+    solrToFeatureCollection: solrToFeatureCollection.toString()
   }
 };

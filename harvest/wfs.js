@@ -8,6 +8,7 @@ module.exports = function (cache) {
     gatherCapabilities: function (callback) {
         cache.wfsUrls(function (err, urls) {
             if (err) return callback(err);
+
             var remaining = urls.length;
             console.log('\t- There are ' + remaining + ' WFS GetCapabilities left to harvest.');
             async.eachLimit(urls, 10, function (url, cb) {

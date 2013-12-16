@@ -3,6 +3,7 @@ var nano = require('nano'),
     async = require('async'),
     cache = require('../cache'),
     toGeoJson = require('./toGeoJson'),
+    toPostGis = require('./toPostGis'),
     designDoc = require('./design/usgin-features');
 
 // ## Contructor
@@ -72,15 +73,22 @@ module.exports = function (config) {
       }
 
       function convert(row, callback) {
-        // Convert the WFS GetFeature doc to an array of GeoJSON features
-        var converter = toGeoJson(function (err, result) {
+        // Convert the WFS GetFeature doc to an array of GeoJSON features or a PostGIS table
+        function saveFeatures(err, result) {
           if (err) return callback(err);
-          // Insert those features into the database
+          result = result || [];
           insertFeatures(row.id, row.key, result, callback);
-        });
+        };
 
-        thisCache.db.attachment.get(row.id, 'response.xml').pipe(converter);
+        thisCache.db.attachment.get(row.id, 'response.xml')
+          .pipe(toGeoJson(saveFeatures));
       }
+    },
+
+    // ### Send indexed features to PostGIS
+    toPostGis: function (mapping, connection, callback) {
+      var url = db.view_with_list('usgin-features', mapping, 'solrToFeatureCollection').uri.href,
+          converter = toPostGis(mapping, url, connection, callback);
     },
 
     // ### Gets features as a GeoJSON FeatureCollection

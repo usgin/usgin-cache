@@ -18,7 +18,7 @@ module.exports = function (doc) {
             // It is always important to include an ID value.
             id: props.ThermalSpringURI,
             // It is useful to include the identifier for the content model for NGDS purposes.
-            content_model: 'http://stategeothermaldata.org/uri-gin/aasg/xmlschema/thermalspring/1.8',
+            content_model: 'http://schemas.usgin.org/uri-gin/ndgs/dataschema/thermalspring/',
             // It is great if you can include a normative URL for this feature.
             url: props.ThermalSpringURI,
             // *_t fields will be indexed as text, and also added to the default full-text index field.

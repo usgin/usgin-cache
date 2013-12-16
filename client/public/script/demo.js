@@ -23,10 +23,13 @@
       if (this._map) {
         var zoom = this._map.getZoom(),
             bounds = this._map.getBounds().toBBoxString();
+        console.time('Zoom level ' + zoom);
         d3.json('/data/' + zoom + '?bbox=' + bounds, L.bind(function (err, data) {
           this.clearLayers();
           this.addData(data);
-          console.log("Drew " + data.features.length + " features");
+          console.timeEnd('Zoom level ' + zoom);
+          console.log('\t' + data.features.length + ' features drawn');
+          console.log('\t' + data.features.reduce(function (memo, f) {return memo + Number(f.properties.count);}, 0) + ' child features');
         }, this));
       }
     }
@@ -48,7 +51,8 @@
         weight: 2,
         radius: 6,
         fillOpacity: 0.7,
-        fillColor: 'red'
+        fillColor: '#E88282',
+        color: f.properties.count ? '#000' : '#BD1E1E'
       });
     }
   }).addTo(map);

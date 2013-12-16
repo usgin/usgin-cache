@@ -5,7 +5,7 @@ var pg = require('pg'),
 module.exports = function (mapping, bbox, callback) {
   var conString = "postgres://localhost/ngds";
     client = new pg.Client(conString),
-    numberOfPoints = 20;
+    numberOfPoints = 30;
 
   client.connect(function(err) {
     if (err) return callback(err);

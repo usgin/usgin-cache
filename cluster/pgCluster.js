@@ -4,7 +4,7 @@ var pg = require('pg'),
 
 module.exports = function (mapping, bbox, connection, callback) {
   connection = connection || {};
-  connection.dbname = connection.dbname || '';
+  connection.dbname = connection.dbname || 'ngds';
   connection.host = connection.host || 'localhost';
   connection.port = connection.port || '5432';
   connection.user = connection.user || null;
@@ -15,7 +15,7 @@ module.exports = function (mapping, bbox, connection, callback) {
   conString += connection.host + ':' + connection.port + '/' + connection.dbname;
     
   var client = new pg.Client(conString),
-      numberOfPoints = 30;
+      numberOfPoints = 3;
 
   client.connect(function(err) {
     if (err) return callback(err);
@@ -50,7 +50,7 @@ module.exports = function (mapping, bbox, connection, callback) {
         };
       }
 
-      callback(null, toGeoJSON(), {});
+      callback(null, toGeoJSON());
       // callback(null, toGeoJSON(), toGeoJSON(true));
       client.end();
     });

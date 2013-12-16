@@ -120,20 +120,28 @@ module.exports = function (config) {
     },
 
     // ### Builds clustered features into the cache
-    buildClusters: function (callback) {
+    buildClusters: function (callback, pg) {
       callback = callback || function () {};
 
-      require('../solr')(config).getAll(function (err, response) {
+      function insertClusters(err, result) {
         if (err) return callback(err);
 
-        require('../cluster').clusterRange(response, [0,1,2,3,4,5,6,7,8,9,10], function (err, result) {
-          if (err) return callback(err);
+        async.each(_.keys(result), function (zoom, cb) {
+          insertFeatures(zoom, 'cluster', result[zoom], cb)
+        }, callback);
+      }
 
-          async.each(_.keys(result), function (zoom, cb) {
-            insertFeatures(zoom, 'cluster', result[zoom], cb)
-          }, callback);
-        });
-      });
+      var zoomRange = _.range(7), // [0,1,2,3,4,5,6]
+          cluster = require('../cluster');
+
+      if (pg) {
+        cluster.pgClusterRange('thermalSprings', zoomRange, insertClusters);
+      } else {
+        require('../solr')(config).getAll(function (err, response) {
+          if (err) return callback(err);
+          cluster.clusterRange(response, zoomRange, insertClusters);
+        });  
+      }
     },
 
     // ### Get cluster features

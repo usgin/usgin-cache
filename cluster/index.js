@@ -1,5 +1,7 @@
 var _ = require('underscore'),
-  async = require('async');
+  async = require('async'),
+  pgCluster = require('./pgCluster'),
+  sm = new (require('sphericalmercator'));
 
 function cluster(geojson, zoom, callback) {
   var L = require('./leaflet')(),
@@ -47,5 +49,39 @@ module.exports = {
       }, {});
       callback(null, result);
     });
+  },
+
+  pgClusterRange: function (mapping, range, callback) {
+    function clusterOneTile(bbox, callback) {
+      pgCluster(mapping, bbox, null, callback);
+    }
+
+    function bboxes(zoom) {
+      var values = _.range(Math.pow(2, zoom));
+      return values.reduce(function (memo, x) {
+        var bboxes = values.map(function (y) { return sm.bbox(x, y, zoom).join(','); });
+        return memo.concat(bboxes);
+      }, []);
+    }
+
+    function clusterOneZoomLevel(zoom, callback) {
+      async.mapLimit(bboxes(zoom), 10, clusterOneTile, function (err, results) {
+        if (err) return callback(err);
+        var features = results.reduce(function (memo, featureCollection) {
+          return memo.concat(featureCollection.features);
+        }, []);
+        callback(null, [zoom, features]);
+      });
+    }
+
+    function zoomLevelsClustered(err, results) {
+      if (err) return callback(err);
+      callback(null, results.reduce(function (memo, result) {
+        memo[result[0]] = result[1];
+        return memo;
+      }, {}));
+    }
+
+    async.mapSeries(range, clusterOneZoomLevel, zoomLevelsClustered);
   }
 };

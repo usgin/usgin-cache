@@ -28,7 +28,8 @@
     "jsdom": "~0.8.6",
     "express": "~3.4.0",
     "optimist": "~0.6.0",
-    "pg": "~2.8.4"
+    "pg": "~2.8.4",
+    "sphericalmercator": "~1.0.2"
   },
   "devDependencies": {
     "vows": "~0.7.0"

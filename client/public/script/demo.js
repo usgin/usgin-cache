@@ -54,6 +54,14 @@
         fillColor: '#E88282',
         color: f.properties.count ? '#000' : '#BD1E1E'
       });
+    },
+    onEachFeature: function (f, layer) {
+      var html = '<table>';
+      _.each(_.keys(f.properties), function (propName) {
+        html += '<tr><th>' + propName + '</th><td>' + f.properties[propName] + '</td></tr>';
+      });
+      html += '</table>';
+      layer.bindPopup(html, {maxWidth: 600});
     }
   }).addTo(map);
 

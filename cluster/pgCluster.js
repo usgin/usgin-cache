@@ -2,10 +2,20 @@ var pg = require('pg'),
     fs = require('fs'),
     _ = require('underscore'); 
 
-module.exports = function (mapping, bbox, callback) {
-  var conString = "postgres://localhost/ngds";
-    client = new pg.Client(conString),
-    numberOfPoints = 30;
+module.exports = function (mapping, bbox, connection, callback) {
+  connection = connection || {};
+  connection.dbname = connection.dbname || '';
+  connection.host = connection.host || 'localhost';
+  connection.port = connection.port || '5432';
+  connection.user = connection.user || null;
+  connection.password = connection.password || null;
+
+  var conString = 'postgres://';
+  conString += connection.user && connection.password ? connection.user + ':' + connection.password + '@' : '';
+  conString += connection.host + ':' + connection.port + '/' + connection.dbname;
+    
+  var client = new pg.Client(conString),
+      numberOfPoints = 30;
 
   client.connect(function(err) {
     if (err) return callback(err);

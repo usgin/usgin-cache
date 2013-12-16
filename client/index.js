@@ -2,7 +2,15 @@ var express = require('express'),
     app = express(),
     solrClient = require('solr-client'),
     solr = solrClient.createClient(),
-    features = require('../features')();
+    features = require('../features')(),
+
+    defaultConnection = {
+      dbname: 'ngds',
+      host: 'localhost',
+      port: 5432,
+      user: 'ngds',
+      password: 'secret'
+    };
 
 app.use(express.static(__dirname + '/public'));
 
@@ -34,7 +42,7 @@ app.get('/data/:zoom', function (req, res, next) {
     if (result.response.numFound > 3000) {
       // Get clusters dynamically from PostGIS
       var getBboxData = require('../cluster/pgCluster');
-      getBboxData('boreholeTemperature', req.query.bbox, function (err, centers, polys) {
+      getBboxData('boreholeTemperature', req.query.bbox, defaultConnection, function (err, centers, polys) {
         if (err) return next(err);
         res.json(centers);
       });

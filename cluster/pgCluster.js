@@ -2,19 +2,30 @@ var pg = require('pg'),
     fs = require('fs'),
     _ = require('underscore'); 
 
-var conString = "postgres://localhost/ngds";
+module.exports = function (mapping, bbox, callback) {
+  var conString = "postgres://localhost/ngds";
     client = new pg.Client(conString),
-    numberOfPoints = 375;
+    numberOfPoints = 20;
 
-client.connect(function(err) {
-  if(err) return console.error('could not connect to postgres', err);
-  console.time('query');
-  client.query('SELECT kmeans, count(*), st_asgeojson(st_transform(st_centroid(st_convexhull(st_collect(proj_geom))), 4326)) AS centroid, st_asgeojson(st_transform(st_convexhull(st_collect(proj_geom)), 4326)) as poly FROM ( SELECT kmeans(array[ST_X(proj_geom), ST_Y(proj_geom)], ' + numberOfPoints + ') over (), proj_geom FROM ( SELECT st_transform(st_setsrid(wkb_geometry,4326), 3857) as proj_geom FROM boreholetemperature ) as projected ) AS ksub GROUP BY kmeans ORDER BY kmeans;',
-    function (err, result) {
-      console.log(numberOfPoints + " generated");
+  client.connect(function(err) {
+    if (err) return callback(err);
+
+    console.time('query');
+
+    var qs = 'SELECT kmeans, count(*), ';
+    qs += 'st_asgeojson(st_transform(st_centroid(st_convexhull(st_collect(proj_geom))), 4326)) AS centroid, ';
+    qs += 'st_asgeojson(st_transform(st_convexhull(st_collect(proj_geom)), 4326)) as poly ';
+    qs += 'FROM ( SELECT kmeans(array[ST_X(proj_geom), ST_Y(proj_geom)], ' + numberOfPoints + ') over (), proj_geom ';
+    qs += 'FROM ( SELECT st_transform(st_setsrid(geom, 4326), 3857) as proj_geom FROM ' + mapping.toLowerCase() + ' ';
+    qs += 'WHERE ' + mapping.toLowerCase() + '.geom && st_makeenvelope(' + bbox + ', 4326) '
+    qs += ') as projected ) AS ksub ';
+    qs += 'GROUP BY kmeans ORDER BY kmeans;';
+
+    console.log(qs);
+
+    client.query(qs, function (err, result) {
       console.timeEnd('query');
-      if(err) return console.error('error running query', err); 
-      client.end();
+      if (err) return callback(err);
 
       var centroids = {type: "FeatureCollection", features: []},
           polygons = {type: "FeatureCollection", features: []};
@@ -28,8 +39,8 @@ client.connect(function(err) {
         polygons.features.push(poly);
       });
 
-      fs.writeFile('centroid.json', JSON.stringify(centroids, null, 2));
-      fs.writeFile('poly.json', JSON.stringify(polygons, null, 2));
-    }
-  );
-});
+      callback(null, centroids, polygons);
+      client.end();
+    });
+  });
+}

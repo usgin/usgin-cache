@@ -19,7 +19,7 @@ module.exports = function toPostGis(mapping, uri, connection, callback) {
       '-skipfailures', '-overwrite',
       '-f', 'PostGIS',
       '-lco', 'GEOMETRY_NAME=geom',
-      '-nln', mapping,
+      '-nln', mapping.toLowerCase(),
       'PG:' + connectionString,
       uri
     ],

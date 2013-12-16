@@ -19,6 +19,13 @@ app.get('/data/:zoom', function (req, res, next) {
   // Make sure that a Zoom level was specified
   if (isNaN(req.params.zoom)) return res.send(400);
 
+  var getBboxData = require('../cluster/pgCluster');
+  getBboxData('boreholeTemperature', req.query.bbox, function (err, centers, polys) {
+    if (err) return next(err);
+    res.json(centers);
+  });
+
+/*
   if (req.params.zoom > 7) {
     // Start building a Solr Query
     var query = solr.createQuery()
@@ -59,7 +66,8 @@ app.get('/data/:zoom', function (req, res, next) {
       res.json(result);
     });
   }
-  
+*/
+
 });
 
 app.listen(3000);

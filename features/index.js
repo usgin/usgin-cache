@@ -42,11 +42,11 @@ module.exports = function (config) {
     db.view('usgin-features', 'cacheId', {key: cacheId, include_docs: true}, function (err, response) {
       if (err) return callback(err);
 
-      // Mark each as deleted and move on
-      async.eachLimit(response.rows, 10, function (row, cb) {
-        _.extend(row.doc, {_deleted: true});
-        db.insert(row.doc, row.id, cb);
-      }, callback);
+      var docs = response.rows.map(function (row) {
+        return _.extend(row.doc, {_deleted: true});
+      });
+
+      db.bulk({docs: docs}, callback);
     });
   }
 

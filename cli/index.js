@@ -30,6 +30,15 @@ var argv = require('optimist')
   .describe('featuresName', '[optional] The name of the features database')
   .default('featuresName', 'usgin-features')
 
+  .alias('postGIS', 'p')
+  .describe('postGIS', '[optional] PostGIS connection information for clustering features')
+  .default('pgFeatureType', '')
+  .default('dbname', 'ngds')
+  .default('host', 'localhost')
+  .default('port', '5432')
+  .default('user', '')
+  .default('password', '')
+
   .alias('refresh', 'r')
   .describe('refresh', '[optional] Comma-separated list of aspects of the system to refresh. Options are csw|capabilities|features.')
   .default('refresh', '')
@@ -55,6 +64,7 @@ cache.setup(function (err) {
     if (argv.featureType !== '') toDo.push(wfsHarvest);
     if (argv.index !== '') toDo.push(runIndexing);
     if (argv.cluster) toDo.push(buildClusters);
+    if (argv.postGIS) toDo.push(clusterPostGIS);
 
     async.series(toDo);
   });
@@ -103,6 +113,16 @@ function buildClusters(callback) {
   console.log('Building clustered features...');
   features.buildClusters(function (err) {
     var msg = err ? err : 'Clustering finished!';
+    console.log(msg);
+    if (callback) callback(err);
+  });
+}
+
+function clusterPostGIS(callback) {
+  console.log('Clutering features in PostGIS using a k-means formula...')
+  var connect = {'dbname': argv.dbname, 'host': argv.host, 'port': argv.port, 'user': argv.user, 'password': argv.password};
+  require('../features')().toPostGis(argv.pgFeatureType, connect, function (err) {
+    var msg = err ? err : 'PostGIS Clustering finished!';
     console.log(msg);
     if (callback) callback(err);
   });

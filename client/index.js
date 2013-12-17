@@ -38,18 +38,19 @@ app.get('/data/:zoom', function (req, res, next) {
         .q('*.*').rows(0)
         .rangeFilter(range);
 
-  if (req.params.zoom < 7) {
-    // Make a request for clusters
+  if (req.params.zoom < 9) {
+    // Make a request for clusters from CouchDB
     features.getClusters(req.params.zoom, function (err, result) {
       if (err) return next(err);
       res.json(result);
     });
   } else {
+    // Check how many features Solr would return directly
     solr.search(query, function (err, result) {
       if (result.response.numFound > 3000) {
         // Get clusters dynamically from PostGIS
         var getBboxData = require('../cluster/pgCluster');
-        getBboxData('boreholeTemperature', req.query.bbox, defaultConnection, function (err, centers, polys) {
+        getBboxData('boreholeTemperature', req.query.bbox, defaultConnection, 30, function (err, centers, polys) {
           if (err) return next(err);
           res.json(centers);
         });
@@ -75,14 +76,6 @@ app.get('/data/:zoom', function (req, res, next) {
       }
     });
   }
-
-  /*    
-    // Make a request for clusters
-    features.getClusters(req.params.zoom, function (err, result) {
-      if (err) return next(err);
-      res.json(result);
-    });
-  */
 });
 
 app.listen(3000);

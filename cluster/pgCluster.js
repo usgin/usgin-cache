@@ -2,7 +2,7 @@ var pg = require('pg'),
     fs = require('fs'),
     _ = require('underscore'); 
 
-module.exports = function (mapping, bbox, connection, callback) {
+module.exports = function (mapping, bbox, connection, numberOfPoints, callback) {
   connection = connection || {};
   connection.dbname = connection.dbname || 'ngds';
   connection.host = connection.host || 'localhost';
@@ -14,13 +14,12 @@ module.exports = function (mapping, bbox, connection, callback) {
   conString += connection.user && connection.password ? connection.user + ':' + connection.password + '@' : '';
   conString += connection.host + ':' + connection.port + '/' + connection.dbname;
     
-  var client = new pg.Client(conString),
-      numberOfPoints = 3;
+  var client = new pg.Client(conString);
 
   client.connect(function(err) {
     if (err) return callback(err);
 
-    console.time('query');
+    console.time('Clustered ' + bbox);
 
     var qs = 'SELECT kmeans, count(*), ';
     qs += 'st_asgeojson(st_centroid(st_collect(geom))) AS centroid ';
@@ -31,10 +30,10 @@ module.exports = function (mapping, bbox, connection, callback) {
     qs += ') AS ksub ';
     qs += 'GROUP BY kmeans;';
 
-    console.log(qs);
+    //console.log(qs);
 
     client.query(qs, function (err, result) {
-      console.timeEnd('query');
+      console.timeEnd('Clustered ' + bbox);
       if (err) return callback(err);
 
       function toGeoJSON(makePolys) {

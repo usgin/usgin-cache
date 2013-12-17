@@ -131,11 +131,11 @@ module.exports = function (config) {
         }, callback);
       }
 
-      var zoomRange = _.range(7), // [0,1,2,3,4,5,6]
+      var zoomRange = _.range(9), // [0,1,2,3,4,5,6,7,8]
           cluster = require('../cluster');
 
       if (pg) {
-        cluster.pgClusterRange('thermalSprings', zoomRange, insertClusters);
+        cluster.pgClusterRange('boreholeTemperature', zoomRange, insertClusters);
       } else {
         require('../solr')(config).getAll(function (err, response) {
           if (err) return callback(err);

@@ -53,7 +53,7 @@ module.exports = {
 
   pgClusterRange: function (mapping, range, callback) {
     function clusterOneTile(bbox, callback) {
-      pgCluster(mapping, bbox, null, callback);
+      pgCluster(mapping, bbox, null, 3, callback);
     }
 
     function bboxes(zoom) {

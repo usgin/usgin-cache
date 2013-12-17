@@ -24,15 +24,17 @@ module.exports = function (config) {
     clearFeatures(cacheId, function (err) {
       if (err) return callback(err);
 
-      // Now build the features and insert them
-      async.eachLimit(features, 10, function (f, cb) {
-        var feature = {
+      // Build the CouchDB documents
+      var docs = features.map(function (f) {
+        return {
           cacheId: cacheId,
-          featuretype: featuretype,
+          featureType: featuretype,
           feature: f
         };
-        db.insert(feature, cb);
-      }, callback);
+      });
+
+      // Insert the docs
+      db.bulk({docs: docs}, callback);
     });
   }
 

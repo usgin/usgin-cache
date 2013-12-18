@@ -80,6 +80,13 @@ var wfsFeaturesByType = function (doc) {
   }
 };
 
+// A view function to find info about GetFeature attachments
+var getFeatureAttachments = function (doc) {
+  if (doc.requestType === 'getfeature') {
+    emit(doc._attachments, doc.endpoint);
+  }
+}
+
 // A list function that is intended to be used in tandem with the above `wfsUrls` view.
 // A request should look something like this:
 //
@@ -132,6 +139,9 @@ module.exports = {
     },
     wfsFeaturesByType: {
       map: wfsFeaturesByType.toString()
+    },
+    getFeatureAttachments: {
+      map: getFeatureAttachments.toString()
     }
   },
   lists: {

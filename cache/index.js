@@ -40,7 +40,6 @@ module.exports = function (forceRefresh, config) {
     
     // If a doc was not passed, then we've got to get our function straight
     if (typeof doc === 'function') callback = doc;
-    
 
     // Build the cache document
     var cacheDoc = {
@@ -117,10 +116,15 @@ module.exports = function (forceRefresh, config) {
       // Throw error if there was one, and it was not a 404
       if (err && err.status_code !== 404) { callback(err); return; }
       
-      // If we got a doc back, then return that
-      if (doc && !forceRefresh) { callback(null, doc); return; }
-      
-      // Either the doc has not been cached or we're being forced to refresh the cache
+      // If we got a doc back, and we aren't being forced to refresh...
+      if (doc && !forceRefresh) {
+        // Anything other than a GetFeature doc is fine to return
+        if (doc.requestType !== 'getfeature') return callback(null, doc);
+        // Successful GetFeature requests will have an attachment and can be returned
+        else if (doc.hasOwnProperty('_attachments')) return callback(null, doc);  
+      }
+
+      // Either the doc has not been cached, we're being forced to refresh the cache, or the doc is bad
       refreshDoc(requestType, url, doc, callback);
     });
   }
@@ -212,6 +216,12 @@ module.exports = function (forceRefresh, config) {
           return {id: row.id, key: row.key};
         }));
       });
+    },
+
+    // ### List failed WFS GetFeature requests
+    failedGetFeature: function (callback) {
+      callback = callback || function () {};
+      db.view_with_list('usgin-cache', 'getFeatureAttachments', 'values', {key: null}, callback);
     },
 
     // ### Clear everything except design documents from the database

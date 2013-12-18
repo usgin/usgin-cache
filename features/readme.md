@@ -57,7 +57,15 @@ This function takes a single WFS GetFeature response from the cache (indicated b
 
 ### features.getGeoJson([featuretype], [callback])
 
-This function returns a set of GeoJSON features as a FeatureCollection. If a `featuretype` is provided, then the FeatureCollection will only contain features of the specified type.
+This function returns a set of GeoJSON features as a FeatureCollection. If a `featuretype` is provided, then the FeatureCollection will only contain features of the specified type. `callback` is fired with an error message, if one was encountered, otherwise nothing.
+
+### features.buildClusters([callback])
+
+Builds clusters of features and stores them in CouchDB. Clusters are built for each of a set range of zoom levels. The `callback` is fired with an error message if one was encountered, otherwise nothing.
+
+### features.getClusters(zoom, callback)
+
+Gets cluster features from the database for the specified `zoom` level. `callback` is fired following the common pattern of `callback(err, features)`, where `err` is null if no error was enocountered, and `features` is a GeoJSON FeatureCollection.
 
 ### features.db
 

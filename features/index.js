@@ -1,5 +1,7 @@
 var nano = require('nano'),
     _ = require('underscore'),
+    stream = require('stream'),
+    jsonStream = require('JSONStream'),
     async = require('async'),
     cache = require('../cache'),
     toGeoJson = require('./toGeoJson'),
@@ -21,33 +23,55 @@ module.exports = function (config) {
   // ## Private functions
   // ### Insert features into the feature table
   function insertFeatures(cacheId, featuretype, features, callback) {
-    // First clear existing features
-    clearFeatures(cacheId, function (err) {
-      if (err) return callback(err);
+    // Build the CouchDB documents
+    var docs = features.map(function (f) {
+      return {
+        cacheId: cacheId,
+        featureType: featuretype,
+        feature: f
+      };
+    });
 
-      // Now build the features and insert them
-      async.eachLimit(features, 10, function (f, cb) {
-        var feature = {
-          cacheId: cacheId,
-          featuretype: featuretype,
-          feature: f
-        };
-        db.insert(feature, cb);
-      }, callback);
+    // Insert the docs
+    db.bulk({docs: docs}, function (err) {
+      callback(err);
     });
   }
 
   // ### Removes features from a particular GetFeature doc
   function clearFeatures(cacheId, callback) {
     // Lookup features of the given cacheId
-    db.view('usgin-features', 'cacheId', {key: cacheId, include_docs: true}, function (err, response) {
-      if (err) return callback(err);
+    db.view_with_list('usgin-features', 'deleteHelper', 'bulk', {key: cacheId})
+      .pipe(db.bulk())
+      .on('error', callback)
+      .on('end', function () {
+        callback(null);
+      });
+  }
 
-      // Mark each as deleted and move on
-      async.eachLimit(response.rows, 10, function (row, cb) {
-        _.extend(row.doc, {_deleted: true});
-        db.insert(row.doc, row.id, cb);
-      }, callback);
+  // ### Streaming conversion from WFS to GeoJSON in CouchDB
+  function convert(cacheId, featureType, callback) {
+    var ogr = toGeoJson(),
+        insert = db.bulk(),
+        wfsData = thisCache.db.attachment.get(cacheId, 'response.xml'),
+        bulkWriter = jsonStream.stringify('{"docs":[', ',', ']}'),
+        geoJsonParser = jsonStream.parse('features.*')
+          .on('data', function (feature) {
+            bulkWriter.write({
+              cacheId: cacheId,
+              featureType: featureType,
+              feature: feature
+            });
+          })
+          .on('end', bulkWriter.end);
+
+    console.time('\t- ' + cacheId);
+    ogr.output.pipe(geoJsonParser);
+    bulkWriter.pipe(insert);
+    wfsData.pipe(ogr.input);
+    insert.on('end', function () {
+        console.timeEnd('\t- ' + cacheId);
+        callback();
     });
   }
 
@@ -69,20 +93,29 @@ module.exports = function (config) {
 
       function createGeoJson(err, response) {
         if (err) return callback(err);
-        async.eachLimit(response, 4, convert, callback);
-      }
-
-      function convert(row, callback) {
-        // Convert the WFS GetFeature doc to an array of GeoJSON features or a PostGIS table
-        function saveFeatures(err, result) {
+        console.log('Clearing existing features...');
+        async.eachSeries(response, function (row, cb) {
+          clearFeatures(row.id, cb);
+        }, function (err) {
           if (err) return callback(err);
-          result = result || [];
-          insertFeatures(row.id, row.key, result, callback);
-        };
-
-        thisCache.db.attachment.get(row.id, 'response.xml')
-          .pipe(toGeoJson(saveFeatures));
+          console.log('Converting WFS features to GeoJSON...');
+          async.eachLimit(response, 4, function (row, cb) {
+            convert(row.id, row.key, cb);
+          }, callback);
+        });
       }
+    },
+
+    // ### Convert a single WFS from the cache to GeoJSON
+    convertWfs: function (cacheId, callback) {
+      callback = callback || function () {};
+      thisCache.db.get(cacheId, function (err, doc) {
+        if (err) return callback(err);
+        clearFeatures(cacheId, function (err) {
+          if (err) return callback(err);
+          convert(cacheId, doc.featuretype, callback);
+        });
+      });
     },
 
     // ### Send indexed features to PostGIS

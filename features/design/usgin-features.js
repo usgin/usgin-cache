@@ -24,6 +24,14 @@ var simple = function (doc) {
   }
 };
 
+var deleteHelper = function (doc) {
+  emit(doc.cacheId, {
+    _id: doc._id,
+    _rev: doc._rev,
+    _deleted: true
+  });
+};
+
 var featureCollection = function (head, req) {
   start({'headers': {'Content-type': 'application/json'}});
   send('{"type":"FeatureCollection","features":[');
@@ -62,6 +70,30 @@ var solrToFeatureCollection = function (head, req) {
       send(',' + JSON.stringify(solr2GeoJson(row.value)));
     }
   }
+
+  send(']}');
+};
+
+// A list function that simply returns a list of values. Save yourself one `.map` function.
+var values = function (head, req) {
+  var result = [];
+  while (row = getRow()) {
+    result.push(row.value);
+  }
+  start({ 'headers': { 'Content-type': 'application/json' } });
+  send(JSON.stringify(result));
+};
+
+var bulk = function (head, req) {
+  var row = getRow();
+  start({ 'headers': { 'Content-type': 'application/json' } });
+  send('{"docs":[');
+  if (row) {
+    send(JSON.stringify(row.value));
+    while (row = getRow()) {
+      send(',' + JSON.stringify(row.value));
+    }
+  }
   send(']}');
 }
 
@@ -77,10 +109,15 @@ module.exports = {
     },
     simple: {
       map: simple.toString()
+    },
+    deleteHelper: {
+      map: deleteHelper.toString()
     }
   }),
   lists: {
     featureCollection: featureCollection.toString(),
-    solrToFeatureCollection: solrToFeatureCollection.toString()
+    solrToFeatureCollection: solrToFeatureCollection.toString(),
+    values: values.toString(),
+    bulk: bulk.toString()
   }
 };

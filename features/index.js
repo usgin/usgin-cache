@@ -48,6 +48,32 @@ module.exports = function (config) {
       });
   }
 
+  // ### Streaming conversion from WFS to GeoJSON in CouchDB
+  function convert(cacheId, featureType, callback) {
+    var ogr = toGeoJson(),
+        insert = db.bulk(),
+        wfsData = thisCache.db.attachment.get(cacheId, 'response.xml'),
+        bulkWriter = jsonStream.stringify('{"docs":[', ',', ']}'),
+        geoJsonParser = jsonStream.parse('features.*')
+          .on('data', function (feature) {
+            bulkWriter.write({
+              cacheId: cacheId,
+              featureType: featureType,
+              feature: feature
+            });
+          })
+          .on('end', bulkWriter.end);
+
+    console.time('\t- ' + cacheId);
+    ogr.output.pipe(geoJsonParser);
+    bulkWriter.pipe(insert);
+    wfsData.pipe(ogr.input);
+    insert.on('end', function () {
+        console.timeEnd('\t- ' + cacheId);
+        callback();
+    });
+  }
+
   // ## Public API
   return {
     // ### Direct database access
@@ -72,34 +98,23 @@ module.exports = function (config) {
         }, function (err) {
           if (err) return callback(err);
           console.log('Converting WFS features to GeoJSON...');
-          async.eachLimit(response, 4, convert, callback);
+          async.eachLimit(response, 4, function (row, cb) {
+            convert(row.id, row.key, cb);
+          }, callback);
         });
       }
+    },
 
-      function convert(row, callback) {
-        var ogr = toGeoJson(),
-            insert = db.bulk(),
-            wfsData = thisCache.db.attachment.get(row.id, 'response.xml'),
-            bulkWriter = jsonStream.stringify('{"docs":[', ',', ']}'),
-            geoJsonParser = jsonStream.parse('features.*')
-              .on('data', function (feature) {
-                bulkWriter.write({
-                  cacheId: row.id,
-                  featureType: row.key,
-                  feature: feature
-                });
-              })
-              .on('end', bulkWriter.end);
-
-        console.time('\t- ' + row.id);
-        ogr.output.pipe(geoJsonParser);
-        bulkWriter.pipe(insert);
-        wfsData.pipe(ogr.input);
-        insert.on('end', function () {
-            console.timeEnd('\t- ' + row.id);
-            callback();
+    // ### Convert a single WFS from the cache to GeoJSON
+    convertWfs: function (cacheId, callback) {
+      callback = callback || function () {};
+      thisCache.db.get(cacheId, function (err, doc) {
+        if (err) return callback(err);
+        clearFeatures(cacheId, function (err) {
+          if (err) return callback(err);
+          convert(cacheId, doc.featuretype, callback);
         });
-      }
+      });
     },
 
     // ### Gets features as a GeoJSON FeatureCollection

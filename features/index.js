@@ -20,36 +20,28 @@ module.exports = function (config) {
   // ## Private functions
   // ### Insert features into the feature table
   function insertFeatures(cacheId, featuretype, features, callback) {
-    // First clear existing features
-    clearFeatures(cacheId, function (err) {
-      if (err) return callback(err);
-
-      // Build the CouchDB documents
-      var docs = features.map(function (f) {
-        return {
-          cacheId: cacheId,
-          featureType: featuretype,
-          feature: f
-        };
-      });
-
-      // Insert the docs
-      db.bulk({docs: docs}, callback);
+    // Build the CouchDB documents
+    var docs = features.map(function (f) {
+      return {
+        cacheId: cacheId,
+        featureType: featuretype,
+        feature: f
+      };
     });
+
+    // Insert the docs
+    db.bulk({docs: docs}, callback);
   }
 
   // ### Removes features from a particular GetFeature doc
   function clearFeatures(cacheId, callback) {
     // Lookup features of the given cacheId
-    db.view('usgin-features', 'cacheId', {key: cacheId, include_docs: true}, function (err, response) {
-      if (err) return callback(err);
-
-      var docs = response.rows.map(function (row) {
-        return _.extend(row.doc, {_deleted: true});
+    db.view_with_list('usgin-features', 'deleteHelper', 'bulk', {key: cacheId})
+      .pipe(db.bulk())
+      .on('error', callback)
+      .on('end', function () {
+        callback(null);
       });
-
-      db.bulk({docs: docs}, callback);
-    });
   }
 
   // ## Public API
@@ -70,7 +62,14 @@ module.exports = function (config) {
 
       function createGeoJson(err, response) {
         if (err) return callback(err);
-        async.eachLimit(response, 4, convert, callback);
+        console.log('Clearing existing features...');
+        async.eachSeries(response, function (row, cb) {
+          clearFeatures(row.id, cb);
+        }, function (err) {
+          if (err) return callback(err);
+          console.log('Old features cleared!');
+          async.eachSeries(response, convert, callback);
+        });
       }
 
       function convert(row, callback) {
@@ -78,9 +77,10 @@ module.exports = function (config) {
         var converter = toGeoJson(function (err, result) {
           if (err) return callback(err);
           // Insert those features into the database
+          console.log('\t- Inserting ' + result.length + ' features');
           insertFeatures(row.id, row.key, result, callback);
         });
-
+        console.log('- Converting ' + row.id)
         thisCache.db.attachment.get(row.id, 'response.xml').pipe(converter);
       }
     },

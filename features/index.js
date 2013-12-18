@@ -1,5 +1,7 @@
 var nano = require('nano'),
     _ = require('underscore'),
+    stream = require('stream'),
+    jsonStream = require('JSONStream'),
     async = require('async'),
     cache = require('../cache'),
     toGeoJson = require('./toGeoJson'),
@@ -30,7 +32,9 @@ module.exports = function (config) {
     });
 
     // Insert the docs
-    db.bulk({docs: docs}, callback);
+    db.bulk({docs: docs}, function (err) {
+      callback(err);
+    });
   }
 
   // ### Removes features from a particular GetFeature doc
@@ -67,21 +71,34 @@ module.exports = function (config) {
           clearFeatures(row.id, cb);
         }, function (err) {
           if (err) return callback(err);
-          console.log('Old features cleared!');
-          async.eachSeries(response, convert, callback);
+          console.log('Converting WFS features to GeoJSON...');
+          async.eachLimit(response, 4, convert, callback);
         });
       }
 
       function convert(row, callback) {
-        // Convert the WFS GetFeature doc to an array of GeoJSON features
-        var converter = toGeoJson(function (err, result) {
-          if (err) return callback(err);
-          // Insert those features into the database
-          console.log('\t- Inserting ' + result.length + ' features');
-          insertFeatures(row.id, row.key, result, callback);
+        var ogr = toGeoJson(),
+            insert = db.bulk(),
+            wfsData = thisCache.db.attachment.get(row.id, 'response.xml'),
+            bulkWriter = jsonStream.stringify('{"docs":[', ',', ']}'),
+            geoJsonParser = jsonStream.parse('features.*')
+              .on('data', function (feature) {
+                bulkWriter.write({
+                  cacheId: row.id,
+                  featureType: row.key,
+                  feature: feature
+                });
+              })
+              .on('end', bulkWriter.end);
+
+        console.time('\t- ' + row.id);
+        ogr.output.pipe(geoJsonParser);
+        bulkWriter.pipe(insert);
+        wfsData.pipe(ogr.input);
+        insert.on('end', function () {
+            console.timeEnd('\t- ' + row.id);
+            callback();
         });
-        console.log('- Converting ' + row.id)
-        thisCache.db.attachment.get(row.id, 'response.xml').pipe(converter);
       }
     },
 

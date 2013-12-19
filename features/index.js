@@ -59,7 +59,7 @@ module.exports = function (config) {
           .on('data', function (feature) {
             bulkWriter.write({
               cacheId: cacheId,
-              featureType: featureType,
+              featuretype: featureType,
               feature: feature
             });
           })

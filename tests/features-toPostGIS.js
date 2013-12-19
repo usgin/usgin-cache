@@ -7,7 +7,12 @@ var assert = require('assert'),
     loadTestData = require('./solrData'),
     solr = require('../solr')(testConfig),
     pgParams = require('./test-config'),
-    features = require('../features')(testConfig);
+    features = require('../features')(testConfig),
+    conString = 'postgres://';
+
+conString += pgParams.user && pgParams.password ? pgParams.user + ':' + pgParams.password + '@' : '';
+conString += pgParams.host + ':' + pgParams.port + '/' + pgParams.dbname;
+client = new pg.Client(conString);
 
 var tests = {
 'send three features over to postgis': {
@@ -19,30 +24,20 @@ var tests = {
 	    features.toPostGis('thermalSprings', pgParams, function (err) {
 	    	if (err) return finalCallback(err);
 	    	
-	    	var conString = 'postgres://';
-	    		conString += pgParams.user && pgParams.password ? pgParams.user + ':' + pgParams.password + '@' : '';
-	    		conString += pgParams.host + ':' + pgParams.port + '/' + pgParams.dbname,
-
-	    	client = new pg.Client(conString);
-
-	    	client.connect(function (err) {
+        client.connect(function (err) {
 	    		if (err) return callback(err);
 
 	    		var qs = "SELECT * FROM thermalsprings;"
 
-	    		client.query(qs, function (err, result) {
-	    			if (err) return finalCallback(err);
-	    			assert.equal(3, result.rows.length)
-
-				    finalCallback(err);
-				   	client.end();
-	    		});
+	    		client.query(qs, finalCallback);
 	    	});
 	    });
   	});  	
   },
   'puts data in postgis': function (err, response) {
   	assert(!err);
+    assert.equal(3, response.rows.length);
+    client.end();
   }
 }
 };

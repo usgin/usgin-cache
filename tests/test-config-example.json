@@ -1,7 +1,4 @@
-// # User configurations for running tests
-
 {
-  // PostgreSQL connection parameters
   "user": "developer",
   "password": "password",
   "host": "localhost",

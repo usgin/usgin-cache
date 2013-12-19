@@ -61,6 +61,7 @@ var argv = require('optimist')
 
 
 if (argv.solr !== '') {
+  console.log('Parsing SOLR configuration...');
   var connect = /\/\/(.+?):(.+)\/(.+)\/(.+)/.exec(argv.solr);
   argv.solr = {
     host: connect[1],
@@ -69,6 +70,7 @@ if (argv.solr !== '') {
     path: connect[4]
   };
   featureConfig['solr'] = argv.solr;
+}
 
 if (argv.postgresql !== '') {
   var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql);
@@ -96,7 +98,6 @@ cache.setup(function (err) {
     if (argv.index && argv.mapping) toDo.push(runIndexing);    
     if (argv.addToPostGis && argv.postgresql !== '' && argv.mapping !== '') toDo.push(pushToPostGIS);
     if (argv.cluster && argv.postgresql !== '' && argv.mapping !== '') toDo.push(buildClusters);
-    if (argv.solr !== '') toDo.push(solrConfig);
     async.series(toDo);
   });
 });
@@ -147,11 +148,6 @@ function buildClusters(callback) {
     console.log(msg);
     if (callback) callback(err);
   });
-}
-
-function solrConfig(callback) {
-  console.log('Parsing SOLR configuration...');
-  require('../solr')(featureConfig);
 }
 
 function pushToPostGIS(callback) {

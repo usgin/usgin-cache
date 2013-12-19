@@ -5,6 +5,8 @@ var nano = require('nano'),
     async = require('async'),
     cache = require('../cache'),
     toGeoJson = require('./toGeoJson'),
+    toPostGis = require('./toPostGis'),
+    cluster = require('../cluster'),
     designDoc = require('./design/usgin-features');
 
 // ## Contructor
@@ -58,7 +60,7 @@ module.exports = function (config) {
           .on('data', function (feature) {
             bulkWriter.write({
               cacheId: cacheId,
-              featureType: featureType,
+              featuretype: featureType,
               feature: feature
             });
           })
@@ -117,6 +119,12 @@ module.exports = function (config) {
       });
     },
 
+    // ### Send indexed features to PostGIS
+    toPostGis: function (mapping, connection, callback) {
+      var url = db.view_with_list('usgin-features', mapping, 'solrToFeatureCollection').uri.href,
+          converter = toPostGis(mapping, url, connection, callback);
+    },
+
     // ### Gets features as a GeoJSON FeatureCollection
     getGeoJson: function (featuretype, callback) {
       var params = typeof featuretype === 'string' ? {key: featuretype} : {};
@@ -146,20 +154,19 @@ module.exports = function (config) {
     },
 
     // ### Builds clustered features into the cache
-    buildClusters: function (callback) {
+    buildClusters: function (mapping, connection, callback) {
       callback = callback || function () {};
 
-      require('../solr')(config).getAll(function (err, response) {
+      function insertClusters(err, result) {
         if (err) return callback(err);
 
-        require('../cluster').clusterRange(response, [0,1,2,3,4,5,6,7,8,9,10], function (err, result) {
-          if (err) return callback(err);
+        async.each(_.keys(result), function (zoom, cb) {
+          insertFeatures(zoom, 'cluster', result[zoom], cb)
+        }, callback);
+      }
 
-          async.each(_.keys(result), function (zoom, cb) {
-            insertFeatures(zoom, 'cluster', result[zoom], cb)
-          }, callback);
-        });
-      });
+      var zoomRange = _.range(9); // [0,1,2,3,4,5,6,7,8]
+      cluster.pgClusterRange(mapping, zoomRange, connection, insertClusters);
     },
 
     // ### Get cluster features

@@ -30,7 +30,7 @@ var deleteHelper = function (doc) {
     _rev: doc._rev,
     _deleted: true
   });
-}
+};
 
 var featureCollection = function (head, req) {
   start({'headers': {'Content-type': 'application/json'}});
@@ -41,6 +41,33 @@ var featureCollection = function (head, req) {
     send(JSON.stringify(row.value));
     while (row = getRow()) {
       send(',' + JSON.stringify(row.value));
+    }
+  }
+
+  send(']}');
+};
+
+var solrToFeatureCollection = function (head, req) {
+  function solr2GeoJson(solrDoc) {
+    var geo = solrDoc.geo.split(' ');
+    return {
+      type: "Feature",
+      properties: solrDoc,
+      geometry: {
+        type: "Point",
+        coordinates: [Number(geo[0]), Number(geo[1])]
+      }
+    };
+  }
+
+  start({'headers': {'Content-type': 'application/json'}});
+  send('{"type":"FeatureCollection","features":[');
+
+  var row = getRow();
+  if (row) {
+    send(JSON.stringify(solr2GeoJson(row.value)));
+    while (row = getRow()) {
+      send(',' + JSON.stringify(solr2GeoJson(row.value)));
     }
   }
 
@@ -89,6 +116,7 @@ module.exports = {
   }),
   lists: {
     featureCollection: featureCollection.toString(),
+    solrToFeatureCollection: solrToFeatureCollection.toString(),
     values: values.toString(),
     bulk: bulk.toString()
   }

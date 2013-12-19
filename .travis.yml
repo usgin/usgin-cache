@@ -13,9 +13,7 @@ before_install:
   - ogr2ogr --formats
 before_script: 
   - curl https://raw.github.com/usgin/usgin-cache/master/run-solr.sh | BG=yes bash
-  - sudo su postgres
-  - createuser -D -l -R - S developer
+  - createuser -D -l -R -S developer
   - createdb -O developer usgin_test_db
   - psql -d usgin_test_db -c "create extension postgis;"
-  - exit
   - cp tests/test-config-example.json tests/test-config.json

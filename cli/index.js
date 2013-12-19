@@ -10,14 +10,6 @@ var argv = require('optimist')
   .describe('featureType', '[optional] The name of a WFS FeatureType that you would like to cache')
   .default('featureType', '')
 
-  .alias('index', 'i')
-  .describe('index', '[optional] The name of a mapping function to run into the Solr index')
-  .default('index', '')
-
-  .alias('cluster', 'g')
-  .boolean('cluster')
-  .describe('cluster', '[optional] If specified, rebuild the cache of clustered features')
-
   .alias('dbUrl', 'd')
   .describe('dbUrl', '[optional] The URL for CouchDB')
   .default('dbUrl', 'http://localhost:5984')
@@ -34,6 +26,26 @@ var argv = require('optimist')
   .describe('solr', '[optional] Connection information for interacting with SOLR')
   .default('solr', '')
 
+  .alias('postgresql', 'p')
+  .describe('postgresql', '[optional] Connection information for interacting with PostGIS')
+  .default('postgresql', '')
+
+  .alias('mapping', 'm')
+  .describe('mapping', '[optional] Specify the name of a mapping function to use with -index, -addToPostGis, and -cluster')
+  .default('mapping', '')
+
+  .alias('index', 'i')
+  .boolean('index')
+  .describe('index', '[optional] If specified, data from the specified mapping will be updated in the Solr index')
+
+  .alias('addToPostGis', 'a')
+  .boolean('addToPostGis')
+  .describe('addToPostGis', '[optional] If specified, rebuild the PostGIS table for the specified mapping')
+
+  .alias('cluster', 'g')
+  .boolean('cluster')
+  .describe('cluster', '[optional] If specified, rebuild the cache of clustered features for the specified mapping')
+
   .alias('refresh', 'r')
   .describe('refresh', '[optional] Comma-separated list of aspects of the system to refresh. Options are csw|capabilities|features.')
   .default('refresh', '')
@@ -47,6 +59,7 @@ var argv = require('optimist')
   refreshHarvest = require('../harvest')(true, config),
   doNotRefreshHarvest = require('../harvest')(false, config);
 
+
 if (argv.solr !== '') {
   var connect = /\/\/(.+?):(.+)\/(.+)\/(.+)/.exec(argv.solr);
   argv.solr = {
@@ -56,6 +69,16 @@ if (argv.solr !== '') {
     path: connect[4]
   };
   featureConfig['solr'] = argv.solr;
+
+if (argv.postgresql !== '') {
+  var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql);
+  argv.postgresql = {
+    user: connect[1],
+    password: connect[2],
+    host: connect[3],
+    port: connect[4],
+    dbname: connect[5]
+  };
 }
 
 // Make sure that the databases are set up first.
@@ -70,8 +93,10 @@ cache.setup(function (err) {
     if (argv.featureType !== '') toDo.push(wfsHarvest);
     if (argv.index !== '') toDo.push(runIndexing);
     if (argv.cluster) toDo.push(buildClusters);
+    if (argv.index && argv.mapping) toDo.push(runIndexing);    
+    if (argv.addToPostGis && argv.postgresql !== '' && argv.mapping !== '') toDo.push(pushToPostGIS);
+    if (argv.cluster && argv.postgresql !== '' && argv.mapping !== '') toDo.push(buildClusters);
     if (argv.solr !== '') toDo.push(solrConfig);
-
     async.series(toDo);
   });
 });
@@ -107,8 +132,8 @@ function wfsHarvest(callback) {
 }
 
 function runIndexing(callback) {
-  console.log('Indexing based on the ' + argv.index + ' view...');
-  require('../solr')(featureConfig).addToIndex(argv.index, function (err) {
+  console.log('Indexing based on the ' + argv.mapping + ' view...');
+  require('../solr')(featureConfig).addToIndex(argv.mapping, function (err) {
     var msg = err ? err : 'Indexing finished!';
     console.log(msg);
     if (callback) callback(err);
@@ -117,7 +142,7 @@ function runIndexing(callback) {
 
 function buildClusters(callback) {
   console.log('Building clustered features...');
-  features.buildClusters(function (err) {
+  features.buildClusters(argv.mapping, argv.postgresql, function (err) {
     var msg = err ? err : 'Clustering finished!';
     console.log(msg);
     if (callback) callback(err);
@@ -127,4 +152,12 @@ function buildClusters(callback) {
 function solrConfig(callback) {
   console.log('Parsing SOLR configuration...');
   require('../solr')(featureConfig);
+}
+
+function pushToPostGIS(callback) {
+  console.log('Pushing ' + argv.mapping + ' features to PostGIS...');  
+  features.toPostGis(argv.mapping, argv.postgresql, function (err) {
+    console.log(err ? err : 'PostGIS features pushed!');
+    if (callback) callback(err);
+  });
 }

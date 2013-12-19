@@ -55,6 +55,18 @@ This function is used to parse WFS GetFeature responses that exist in the OGC re
 
 This function takes a single WFS GetFeature response from the cache (indicated by `cacheId`) and converts it to GeoJSON, placing it into the feature cache.
 
+### features.toPostGis(mapping, connection, [callback])
+
+Reads features from the specified `mapping` function and writes them to a database specified by PostgreSQL `connection` parameters. When finished, `callback` is fired with an error message, if any errors were encountered. The `connection` parameter should be an object like this one:
+
+    {
+      'host': 'localhost',
+      'port': 5432,
+      'user': 'cache',
+      'password': 'secret',
+      'dbname': 'usgin-cache'
+    }
+
 ### features.getGeoJson([featuretype], [callback])
 
 This function returns a set of GeoJSON features as a FeatureCollection. If a `featuretype` is provided, then the FeatureCollection will only contain features of the specified type. `callback` is fired with an error message, if one was encountered, otherwise nothing.

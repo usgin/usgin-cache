@@ -5,3 +5,23 @@
     left: 0;
     right: 0;
 }
+
+.leaflet-popup-content table, 
+.leaflet-popup-content th,
+.leaflet-popup-content td {
+    border: 1px solid #d3d3d3;
+}
+
+.leaflet-popup-content th {
+    font-weight: bold;
+    text-align: right;
+}
+
+.leaflet-popup-content td,
+.leaflet-popup-content th {
+    padding: 0 5px;
+}
+
+.leaflet-popup-content table {
+    margin-top: 15px;
+}

@@ -30,10 +30,13 @@ var argv = require('optimist')
   .describe('featuresName', '[optional] The name of the features database')
   .default('featuresName', 'usgin-features')
 
-  .alias('postGIS', 'p')
-  .describe('postGIS', '[optional] PostGIS connection information for clustering features')
-  .default('pgFeatureType', '')
-  .default('connect', 'postgres://user:password@localhost:5432/ngds')
+  .alias('postgresql', 'p')
+  .describe('postgresql', '[optional] Connection information for interacting with PostGIS')
+  .default('postgresql', '')
+
+  .alias('pushFeatures', 'f')
+  .describe('pushFeatures', '[optional] Specify the name of a mapping function to use to push features to PostGIS')
+  .default('pushFeatures', '')
 
   .alias('refresh', 'r')
   .describe('refresh', '[optional] Comma-separated list of aspects of the system to refresh. Options are csw|capabilities|features.')
@@ -60,7 +63,7 @@ cache.setup(function (err) {
     if (argv.featureType !== '') toDo.push(wfsHarvest);
     if (argv.index !== '') toDo.push(runIndexing);
     if (argv.cluster) toDo.push(buildClusters);
-    if (argv.postGIS) toDo.push(clusterPostGIS);
+    if (argv.postGIS !== '' && argv.pushFeatures !== '') toDo.push(pushToPostGIS);
 
     async.series(toDo);
   });
@@ -114,13 +117,19 @@ function buildClusters(callback) {
   });
 }
 
-function clusterPostGIS(callback) {
-  console.log('Clutering features in PostGIS using a k-means formula...')
-  var connect = argv.connect.match(/(.+:\/\/)([^:]*):([^@]*)@([^:]*):([^\/]*)\/(.*)/);
-  var pgParams = {'user': connect[2], 'password': connect[3], 'host': connect[4], 'port': connect[5], 'dbname': connect[6]};
-  require('../features')().toPostGis(argv.pgFeatureType, pgParams, function (err) {
-    var msg = err ? err : 'PostGIS clustering finished!';
-    console.log(msg);
+function pushToPostGIS(callback) {
+  console.log('Pushing ' + argv.pushFeatures + ' features to PostGIS...');
+  var connect = /\/\/(<name>.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql),
+      pgParams = {
+        user: connect[2],
+        password: connect[3],
+        host: connect[4],
+        port: connect[5],
+        dbName: connect[6]
+      };
+      
+  features.toPostGis(argv.pushFeatures, pgParams, function (err) {
+    console.log(err ? err : 'PostGIS features pushed!');
     if (callback) callback(err);
   });
 }

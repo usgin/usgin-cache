@@ -17,7 +17,7 @@ module.exports = function toPostGis(mapping, uri, connection, callback) {
   var params = [
       '-t_srs', 'epsg:4326',
       '-skipfailures', '-overwrite',
-      '-f', 'PostGIS',
+      '-f', 'PostgreSQL',
       '-lco', 'GEOMETRY_NAME=geom',
       '-nln', mapping.toLowerCase(),
       'PG:' + connectionString,

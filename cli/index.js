@@ -119,13 +119,13 @@ function buildClusters(callback) {
 
 function pushToPostGIS(callback) {
   console.log('Pushing ' + argv.pushFeatures + ' features to PostGIS...');
-  var connect = /\/\/(<name>.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql),
+  var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql),
       pgParams = {
-        user: connect[2],
-        password: connect[3],
-        host: connect[4],
-        port: connect[5],
-        dbName: connect[6]
+        user: connect[1],
+        password: connect[2],
+        host: connect[3],
+        port: connect[4],
+        dbname: connect[5]
       };
       
   features.toPostGis(argv.pushFeatures, pgParams, function (err) {

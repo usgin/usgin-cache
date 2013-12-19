@@ -19,7 +19,7 @@ module.exports = function (mapping, bbox, connection, numberOfPoints, callback) 
   client.connect(function(err) {
     if (err) return callback(err);
 
-    console.time('Clustered ' + bbox);
+    console.time('Clustered ' + mapping + ' for ' + bbox);
 
     var qs = 'SELECT kmeans, count(*), ';
     qs += 'st_asgeojson(st_centroid(st_collect(geom))) AS centroid ';
@@ -33,7 +33,7 @@ module.exports = function (mapping, bbox, connection, numberOfPoints, callback) 
     //console.log(qs);
 
     client.query(qs, function (err, result) {
-      console.timeEnd('Clustered ' + bbox);
+      console.timeEnd('Clustered ' + mapping + ' for ' + bbox);
       if (err) return callback(err);
 
       function toGeoJSON(makePolys) {

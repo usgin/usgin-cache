@@ -6,6 +6,7 @@ var nano = require('nano'),
     cache = require('../cache'),
     toGeoJson = require('./toGeoJson'),
     toPostGis = require('./toPostGis'),
+    cluster = require('../cluster'),
     designDoc = require('./design/usgin-features');
 
 // ## Contructor
@@ -153,7 +154,7 @@ module.exports = function (config) {
     },
 
     // ### Builds clustered features into the cache
-    buildClusters: function (callback, pg) {
+    buildClusters: function (mapping, connection, callback) {
       callback = callback || function () {};
 
       function insertClusters(err, result) {
@@ -164,17 +165,8 @@ module.exports = function (config) {
         }, callback);
       }
 
-      var zoomRange = _.range(9), // [0,1,2,3,4,5,6,7,8]
-          cluster = require('../cluster');
-
-      if (pg) {
-        cluster.pgClusterRange('boreholeTemperature', zoomRange, insertClusters);
-      } else {
-        require('../solr')(config).getAll(function (err, response) {
-          if (err) return callback(err);
-          cluster.clusterRange(response, zoomRange, insertClusters);
-        });  
-      }
+      var zoomRange = _.range(9); // [0,1,2,3,4,5,6,7,8]
+      cluster.pgClusterRange(mapping, zoomRange, connection, insertClusters);
     },
 
     // ### Get cluster features

@@ -51,9 +51,9 @@ module.exports = {
     });
   },
 
-  pgClusterRange: function (mapping, range, callback) {
+  pgClusterRange: function (mapping, range, connection, callback) {
     function clusterOneTile(bbox, callback) {
-      pgCluster(mapping, bbox, null, 3, callback);
+      pgCluster(mapping, bbox, connection, 3, callback);
     }
 
     function bboxes(zoom) {

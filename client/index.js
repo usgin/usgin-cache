@@ -5,29 +5,21 @@ var express = require('express'),
     features = require('../features')(),
 
     argv = require('optimist')
-      .alias('postGIS', 'p')
-      .describe('postGIS', '[optional] PostGIS connection information for clustering features')
-      .default('connect', 'postgres://user:password@localhost:5432/ngds')
-      .argv,
+      .alias('postgresql', 'p')
+      .describe('postgresql', '[optional] PostGIS connection information for clustering features')
+      .default('postgresql', '')
+      .argv;
 
-    pgParams = {
-      defaultParams: {
-        dbname: 'ngds',
-        host: 'localhost',
-        port: 5432,
-        user: 'ngds',
-        password: 'secret'
-      }
-    };
-
-  if (argv.postGIS) {
-    var connect = argv.connect.match(/(.+:\/\/)([^:]*):([^@]*)@([^:]*):([^\/]*)\/(.*)/),
-        inputParams = {'user': connect[2], 'password': connect[3], 'host': connect[4], 
-          'port': connect[5], 'dbname': connect[6]};
-    pgParams['inputParams'] = inputParams;
-  }
-
-console.log(pgParams.inputParams);
+if (argv.postgresql !== '') {
+  var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql);
+  argv.postgresql = {
+    user: connect[1],
+    password: connect[2],
+    host: connect[3],
+    port: connect[4],
+    dbname: connect[5]
+  };
+}
 
 app.use(express.static(__dirname + '/public'));
 
@@ -67,7 +59,7 @@ app.get('/data/:zoom', function (req, res, next) {
       if (result.response.numFound > 3000) {
         // Get clusters dynamically from PostGIS
         var getBboxData = require('../cluster/pgCluster');
-        getBboxData('boreholeTemperature', req.query.bbox, pgParams.inputParams, 30, function (err, centers, polys) {
+        getBboxData('boreholeTemperature', req.query.bbox, argv.postgresql, 30, function (err, centers, polys) {
           if (err) return next(err);
           res.json(centers);
         });

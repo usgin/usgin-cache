@@ -4,13 +4,13 @@ node_js:
   - "0.10"
 services:
   - couchdb
+  - postgresql
 before_install:
   - sudo apt-get install python-software-properties
   - sudo apt-add-repository ppa:ubuntugis/ppa -y
   - sudo apt-get update
   - sudo apt-get install gdal-bin
   - ogr2ogr --formats
-  - sudo apt-get install postgresql-9.1-postgis
 before_script: 
   - curl https://raw.github.com/usgin/usgin-cache/master/run-solr.sh | BG=yes bash
   - sudo su postgres

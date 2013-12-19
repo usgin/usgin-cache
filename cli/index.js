@@ -119,7 +119,7 @@ function clusterPostGIS(callback) {
   var connect = argv.connect.match(/(.+:\/\/)([^:]*):([^@]*)@([^:]*):([^\/]*)\/(.*)/);
   var pgParams = {'user': connect[2], 'password': connect[3], 'host': connect[4], 'port': connect[5], 'dbname': connect[6]};
   require('../features')().toPostGis(argv.pgFeatureType, pgParams, function (err) {
-    var msg = err ? err : 'PostGIS Clustering finished!';
+    var msg = err ? err : 'PostGIS clustering finished!';
     console.log(msg);
     if (callback) callback(err);
   });

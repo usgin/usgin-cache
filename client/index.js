@@ -67,7 +67,6 @@ app.get('/data/:zoom', function (req, res, next) {
       if (result.response.numFound > 3000) {
         // Get clusters dynamically from PostGIS
         var getBboxData = require('../cluster/pgCluster');
-
         getBboxData('boreholeTemperature', req.query.bbox, pgParams.inputParams, 30, function (err, centers, polys) {
           if (err) return next(err);
           res.json(centers);

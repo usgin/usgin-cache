@@ -30,6 +30,10 @@ var argv = require('optimist')
   .describe('featuresName', '[optional] The name of the features database')
   .default('featuresName', 'usgin-features')
 
+  .alias('solr', 's')
+  .describe('solr', '[optional] Connection information for interacting with SOLR')
+  .default('solr', '')
+
   .alias('refresh', 'r')
   .describe('refresh', '[optional] Comma-separated list of aspects of the system to refresh. Options are csw|capabilities|features.')
   .default('refresh', '')
@@ -43,6 +47,17 @@ var argv = require('optimist')
   refreshHarvest = require('../harvest')(true, config),
   doNotRefreshHarvest = require('../harvest')(false, config);
 
+if (argv.solr !== '') {
+  var connect = /\/\/(.+?):(.+)\/(.+)\/(.+)/.exec(argv.solr);
+  argv.solr = {
+    host: connect[1],
+    port: connect[2],
+    core: connect[3],
+    path: connect[4]
+  };
+  featureConfig['solr'] = argv.solr;
+}
+
 // Make sure that the databases are set up first.
 console.log('Setting up the OGC cache...');
 cache.setup(function (err) {
@@ -55,6 +70,7 @@ cache.setup(function (err) {
     if (argv.featureType !== '') toDo.push(wfsHarvest);
     if (argv.index !== '') toDo.push(runIndexing);
     if (argv.cluster) toDo.push(buildClusters);
+    if (argv.solr !== '') toDo.push(solrConfig);
 
     async.series(toDo);
   });
@@ -106,4 +122,9 @@ function buildClusters(callback) {
     console.log(msg);
     if (callback) callback(err);
   });
+}
+
+function solrConfig(callback) {
+  console.log('Parsing SOLR configuration...');
+  require('../solr')(featureConfig);
 }

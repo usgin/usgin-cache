@@ -3,7 +3,8 @@ var solr = require('solr-client'),
 
 module.exports = function (featureConfig) {
   var feature = require('../features')(featureConfig),
-      client = solr.createClient();
+      cfg = featureConfig.solr
+      client = solr.createClient(cfg);
 
   client.autoCommit = true;
 

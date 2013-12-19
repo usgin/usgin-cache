@@ -14,6 +14,7 @@ module.exports = function (config) {
   config.dbName = config.dbName || 'usgin-features';
   config.cacheName = config.cacheName || 'usgin-cache';
   config.dbUrl = config.dbUrl || 'http://localhost:5984';
+  config.solr = config.solr || 'solr://host:port/core/solr';
   
   var connection = nano(config.dbUrl),
       db = connection.use(config.dbName),

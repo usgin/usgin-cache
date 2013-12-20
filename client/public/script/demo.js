@@ -73,9 +73,12 @@
   }).addTo(map);
   ngdsCache({
     pointToLayer: function (f, ll) {
+      var zoom = cacheDemo.map.getZoom(),
+          sizes = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1, 1.2, 1.5, 2, 2.5, 3.5, 4];
+
       return L.circleMarker(ll, {
         weight: 0,
-        radius: 3.5,
+        radius: sizes[zoom] || 4,
         fillOpacity: 0.7,
         fillColor: '#594'
       });

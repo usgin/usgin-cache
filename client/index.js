@@ -20,7 +20,6 @@ if (argv.solr !== '') {
 }
 
 var solr = solrClient.createClient(argv.solr.host, argv.solr.port, argv.solr.core, argv.solr.path);
-//var solr = solrClient.createClient();
 
 app.use(express.static(__dirname + '/public'));
 
@@ -30,8 +29,10 @@ app.get('/data/:zoom', function (req, res, next) {
   // All you have to do is make a GET request, and make sure to pass an integer Zoom number.
   // Optionally, you can provide a `?bbox=w,s,e,n` query to limit the search by area.
 
+  // ## Important
+  // This only returns features if there will be less than 3000 in the response. Otherwise it returns an empty FeatureCollection.
+
   // TODO:
-  // - Get clustered data based on the requested Zoom level
   // - Allow for more complex searching (this may occur through a broader API)
 
   // Make sure that a Zoom level was specified

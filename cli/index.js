@@ -67,7 +67,6 @@ if (argv.postgresql !== '') {
     port: connect[4],
     dbname: connect[5]
   };
-}
 
 // Make sure that the databases are set up first.
 console.log('Setting up the OGC cache...');

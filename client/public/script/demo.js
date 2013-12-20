@@ -26,7 +26,7 @@
       if (map) {
         var zoom = map.getZoom(),
             bounds = map.getBounds().toBBoxString();
-        d3.json('/data/' + zoom + '?bbox=' + bounds, L.bind(function (err, data) {
+        d3.json('data/' + zoom + '?bbox=' + bounds, L.bind(function (err, data) {
           this.clearLayers();
 
           if (data.features.length > 0) {

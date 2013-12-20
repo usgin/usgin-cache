@@ -21,11 +21,7 @@ var argv = require('optimist')
   .alias('featuresName', 'f')
   .describe('featuresName', '[optional] The name of the features database')
   .default('featuresName', 'usgin-features')
-/*
-  .alias('solr', 's')
-  .describe('solr', '[optional] Connection information for interacting with SOLR')
-  .default('solr', '')
-*/
+
   .alias('postgresql', 'p')
   .describe('postgresql', '[optional] Connection information for interacting with PostGIS')
   .default('postgresql', '')

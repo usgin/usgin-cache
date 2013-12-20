@@ -21,11 +21,11 @@ var argv = require('optimist')
   .alias('featuresName', 'f')
   .describe('featuresName', '[optional] The name of the features database')
   .default('featuresName', 'usgin-features')
-
+/*
   .alias('solr', 's')
   .describe('solr', '[optional] Connection information for interacting with SOLR')
   .default('solr', '')
-
+*/
   .alias('postgresql', 'p')
   .describe('postgresql', '[optional] Connection information for interacting with PostGIS')
   .default('postgresql', '')
@@ -35,8 +35,8 @@ var argv = require('optimist')
   .default('mapping', '')
 
   .alias('index', 'i')
-  .boolean('index')
   .describe('index', '[optional] If specified, data from the specified mapping will be updated in the Solr index')
+  .default('index', '')
 
   .alias('addToPostGis', 'a')
   .boolean('addToPostGis')
@@ -60,17 +60,7 @@ var argv = require('optimist')
   doNotRefreshHarvest = require('../harvest')(false, config);
 
 
-if (argv.solr !== '') {
-  console.log('Parsing SOLR configuration...');
-  var connect = /\/\/(.+?):(.+)\/(.+)\/(.+)/.exec(argv.solr);
-  argv.solr = {
-    host: connect[1],
-    port: connect[2],
-    core: connect[3],
-    path: connect[4]
-  };
-  featureConfig['solr'] = argv.solr;
-}
+if (argv.index !== '') featureConfig['solr'] = argv.index;
 
 if (argv.postgresql !== '') {
   var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql);
@@ -93,7 +83,6 @@ cache.setup(function (err) {
     var toDo = [];
     if (argv.cswUrl !== '') toDo.push(cswHarvest);
     if (argv.featureType !== '') toDo.push(wfsHarvest);
-    if (argv.index !== '') toDo.push(runIndexing);
     if (argv.cluster) toDo.push(buildClusters);
     if (argv.index && argv.mapping) toDo.push(runIndexing);    
     if (argv.addToPostGis && argv.postgresql !== '' && argv.mapping !== '') toDo.push(pushToPostGIS);

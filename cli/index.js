@@ -56,7 +56,7 @@ var argv = require('optimist')
   doNotRefreshHarvest = require('../harvest')(false, config);
 
 if (argv.index !== '') {
-  var connect = /\/\/(.+?):(\d+)(\/(.+))?(\/.+)/.exec(argv.solr);
+  var connect = /\/\/(.+?):(\d+)(\/(.+))?(\/.+)/.exec(argv.index);
   featureConfig.solr = {
     host: connect[1],
     port: connect[2],

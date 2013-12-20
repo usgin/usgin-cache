@@ -21,36 +21,16 @@
     },
     
     getData: function (evt) {
-      var map = this._map;
-
-      if (map) {
-        var zoom = map.getZoom(),
-            bounds = map.getBounds().toBBoxString();
+      if (this._map) {
+        var zoom = this._map.getZoom(),
+            bounds = this._map.getBounds().toBBoxString();
+        console.time('Zoom level ' + zoom);
         d3.json('/data/' + zoom + '?bbox=' + bounds, L.bind(function (err, data) {
           this.clearLayers();
-
-          if (data.features.length > 0) {
-            this.addData(data);
-            if (!this._dataAdded) {
-              L.LayerGroup.prototype.onAdd.call(this, map);
-              this._dataAdded = true;
-            }
-            if (this._tilesAdded) {
-              map.removeLayer(this._tiles);
-              this._tilesAdded = false;
-            }
-          } else {
-            if (this._dataAdded) {
-              L.LayerGroup.prototype.onAdd.call(this, map);
-              this._dataAdded = false;
-            }
-            if (!this._tilesAdded) {
-              this._tiles.addTo(map);
-              this._tilesAdded = true;
-            }
-          }
-
-
+          this.addData(data);
+          console.timeEnd('Zoom level ' + zoom);
+          console.log('\t' + data.features.length + ' features drawn');
+          console.log('\t' + data.features.reduce(function (memo, f) {return memo + Number(f.properties.count);}, 0) + ' child features');
         }, this));
       }
     }
@@ -80,7 +60,8 @@
         weight: 0,
         radius: sizes[zoom] || 4,
         fillOpacity: 0.7,
-        fillColor: '#594'
+        fillColor: '#E88282',
+        color: f.properties.count ? '#000' : '#BD1E1E'
       });
     },
     onEachFeature: function (f, layer) {

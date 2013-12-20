@@ -31,8 +31,8 @@ var argv = require('optimist')
   .default('mapping', '')
 
   .alias('index', 'i')
-  .boolean('index')
   .describe('index', '[optional] If specified, data from the specified mapping will be updated in the Solr index')
+  .default('index', '')
 
   .alias('addToPostGis', 'a')
   .boolean('addToPostGis')
@@ -55,6 +55,9 @@ var argv = require('optimist')
   refreshHarvest = require('../harvest')(true, config),
   doNotRefreshHarvest = require('../harvest')(false, config);
 
+
+if (argv.index !== '') featureConfig['solr'] = argv.index;
+
 if (argv.postgresql !== '') {
   var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql);
   argv.postgresql = {
@@ -64,7 +67,6 @@ if (argv.postgresql !== '') {
     port: connect[4],
     dbname: connect[5]
   };
-}
 
 // Make sure that the databases are set up first.
 console.log('Setting up the OGC cache...');
@@ -76,10 +78,10 @@ cache.setup(function (err) {
     var toDo = [];
     if (argv.cswUrl !== '') toDo.push(cswHarvest);
     if (argv.featureType !== '') toDo.push(wfsHarvest);
+    if (argv.cluster) toDo.push(buildClusters);
     if (argv.index && argv.mapping) toDo.push(runIndexing);    
     if (argv.addToPostGis && argv.postgresql !== '' && argv.mapping !== '') toDo.push(pushToPostGIS);
     if (argv.cluster && argv.postgresql !== '' && argv.mapping !== '') toDo.push(buildClusters);
-
     async.series(toDo);
   });
 });

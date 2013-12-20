@@ -16,6 +16,17 @@ module.exports = function (config) {
   config.dbName = config.dbName || 'usgin-features';
   config.cacheName = config.cacheName || 'usgin-cache';
   config.dbUrl = config.dbUrl || 'http://localhost:5984';
+  config.solr = config.solr || 'solr://127.0.0.1:8983/collection1/solr';
+
+  if (config.solr !== '') {
+    var connect = /\/\/(.+?):(\d+)\/((.+)\/)?(.+)/.exec(config.solr);
+    config.solr = {
+      host: connect[1],
+      port: connect[2],
+      core: connect[4],
+      path: '/' + connect[5]
+    };
+  }
   
   var connection = nano(config.dbUrl),
       db = connection.use(config.dbName),

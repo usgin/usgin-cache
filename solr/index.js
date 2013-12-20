@@ -3,7 +3,13 @@ var solr = require('solr-client'),
 
 module.exports = function (featureConfig) {
   var feature = require('../features')(featureConfig),
-      client = solr.createClient();
+      solrCfg = featureConfig.solr || {
+        host: '127.0.0.1',
+        port: 8983,
+        core: '',
+        path: '/solr'
+      },
+      client = solr.createClient(solrCfg.host, solrCfg.port, solrCfg.core, solrCfg.path);
 
   client.autoCommit = true;
 

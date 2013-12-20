@@ -31,8 +31,8 @@ var argv = require('optimist')
   .default('mapping', '')
 
   .alias('index', 'i')
-  .boolean('index')
-  .describe('index', '[optional] If specified, data from the specified mapping will be updated in the Solr index')
+  .describe('index', '[optional] If specified, data from the specified mapping will be updated in the Solr index specified by the given connection string')
+  .default('index', '')
 
   .alias('addToPostGis', 'a')
   .boolean('addToPostGis')
@@ -54,6 +54,16 @@ var argv = require('optimist')
   features = require('../features')(featureConfig),
   refreshHarvest = require('../harvest')(true, config),
   doNotRefreshHarvest = require('../harvest')(false, config);
+
+if (argv.index !== '') {
+  var connect = /\/\/(.+?):(\d+)(\/(.+))?(\/.+)/.exec(argv.solr);
+  featureConfig.solr = {
+    host: connect[1],
+    port: connect[2],
+    core: connect[4],
+    path: connect[5]
+  };
+}
 
 if (argv.postgresql !== '') {
   var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql);

@@ -49,39 +49,32 @@ app.get('/data/:zoom', function (req, res, next) {
         .q('*.*').rows(0)
         .rangeFilter(range);
 
-  if (req.params.zoom < 9) {
-    // Make a request for clusters from CouchDB
-    features.getClusters(req.params.zoom, function (err, result) {
-      if (err) return next(err);
-      res.json(result);
-    });
-  } else {
-    // Check how many features Solr would return directly
-    solr.search(query, function (err, result) {
-      if (result.response.numFound > 3000) {
-        console.log(result.response.numFound);
-      } else {
-        query = solr.createQuery()
-          .q('*.*').rows(result.response.numFound)
-          .rangeFilter(range);
-        solr.search(query, function (err, result) {
-          // Convert to GeoJSON FeatureCollection
-          var features = result.response.docs.map(function (doc) {
-            var geo = doc.geo[0].split(' ');
-            return {
-              type: "Feature",
-              properties: doc,
-              geometry: {
-                type: "Point",
-                coordinates: [Number(geo[0]), Number(geo[1])]
-              }
-            };
-          });
-          res.json({type: "FeatureCollection", features: features});
+  // Check how many features Solr would return directly
+  solr.search(query, function (err, result) {
+    console.log(bbox + ': ' + result.response.numFound);
+    if (result.response.numFound < 3000) {
+      query = solr.createQuery()
+        .q('*.*').rows(result.response.numFound)
+        .rangeFilter(range);
+      solr.search(query, function (err, result) {
+        // Convert to GeoJSON FeatureCollection
+        var features = result.response.docs.map(function (doc) {
+          var geo = doc.geo[0].split(' ');
+          return {
+            type: "Feature",
+            properties: doc,
+            geometry: {
+              type: "Point",
+              coordinates: [Number(geo[0]), Number(geo[1])]
+            }
+          };
         });
-      }
-    });
-  }
+        res.json({type: "FeatureCollection", features: features});
+      });
+    } else {
+      res.json({type: "FeatureCollection", features: []});
+    }
+  });
 });
 
 app.listen(3000);

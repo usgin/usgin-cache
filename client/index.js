@@ -1,25 +1,26 @@
 var express = require('express'),
     app = express(),
     solrClient = require('solr-client'),
-    solr = solrClient.createClient(),
     features = require('../features')(),
 
     argv = require('optimist')
-      .alias('postgresql', 'p')
-      .describe('postgresql', '[optional] PostGIS connection information for clustering features')
-      .default('postgresql', '')
+      .alias('solr', 's')
+      .describe('solr', '[optional] Connection information for interacting with SOLR')
+      .default('solr', '')
       .argv;
 
-if (argv.postgresql !== '') {
-  var connect = /\/\/(.+?):(.+)@(.+):(.+)\/(.+)$/.exec(argv.postgresql);
-  argv.postgresql = {
-    user: connect[1],
-    password: connect[2],
-    host: connect[3],
-    port: connect[4],
-    dbname: connect[5]
+if (argv.solr !== '') {
+  var connect = /\/\/(.+?):(\d+)\/((.+)\/)?(.+)/.exec(argv.solr);
+  argv.solr = {
+    host: connect[1],
+    port: connect[2],
+    core: connect[4],
+    path: '/' + connect[5]
   };
 }
+
+var solr = solrClient.createClient(argv.solr.host, argv.solr.port, argv.solr.core, argv.solr.path);
+//var solr = solrClient.createClient();
 
 app.use(express.static(__dirname + '/public'));
 
@@ -57,12 +58,7 @@ app.get('/data/:zoom', function (req, res, next) {
     // Check how many features Solr would return directly
     solr.search(query, function (err, result) {
       if (result.response.numFound > 3000) {
-        // Get clusters dynamically from PostGIS
-        var getBboxData = require('../cluster/pgCluster');
-        getBboxData('boreholeTemperature', req.query.bbox, argv.postgresql, 30, function (err, centers, polys) {
-          if (err) return next(err);
-          res.json(centers);
-        });
+        console.log(result.response.numFound);
       } else {
         query = solr.createQuery()
           .q('*.*').rows(result.response.numFound)

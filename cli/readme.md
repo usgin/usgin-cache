@@ -38,7 +38,7 @@ Use a mapping function to index Thermal Springs features in Solr
 
 Use a mapping function to send Thermal Springs features to PostGIS
 
-    pc:user$ node cli -p postgres://user:password@localhost:5432/databasename -m thermalSprings -i
+    pc:user$ node cli -p postgres://user:password@localhost:5432/databasename -m thermalSprings -a
 
 Use a mapping function to build clustered features for Thermal Springs
 

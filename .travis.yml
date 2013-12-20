@@ -4,10 +4,16 @@ node_js:
   - "0.10"
 services:
   - couchdb
+  - postgresql
 before_install:
   - sudo apt-get install python-software-properties
   - sudo apt-add-repository ppa:ubuntugis/ppa -y
   - sudo apt-get update
   - sudo apt-get install gdal-bin
   - ogr2ogr --formats
-before_script: curl https://raw.github.com/usgin/usgin-cache/master/run-solr.sh | BG=yes bash
+before_script: 
+  - curl https://raw.github.com/usgin/usgin-cache/master/run-solr.sh | BG=yes bash
+  - createuser -D -l -R -S developer
+  - createdb -O developer usgin_test_db
+  - psql -d usgin_test_db -c "create extension postgis;"
+  - cp tests/test-config-example.json tests/test-config.json

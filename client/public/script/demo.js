@@ -4,7 +4,9 @@
   var NgdsCache = L.GeoJSON.extend({
     initialize: function (options) {
       L.GeoJSON.prototype.initialize.call(this, null, options);
-      this._tiles = L.tileLayer('http://{s}.tiles.usgin.org/borehole-temperature/{z}/{x}/{y}.png');
+      this._tiles = L.tileLayer('http://{s}.tiles.usgin.org/borehole-temperature/{z}/{x}/{y}.png', {
+        detectRetina: true
+      });
       this._tilesAdded = false;
       this._dataAdded = false;
     },

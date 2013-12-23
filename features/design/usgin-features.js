@@ -32,6 +32,34 @@ var deleteHelper = function (doc) {
   });
 };
 
+var properties = function (doc) {
+  var props = doc.feature.properties || {};
+  emit(doc.featuretype, props);
+};
+
+var csv = function (head, req) {
+  start({'headers': {'Content-type': 'text/csv'}});
+  var row = getRow(),
+      columns = Object.keys(row.value);
+
+  send('"' + columns.join('","') + '"\n');
+
+  function sendRow(row) {
+    var ordered = columns.map(function (col) {
+      return row.value[col];
+    });
+    send('"' + ordered.join('","') + '"\n');
+  }
+
+  sendRow(row);
+  while (row = getRow()) {
+    sendRow(row);
+  }
+
+  send('');
+};
+
+
 var featureCollection = function (head, req) {
   start({'headers': {'Content-type': 'application/json'}});
   send('{"type":"FeatureCollection","features":[');
@@ -112,12 +140,16 @@ module.exports = {
     },
     deleteHelper: {
       map: deleteHelper.toString()
+    },
+    properties: {
+      map: properties.toString()
     }
   }),
   lists: {
     featureCollection: featureCollection.toString(),
     solrToFeatureCollection: solrToFeatureCollection.toString(),
     values: values.toString(),
-    bulk: bulk.toString()
+    bulk: bulk.toString(),
+    csv: csv.toString()
   }
 };

@@ -7,6 +7,7 @@ var assert = require('assert'),
     
     testConfig = {dbName: 'usgin-cache-test', dbUrl: 'http://localhost:5984'}, 
     db = cache(false, testConfig);
+    harvester = harvest(false, testConfig);
 
     var tests = {
     	'setup test csw server': {
@@ -38,45 +39,52 @@ var assert = require('assert'),
                             'and works': function (err, response) {
                                 assert.isNull(err);
                             },
-                            'and test it all together': {
+                            'and gatherCapabilities': {
                                 topic: function () {
-                                    var featuretype = "aasg:BoreholeLithInterval",
-                                        maxfeatures = 10,
-                                        harvester = harvest(false, testConfig);
-                                    harvester.gatherFeatures(featuretype, maxfeatures, this.callback);
+                                    harvester.gatherCapabilities(this.callback);
                                 },
-                                'did not fail': function (err) {
+                                'and it worked': function (err) {
                                     assert(!err);
                                 },
-                                'and see if getfeature worked': {
+                                'and test it all together': {
                                     topic: function () {
-                                        db.db.view('usgin-cache', 'requests', {key: 'getfeature', reduce: false}, this.callback);
+                                        var featuretype = "aasg:BoreholeLithInterval",
+                                            maxfeatures = 10;
+                                        harvester.gatherFeatures(featuretype, maxfeatures, this.callback);
                                     },
-                                    'has features in db': function (err, response) {
-                                        assert(response.rows.length, 1);
+                                    'did not fail': function (err) {
+                                        assert(!err);
                                     },
-                                    'and see if getcapabilities worked': {
+                                    'and see if getfeature worked': {
                                         topic: function () {
-                                            db.db.view('usgin-cache', 'requests', {key: 'getcapabilities', reduce: false}, this.callback);
+                                            db.db.view('usgin-cache', 'requests', {key: 'getfeature', reduce: false}, this.callback);
                                         },
                                         'has features in db': function (err, response) {
                                             assert(response.rows.length, 1);
                                         },
-                                        'turn off wfs server': {
+                                        'and see if getcapabilities worked': {
                                             topic: function () {
-                                                wfsServer.stop(this.callback);
+                                                db.db.view('usgin-cache', 'requests', {key: 'getcapabilities', reduce: false}, this.callback);
                                             },
-                                            'turn off csw server': {
+                                            'has features in db': function (err, response) {
+                                                assert(response.rows.length, 1);
+                                            },
+                                            'turn off wfs server': {
                                                 topic: function () {
-                                                    server.stop(this.callback);
+                                                    wfsServer.stop(this.callback);
                                                 },
-                                                'worked': function (err, response) {
-                                                    assert.isNull(err);
+                                                'turn off csw server': {
+                                                    topic: function () {
+                                                        server.stop(this.callback);
+                                                    },
+                                                    'worked': function (err, response) {
+                                                        assert.isNull(err);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                }
+                                }                            
                             }
                         }
                     }

@@ -24,7 +24,7 @@ run() {
     then
         java -jar start.jar > /dev/null 2>&1 &
     else
-        java -jar start.jar
+        java -jar -Xmx2048m start.jar
     fi
     wait_for_solr
     cd ../../

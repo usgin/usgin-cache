@@ -1,8 +1,12 @@
 var nano = require('nano'),
     _ = require('underscore'),
+    stream = require('stream'),
+    jsonStream = require('JSONStream'),
     async = require('async'),
     cache = require('../cache'),
     toGeoJson = require('./toGeoJson'),
+    toPostGis = require('./toPostGis'),
+    cluster = require('../cluster'),
     designDoc = require('./design/usgin-features');
 
 // ## Contructor
@@ -12,7 +16,7 @@ module.exports = function (config) {
   config.dbName = config.dbName || 'usgin-features';
   config.cacheName = config.cacheName || 'usgin-cache';
   config.dbUrl = config.dbUrl || 'http://localhost:5984';
-  
+
   var connection = nano(config.dbUrl),
       db = connection.use(config.dbName),
       thisCache = cache({dbName: config.cacheName, dbUrl: config.dbUrl});
@@ -20,33 +24,55 @@ module.exports = function (config) {
   // ## Private functions
   // ### Insert features into the feature table
   function insertFeatures(cacheId, featuretype, features, callback) {
-    // First clear existing features
-    clearFeatures(cacheId, function (err) {
-      if (err) return callback(err);
+    // Build the CouchDB documents
+    var docs = features.map(function (f) {
+      return {
+        cacheId: cacheId,
+        featureType: featuretype,
+        feature: f
+      };
+    });
 
-      // Now build the features and insert them
-      async.eachLimit(features, 10, function (f, cb) {
-        var feature = {
-          cacheId: cacheId,
-          featuretype: featuretype,
-          feature: f
-        };
-        db.insert(feature, cb);
-      }, callback);
+    // Insert the docs
+    db.bulk({docs: docs}, function (err) {
+      callback(err);
     });
   }
 
   // ### Removes features from a particular GetFeature doc
   function clearFeatures(cacheId, callback) {
     // Lookup features of the given cacheId
-    db.view('usgin-features', 'cacheId', {key: cacheId, include_docs: true}, function (err, response) {
-      if (err) return callback(err);
+    db.view_with_list('usgin-features', 'deleteHelper', 'bulk', {key: cacheId})
+      .pipe(db.bulk())
+      .on('error', callback)
+      .on('end', function () {
+        callback(null);
+      });
+  }
 
-      // Mark each as deleted and move on
-      async.eachLimit(response.rows, 10, function (row, cb) {
-        _.extend(row.doc, {_deleted: true});
-        db.insert(row.doc, row.id, cb);
-      }, callback);
+  // ### Streaming conversion from WFS to GeoJSON in CouchDB
+  function convert(cacheId, featureType, callback) {
+    var ogr = toGeoJson(),
+        insert = db.bulk(),
+        wfsData = thisCache.db.attachment.get(cacheId, 'response.xml'),
+        bulkWriter = jsonStream.stringify('{"docs":[', ',', ']}'),
+        geoJsonParser = jsonStream.parse('features.*')
+          .on('data', function (feature) {
+            bulkWriter.write({
+              cacheId: cacheId,
+              featuretype: featureType,
+              feature: feature
+            });
+          })
+          .on('end', bulkWriter.end);
+
+    console.time('\t- ' + cacheId);
+    ogr.output.pipe(geoJsonParser);
+    bulkWriter.pipe(insert);
+    wfsData.pipe(ogr.input);
+    insert.on('end', function () {
+        console.timeEnd('\t- ' + cacheId);
+        callback();
     });
   }
 
@@ -68,17 +94,35 @@ module.exports = function (config) {
 
       function createGeoJson(err, response) {
         if (err) return callback(err);
-        async.eachLimit(response, 4, convert, callback);
-      }
-
-      function convert(row, callback) {
-        // Convert the WFS GetFeature doc to an array of GeoJSON features
-        toGeoJson(row.value, function (err, results) {
+        console.log('Clearing existing features...');
+        async.eachSeries(response, function (row, cb) {
+          clearFeatures(row.id, cb);
+        }, function (err) {
           if (err) return callback(err);
-          // Insert those features into the database
-          insertFeatures(row.id, row.key, results, callback);
+          console.log('Converting WFS features to GeoJSON...');
+          async.eachLimit(response, 4, function (row, cb) {
+            convert(row.id, row.key, cb);
+          }, callback);
         });
       }
+    },
+
+    // ### Convert a single WFS from the cache to GeoJSON
+    convertWfs: function (cacheId, callback) {
+      callback = callback || function () {};
+      thisCache.db.get(cacheId, function (err, doc) {
+        if (err) return callback(err);
+        clearFeatures(cacheId, function (err) {
+          if (err) return callback(err);
+          convert(cacheId, doc.featuretype, callback);
+        });
+      });
+    },
+
+    // ### Send indexed features to PostGIS
+    toPostGis: function (mapping, connection, callback) {
+      var url = db.view_with_list('usgin-features', mapping, 'solrToFeatureCollection').uri.href,
+          converter = toPostGis(mapping, url, connection, callback);
     },
 
     // ### Gets features as a GeoJSON FeatureCollection
@@ -110,20 +154,19 @@ module.exports = function (config) {
     },
 
     // ### Builds clustered features into the cache
-    buildClusters: function (callback) {
+    buildClusters: function (mapping, connection, callback) {
       callback = callback || function () {};
 
-      require('../solr')(config).getAll(function (err, response) {
+      function insertClusters(err, result) {
         if (err) return callback(err);
 
-        require('../cluster').clusterRange(response, [0,1,2,3,4,5,6,7,8,9,10], function (err, result) {
-          if (err) return callback(err);
+        async.each(_.keys(result), function (zoom, cb) {
+          insertFeatures(zoom, 'cluster', result[zoom], cb)
+        }, callback);
+      }
 
-          async.each(_.keys(result), function (zoom, cb) {
-            insertFeatures(zoom, 'cluster', result[zoom], cb)
-          }, callback);
-        });
-      });
+      var zoomRange = _.range(9); // [0,1,2,3,4,5,6,7,8]
+      cluster.pgClusterRange(mapping, zoomRange, connection, insertClusters);
     },
 
     // ### Get cluster features

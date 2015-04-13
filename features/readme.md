@@ -51,9 +51,33 @@ This function is used to parse WFS GetFeature responses that exist in the OGC re
 2. For each GetFeature document in the list to be parsed, remove any WFS records that already exist in the feature cache that came from the same document.
 3. Convert features in each document to GeoJSON, and store records in the feature cache as described above.
 
+### features.convertWfs(cacheId, [callback])
+
+This function takes a single WFS GetFeature response from the cache (indicated by `cacheId`) and converts it to GeoJSON, placing it into the feature cache.
+
+### features.toPostGis(mapping, connection, [callback])
+
+Reads features from the specified `mapping` function and writes them to a database specified by PostgreSQL `connection` parameters. When finished, `callback` is fired with an error message, if any errors were encountered. The `connection` parameter should be an object like this one:
+
+    {
+      'host': 'localhost',
+      'port': 5432,
+      'user': 'cache',
+      'password': 'secret',
+      'dbname': 'usgin-cache'
+    }
+
 ### features.getGeoJson([featuretype], [callback])
 
-This function returns a set of GeoJSON features as a FeatureCollection. If a `featuretype` is provided, then the FeatureCollection will only contain features of the specified type.
+This function returns a set of GeoJSON features as a FeatureCollection. If a `featuretype` is provided, then the FeatureCollection will only contain features of the specified type. `callback` is fired with an error message, if one was encountered, otherwise nothing.
+
+### features.buildClusters([callback])
+
+Builds clusters of features and stores them in CouchDB. Clusters are built for each of a set range of zoom levels. The `callback` is fired with an error message if one was encountered, otherwise nothing.
+
+### features.getClusters(zoom, callback)
+
+Gets cluster features from the database for the specified `zoom` level. `callback` is fired following the common pattern of `callback(err, features)`, where `err` is null if no error was enocountered, and `features` is a GeoJSON FeatureCollection.
 
 ### features.db
 

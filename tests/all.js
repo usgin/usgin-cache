@@ -13,4 +13,5 @@ vows.describe('The USGIN Cache')
   .addBatch(require('./harvest-gatherFeatures.js'))
   .addBatch(require('./features-getFeatures.js'))
   .addBatch(require('./solr-everything.js'))
+  .addBatch(require('./features-toPostGIS.js'))
   .export(module);

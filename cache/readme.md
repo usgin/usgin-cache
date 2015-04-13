@@ -72,9 +72,13 @@ Performs a WFS GetCapabilities request. `callback` identical to above.
 
 Will perform a WFS GetFeature request. `wfsBaseUrl` and `featureType` are required, while `maxFeatures` is optional. `callback` identical to above.
 
-### cache.getFeaturesByType([featureType], [callback])
+### cache.wfsFeaturesByType([featureType], [callback])
 
 Returns a document that represents the WFS GetFeature responses that are available in the cache. These responses are indexed by the name of the featureType that they contain. If a `featureType` is provided, then only responses of that type are returned.
+
+### cache.failedGetFeatures([callback])
+
+Returns a list of WFS URLs to which GetFeature requests were made, but failed.
 
 ### cache.db
 

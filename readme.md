@@ -33,16 +33,13 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 - [Apache Solr]((http://lucene.apache.org/solr/)
 - [CouchDB](http://couchdb.apache.org/)
 - [GDAL/OGR](http://gdal.org)
+- [PostgreSQL](http://postgresql.org)
 
 ### Then:
 
     git clone https://github.com/usgin/usgin-cache.git
     cd usgin-cache
     npm install
-
-## Configuration
-
-... hmm ...
 
 ### Connect to Solr
 
@@ -72,6 +69,23 @@ groc
 
 ## Running Tests:
 
-To run unit tests:
+1. Make sure that Solr is running
 
-    npm test
+```
+./run-solr.sh
+```
+
+2. Make sure that you have a PostGIS-enabled database ready to accept test data
+
+```shell
+createuser -P cache_tester
+createdb -O cache_tester cache_test
+psql -d cache_test -c "create extension postgis;"
+```
+
+3. Make a copy of `tests/test-config-example.json` and edit it to match the connection details for your test database.
+4. Run the tests.
+
+```
+npm test
+```

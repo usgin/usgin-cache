@@ -8,7 +8,18 @@ module.exports = function (cache) {
     gatherCapabilities: function (callback) {
         cache.wfsUrls(function (err, urls) {
             if (err) return callback(err);
-            async.eachLimit(urls, 10, cache.getCapabilities, callback);
+
+            var remaining = urls.length;
+            console.log('\t- There are ' + remaining + ' WFS GetCapabilities left to harvest.');
+            async.eachLimit(urls, 10, function (url, cb) {
+                cache.getCapabilities(url, function (err) {
+                    var msg = err ? '\t- ERROR: ' + url + ' -- ' + err : '\t- HARVESTED: ' + url;
+                    console.log(msg);
+                    remaining--;
+                    console.log('\t- There are ' + remaining + ' WFS GetCapabilities left to harvest.');
+                    cb(err);
+                });
+            }, callback);
         });
     },
 
@@ -18,8 +29,16 @@ module.exports = function (cache) {
         if (typeof maxfeatures === 'function') callback = maxfeatures;
         if (!isNaN(maxfeatures)) limit = maxfeatures;
 
+        var remaining = urls.length;
+        console.log('\t- There are ' + remaining + ' WFS Services left to harvest.');
         async.eachLimit(urls, 10, function (url, callback) {
-            cache.getFeature(url, featuretype, limit, callback);
+            cache.getFeature(url, featuretype, limit, function (err) {
+                var msg = err ? '\t- ERROR: ' + url + ' -- ' + err : '\t- HARVESTED: ' + url;
+                console.log(msg);
+                remaining--;
+                console.log('\t- There are ' + remaining + ' WFS Services left to harvest.');
+                callback(err);
+            });
         }, callback);
     }
   };

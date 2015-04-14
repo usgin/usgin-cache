@@ -29,16 +29,18 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 ### Pre-requisite Installations:
 
 - [Git](http://git-scm.com/)
-- [Node.js](http://nodejs.org/)
-- [Apache Solr]((http://lucene.apache.org/solr/)
+- [Microsoft Visual Studio 2012](http://www.microsoft.com/en-us/download/details.aspx?id=34673) (for Windows only)
+- [Node.js](http://nodejs.org/dist/v0.10.26/) (v0.10.26)
+- [Apache Solr](http://lucene.apache.org/solr/)
 - [CouchDB](http://couchdb.apache.org/)
 - [GDAL/OGR](http://gdal.org)
-- [PostgreSQL](http://postgresql.org)
+- [PostgreSQL](http://postgresql.org) (x64 for 64 bit OS) 
 
 ### Then:
 
     git clone https://github.com/usgin/usgin-cache.git
     cd usgin-cache
+    npm config set msvs_version 2012 --global 
     npm install
 
 ### Connect to Solr
@@ -64,6 +66,7 @@ To rebuild them, follow these instructions:
 git checkout gh-pages
 git merge master
 npm install
+npm install -g groc
 groc
 ```
 
@@ -83,7 +86,7 @@ createdb -O cache_tester cache_test
 psql -d cache_test -c "create extension postgis;"
 ```
 
-3. Make a copy of `tests/test-config-example.json` and edit it to match the connection details for your test database.
+3. Make a copy of `tests/test-config-example.json` with the name `tests/test-config.json` and edit it to match the connection details for your test database.
 4. Run the tests.
 
 ```

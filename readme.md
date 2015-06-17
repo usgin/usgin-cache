@@ -35,6 +35,7 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 - [CouchDB](http://couchdb.apache.org/)
 - [GDAL/OGR](http://gdal.org)
 - [PostgreSQL](http://postgresql.org) (x64 for 64 bit OS) 
+- [Elastic Search](https://www.elastic.co/downloads/elasticsearch) 
 
 ### Then:
 
@@ -49,6 +50,13 @@ There is a bash script included that will download, configure, and run Solr for 
 
     chmod 755 run-solr.sh
     ./run-solr.sh
+
+## Elastic Search Configure
+1.	Unzip binaries.
+2.	Install JDK and set environment variables Name: JAVA_HOME, PATH=’JDK installation directory in program files’
+3.	Run elasticsearch command from elastic search bin directory.
+4.	Install plugin for couchdb from [here](http://daemon.co.za/2012/05/elasticsearch-5-minutes/)
+5.	Install Marvel management and monitoring tool if possible
 
 ### Writing Mapping Functions
 

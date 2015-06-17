@@ -1,16 +1,20 @@
+
 var express = require('express'),
     app = express(),
     solrClient = require('solr-client'),
     features = require('../features')(),
+   // L = require('leaflet'),
 
     argv = require('optimist')
       .alias('solr', 's')
       .describe('solr', '[optional] Solr connection information')
       .default('solr', 'solr://127.0.0.1:8983/solr')
-      .argv;
+      .argv,
 
-var connect = /\/\/(.+?):(\d+)(\/(.+))?(\/.+)/.exec(argv.solr);
-argv.solr = {
+  //  require('leaflet-draw');
+  //  require('leaflet-providers');
+    connect = /\/\/(.+?):(\d+)(\/(.+))?(\/.+)/.exec(argv.solr);
+ argv.solr = {
   host: connect[1],
   port: connect[2],
   core: connect[4],
@@ -18,10 +22,15 @@ argv.solr = {
 };
 
 var solr = solrClient.createClient(argv.solr.host, argv.solr.port, argv.solr.core, argv.solr.path);
-
+//console.log(solr);
 app.use(express.static(__dirname + '/public'));
+//console.log("solr = " + solrClient.createClient(argv.solr.host, argv.solr.port, argv.solr.core, argv.solr.path) );
+console.log("app.use="+ __dirname + '/public');
+//console.log("printed above");
 
 app.get('/data/:zoom', function (req, res, next) {
+    //console.log('Zoom: ', req.params.zoom);
+    //res.send('hello world');
   // ## Getting Data
   // This function is the primary API for drawing data out of the system for visualization.
   // All you have to do is make a GET request, and make sure to pass an integer Zoom number.
@@ -49,7 +58,7 @@ app.get('/data/:zoom', function (req, res, next) {
 
   // Check how many features Solr would return directly
   solr.search(query, function (err, result) {
-    console.log(bbox + ': ' + result.response.numFound);
+    console.log(bbox + ': Features:' + result.response.numFound);
     if (result.response.numFound < 3000) {
       query = solr.createQuery()
         .q('*.*').rows(result.response.numFound)
@@ -57,6 +66,7 @@ app.get('/data/:zoom', function (req, res, next) {
       solr.search(query, function (err, result) {
         // Convert to GeoJSON FeatureCollection
         var features = result.response.docs.map(function (doc) {
+          //console.log("in the features... "+doc.geo[0]);
           var geo = doc.geo[0].split(' ');
           return {
             type: "Feature",
@@ -66,8 +76,13 @@ app.get('/data/:zoom', function (req, res, next) {
               coordinates: [Number(geo[0]), Number(geo[1])]
             }
           };
+
+
         });
         res.json({type: "FeatureCollection", features: features});
+        /*  if(result.response.numFound > 0){
+              console.log(res.json({type: "FeatureCollection", features: features}));
+          } */
       });
     } else {
       res.json({type: "FeatureCollection", features: []});

@@ -1,15 +1,16 @@
 #map {
     position: absolute;
-    top: 0;
+    top: 50px;
     bottom: 0;
-    left: 0;
-    right: 0;
+    left: 20px;
+    right: 20px;
+    height: 600px;
 }
 
 .leaflet-popup-content table, 
 .leaflet-popup-content th,
 .leaflet-popup-content td {
-    border: 1px solid #d3d3d3;
+ border: 1px solid   #ffff00; /*d3d3d3*/
 }
 
 .leaflet-popup-content th {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<wfs:WFS_Capabilities version='1.1.0'
-                      xsi:schemaLocation='http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/gml.xsd http://www.opengis.net/ogc http://schemas.opengis.net/filter/1.1.0/filter.xsd http://www.opengis.net/ows http://schemas.opengis.net/ows/1.0.0/owsAll.xsd http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd'
-                      xmlns:wfs='http://www.opengis.net/wfs' xmlns:ogc='http://www.opengis.net/ogc'
+<wfs:WFS_Capabilities xmlns:wfs='http://www.opengis.net/wfs' xmlns:ogc='http://www.opengis.net/ogc'
                       xmlns:gml='http://www.opengis.net/gml' xmlns:ows='http://www.opengis.net/ows'
                       xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xlink='http://www.w3.org/1999/xlink'
-                      xmlns:aasg='http://stategeothermaldata.org/uri-gin/aasg/xmlschema/rockchemistry/0.4'>
+                      xmlns:aasg='http://stategeothermaldata.org/uri-gin/aasg/xmlschema/rockchemistry/0.4'
+                      version='1.1.0'
+                      xsi:schemaLocation='http://www.opengis.net/gml http://schemas.opengis.net/gml/3.1.1/base/gml.xsd http://www.opengis.net/ogc http://schemas.opengis.net/filter/1.1.0/filter.xsd http://www.opengis.net/ows http://schemas.opengis.net/ows/1.0.0/owsAll.xsd http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd'>
     <ows:ServiceIdentification>
         <ows:Title>Missouri Rock Chemistry</ows:Title>
         <ows:Abstract>Rock Chemistry for the state of Missouri</ows:Abstract>

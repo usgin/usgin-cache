@@ -84,9 +84,11 @@ module.exports = function (config) {
     // ### Convert Cache WFS Responses to features
     // Optionally, specify a featuretype to only convert those kinds of things
     getFeatures: function (featuretype, callback) {
+       // console.log(featuretype+"---"+callback)
       callback = typeof featuretype === 'function' ? featuretype : callback;
       callback = callback || function () {};
       if (typeof featuretype === 'string') {
+
         thisCache.wfsFeaturesByType(featuretype, createGeoJson);
       } else {
         thisCache.wfsFeaturesByType(createGeoJson);
@@ -137,18 +139,18 @@ module.exports = function (config) {
     // ### Clear everything except design documents from the database
     clear: function (callback) {
       callback = callback || function () {};
-      
+
       db.list({include_docs: true}, function (err, result) {
         if (err) { callback(err); return; }
-        
+
         var docs = _.reject(result.rows, function (doc) {
           return doc.id.indexOf('_design') === 0;
         });
-        
+
         docs = _.map(docs, function (row) {
           return _.extend({ _deleted: true }, row.doc);
         });
-        
+
         db.bulk({docs: docs}, callback);
       });
     },
@@ -174,17 +176,17 @@ module.exports = function (config) {
       callback = callback || function () {};
       db.view_with_list('usgin-features', 'cacheId', 'featureCollection', {include_docs: true, key: zoom.toString()}, callback);
     },
-    
+
     // ### Setup the database
     setup: function (callback) {
       callback = callback || function () {};
-      
+
       function designDocs() {
         var id = '_design/usgin-features';
-        
+
         db.get(id, function (err, doc) {
           if (err && err.status_code !== 404) { callback(err); return; }
-          
+
           if (doc) {
             db.insert(_.extend(designDoc, {_rev: doc._rev}), id, callback);
           } else {
@@ -192,7 +194,7 @@ module.exports = function (config) {
           }
         });
       }
-      
+
       connection.db.list(function (err, dbNames) {
         if (!_.contains(dbNames, config.dbName)) {
           connection.db.create(config.dbName, designDocs);

@@ -65,6 +65,7 @@ var assert = require('assert'),
                                             topic: function () {
                                                 var urls = [ 'http://localhost:3010/wfs/00570e7187459885e5c18c3a5f498d5d' ],
                                                     featuretype = "aasg:BoreholeLithInterval",
+                                                    //featuretype = "aasg",
                                                     maxfeatures = 10;
                                                 wfs(db).getFeatures(urls, featuretype, maxfeatures, this.callback);
                                             },

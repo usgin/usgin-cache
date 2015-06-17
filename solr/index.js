@@ -16,7 +16,7 @@ module.exports = function (featureConfig) {
   return {
     addToIndex: function (mappingName, callback) {
       callback = callback || function () {};
-      feature.db.view('usgin-features', mappingName, function (err, response) {
+      feature.db.view('febp_documents', mappingName, function (err, response) {
         if (err) return callback(err);
         
         var docs = response.rows.map(function (row) {

@@ -194,7 +194,7 @@ module.exports = function (forceRefresh, config) {
     getFeature: function (wfsBaseUrl, featureType, maxFeatures, callback) {
       var requestType = 'getfeature',
           params = {};
-      
+
       if (typeof featureType === 'string') params.featureType = featureType;
       if (typeof featureType === 'function') callback = featureType;
       if (!isNaN(maxFeatures)) params.maxFeatures = maxFeatures;
@@ -210,6 +210,7 @@ module.exports = function (forceRefresh, config) {
     wfsFeaturesByType: function (featuretype, callback) {
       callback = typeof featuretype === 'function' ? featuretype : callback;
       var params = typeof featuretype === 'string' ? {key: featuretype} : {};
+
       db.view('usgin-cache', 'wfsFeaturesByType', params, function (err, response) {
         if (err) return callback(err);
         callback(null, response.rows.map(function (row) {
@@ -234,11 +235,11 @@ module.exports = function (forceRefresh, config) {
         var docs = _.reject(result.rows, function (doc) {
           return doc.id.indexOf('_design') === 0;
         });
-        
+        /*
         docs = _.map(docs, function (row) {
           return _.extend({ _deleted: true }, row.doc);
         });
-        
+        */
         db.bulk({docs: docs}, callback);
       });
     },
@@ -260,7 +261,7 @@ module.exports = function (forceRefresh, config) {
           }
         });
       }
-      
+
       connection.db.list(function (err, dbNames) {
         if (!_.contains(dbNames, config.dbName)) {
           connection.db.create(config.dbName, designDocs);

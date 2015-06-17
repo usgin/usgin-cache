@@ -10,13 +10,13 @@
       this._tilesAdded = false;
       this._dataAdded = false;
     },
-    
+
     onAdd: function (map) {
       this._map = map;
       map.on('moveend', this.getData, this);
       this.getData();
     },
-    
+
     onRemove: function (map) {
       map.off('moveend', this.getData, this);
       L.LayerGroup.prototype.onRemove.call(this, map);
@@ -69,7 +69,9 @@
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles &copy; <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" />'
   }).addTo(map);
   */
-  L.tileLayer('http://{s}.tiles.mapbox.com/v3/azgs.gia5klal/{z}/{x}/{y}.png', {
+  /* L.tileLayer('http://{s}.tiles.mapbox.com/v3/azgs.gia5klal/{z}/{x}/{y}.png', {*/
+ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
     attribution: '<a href="https://www.mapbox.com/about/maps/">Terms & Feedback</a>',
     detectRetina: true
   }).addTo(map);
@@ -80,9 +82,9 @@
 
       return L.circleMarker(ll, {
         weight: 0,
-        radius: sizes[zoom] || 4,
+        radius: sizes[zoom*3] || 4,
         fillOpacity: 0.7,
-        fillColor: '#594'
+        fillColor: '#000000'
       });
     },
     onEachFeature: function (f, layer) {

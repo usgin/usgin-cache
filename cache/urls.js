@@ -59,7 +59,7 @@ module.exports = {
     else if (requestType === 'getfeature') {
       query = {
         service: 'WFS',
-        version: params.version || '1.0.0',
+        version: params.version || '1.1.0',
         request: 'GetFeature',
         typeName: params.featureType || ''
       };

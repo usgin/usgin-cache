@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Leaflet Example</title>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+    <![endif]-->
+
+    <style>
+        html, body { height: 100%; margin: 0px; }
+        #map { height: 100%; }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+
+<script>
+    var attribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles by <a href="http://mapbox.com">MapBox</a>';
+
+    var map = L.map('map').setView([48.98337, -123.05855], 13);
+
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: attribution,
+        maxZoom: 18
+    }).addTo(map);
+
+    var marker = L.marker([48.98337, -123.05855]).addTo(map);
+    var markerHtml = 'This place is weird';
+    marker.bindPopup(markerHtml);
+</script>
+</body>
+</html>

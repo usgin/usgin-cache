@@ -26,6 +26,7 @@ var tests = {
         },
         'a GetFeature request can be made': {
           topic: function () {
+            //cache(false, testConfig).getFeature('http://localhost:3010/wfs/00570e7187459885e5c18c3a5f498d5d', 'aasg:BoreholeLithInterval', this.callback);
             cache(false, testConfig).getFeature('http://localhost:3010/wfs/00570e7187459885e5c18c3a5f498d5d', 'aasg:BoreholeLithInterval', this.callback);
           },
           'does not fail': function (err, doc) {

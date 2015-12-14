@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "id": 2, "properties": { "gml_id": "F3__2", "OBJECTID": 2, "LogURI": "http:\/\/resources.usgin.org\/uri-gin\/sdgs\/welllog\/SD_WELL_No.1_5-INCH_INDUCTION_LOG_MAIN\/", "DisplayName": "Rosebud South Dakota Wellness Center Well No.1: DIGL_5in", "LogTypeTerm": "DIGL", "LogTypeName": "Dual Induction Guard Log 5 inch", "WellBoreURI": "http:\/\/resources.usgin.org\/uri-gin\/sdgs\/well\/Rosebud_SouthDakota_Wellness_Center_Well_No.1\/", "WellType": "geothermal", "County": "Mellette", "State": "SD", "LatDegree": 43.565025, "LongDegree": -100.750046, "SRS": "EPSG:4326", "LocationUncertaintyStatement": "Location for White River town juntion of Hwy 83 and Hwy 44", "DrillerTotalDepth_ft": 3465, "ElevationGL_ft": 3465, "TopLoggedInterval_ft": 0.600000, "BottomLoggedInterval_ft": 3029, "DateTimeLogRun": "2011-10-31T00:00:00", "PaperCopyLocation": "Dr. Singh, Sinte Gleska University, South Dakota", "ScannedFileURL": "http:\/\/web2.nbmg.unr.edu\/nv_hub\/docs\/SD_docs\/Wells\/SD_WELL_No.1_5-INCH_INDUCTION_LOG_MAIN.tif", "Source": "Dr. Singh, Sinte Gleska University, South Dakota" }, "geometry": { "type": "Point", "coordinates": [ 43.565025, -100.750046 ] } }
+]
+}

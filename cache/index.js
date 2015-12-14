@@ -16,28 +16,28 @@ module.exports = function (forceRefresh, config) {
   config = config || {};
   config.dbName = config.dbName || 'usgin-cache';
   config.dbUrl = config.dbUrl || 'http://localhost:5984';
-  
+
   var connection = nano(config.dbUrl),
       db = connection.use(config.dbName);
-  
+
   // ## Private functions
-  
+
   // ### Control how we identify requests in the cache
   function getIdFor(requestType, url) {
     var hash = crypto.createHash('sha256');
     hash.update(decodeURIComponent(url).toUpperCase());
     return hash.digest('hex');
   }
-  
+
   // ### Add or update a document in the cache
   function refreshDoc(requestType, url, doc, callback) {
     // Get the cache ID for this request
     var id = getIdFor(requestType, url),
-    
+
     // If a CouchDB doc was passed in, get its revision
     rev = null;
     if (typeof doc === 'object') rev = doc._rev || null;
-    
+
     // If a doc was not passed, then we've got to get our function straight
     if (typeof doc === 'function') callback = doc;
 
@@ -74,7 +74,7 @@ module.exports = function (forceRefresh, config) {
 
     else {
       // Now, request the URL
-      request(url, function (err, response) {      
+      request(url, function (err, response) {
         if (err && err.code !== 'ETIMEDOUT') {
           // If the request failed for any reason other than a timeout, send back the error
           return callback(err);
@@ -83,9 +83,9 @@ module.exports = function (forceRefresh, config) {
           // This will allow code to continue to execute when timeouts happen (and they will).
           response = {body: 'Request for ' + url + ' timed out'};
         }
-        
+
         cacheDoc.response = response.body;
-        
+
         // Insert the document
         db.insert(cacheDoc, id, function (err, dbResponse) {
           // If the insert failed, send back the error
@@ -95,7 +95,7 @@ module.exports = function (forceRefresh, config) {
       });
     }
   }
-  
+
   // ### Return a document from the cache, adding or updating as neccessary
   function fetch(requestType, url, refresh, callback) {
     // Valid requestTypes
@@ -103,53 +103,51 @@ module.exports = function (forceRefresh, config) {
     if (!_.contains(validRequests, requestType.toLowerCase())) {
       callback(new Error('System will only cache ' + validRequests.join(', ') + ' requests'));
     }
-    
+
     // Get the cache ID for this request
     var id = getIdFor(requestType, url),
-    
+
     // Get our arguments straight
     forceRefresh = false;
     if (typeof refresh === 'function') callback = refresh;
     if (typeof refresh === 'boolean') forceRefresh = refresh;
-    
+
     db.get(id, function (err, doc) {
       // Throw error if there was one, and it was not a 404
       if (err && err.status_code !== 404) { callback(err); return; }
-      
+
       // If we got a doc back, and we aren't being forced to refresh...
       if (doc && !forceRefresh) {
         // Anything other than a GetFeature doc is fine to return
         if (doc.requestType !== 'getfeature') return callback(null, doc);
         // Successful GetFeature requests will have an attachment and can be returned
-        else if (doc.hasOwnProperty('_attachments')) return callback(null, doc);  
+        else if (doc.hasOwnProperty('_attachments')) return callback(null, doc);
       }
 
       // Either the doc has not been cached, we're being forced to refresh the cache, or the doc is bad
       refreshDoc(requestType, url, doc, callback);
     });
   }
-  
+
   // ## Public API
   return {
     // ### Access to the cache database
     db: db,
-    
+
     // ### CSW GetRecords request
     getRecords: function (cswBaseUrl, start, limit, callback) {
       var requestType = 'getrecords',
           params = {};
-      
+
       if (!isNaN(start)) params.start = start;
       if (typeof start === 'function') callback = start;
       if (!isNaN(limit)) params.limit = limit;
       if (typeof limit === 'function ') callback = limit;
       callback = callback || function () {};
-      
       var url = urls.request(requestType, cswBaseUrl, params);
-      
       fetch(requestType, url, forceRefresh, callback);
     },
-    
+
     // ### Return all Metadata IDs from a particular CSW
     idsFromCsw: function (cswBaseUrl, callback) {
       var url = urls.base(cswBaseUrl);
@@ -160,12 +158,12 @@ module.exports = function (forceRefresh, config) {
     getRecordById: function (cswBaseUrl, id, callback) {
       var requestType = 'getrecordbyid',
           url = urls.request(requestType, cswBaseUrl, {id: id});
-      
+
       callback = callback || function () {};
-      
+
       fetch(requestType, url, forceRefresh, callback);
     },
-    
+
     // ### Get all WFS Urls available in the cache
     wfsUrls: function (callback) {
       db.view_with_list('usgin-cache', 'wfsUrls', 'threshold', {min:4}, function (err, urls) {
@@ -194,18 +192,18 @@ module.exports = function (forceRefresh, config) {
     getFeature: function (wfsBaseUrl, featureType, maxFeatures, callback) {
       var requestType = 'getfeature',
           params = {};
-      
+
       if (typeof featureType === 'string') params.featureType = featureType;
       if (typeof featureType === 'function') callback = featureType;
       if (!isNaN(maxFeatures)) params.maxFeatures = maxFeatures;
       if (typeof maxFeatures === 'function') callback = maxFeatures;
       callback = callback || function () {};
-      
+
       var url = urls.request(requestType, wfsBaseUrl, params);
-      
+
       fetch(requestType, url, forceRefresh, callback);
     },
-    
+
     // ### List WFS GetFeature responses by type
     wfsFeaturesByType: function (featuretype, callback) {
       callback = typeof featuretype === 'function' ? featuretype : callback;
@@ -227,32 +225,32 @@ module.exports = function (forceRefresh, config) {
     // ### Clear everything except design documents from the database
     clear: function (callback) {
       callback = callback || function () {};
-      
+
       db.list({include_docs: true}, function (err, result) {
         if (err) { callback(err); return; }
-        
+
         var docs = _.reject(result.rows, function (doc) {
           return doc.id.indexOf('_design') === 0;
         });
-        
+        /*
         docs = _.map(docs, function (row) {
           return _.extend({ _deleted: true }, row.doc);
         });
-        
+        */
         db.bulk({docs: docs}, callback);
       });
     },
-    
+
     // ### Setup the database
     setup: function (callback) {
       callback = callback || function () {};
-      
+
       function designDocs() {
         var id = '_design/usgin-cache';
-        
+
         db.get(id, function (err, doc) {
           if (err && err.status_code !== 404) { callback(err); return; }
-          
+
           if (doc) {
             db.insert(_.extend(designDoc, {_rev: doc._rev}), id, callback);
           } else {
@@ -260,7 +258,7 @@ module.exports = function (forceRefresh, config) {
           }
         });
       }
-      
+
       connection.db.list(function (err, dbNames) {
         if (!_.contains(dbNames, config.dbName)) {
           connection.db.create(config.dbName, designDocs);

@@ -1,205 +1,206 @@
-var nano = require('nano'),
-    _ = require('underscore'),
-    stream = require('stream'),
-    jsonStream = require('JSONStream'),
-    async = require('async'),
-    cache = require('../cache'),
+/**
+ * Created by nahmed on 6/17/2015.
+ */
+var request = require('request'),
+    mongoose = require('mongoose'),
     toGeoJson = require('./toGeoJson'),
-    toPostGis = require('./toPostGis'),
-    cluster = require('../cluster'),
-    designDoc = require('./design/usgin-features');
+    Grid = require('gridfs-stream');
+    async = require("async"),
+    xpath = require('xpath'),
+    utils = require('util'),
+    request = require('request'),
+    xpath = require('xpath'),
+     dbmappings = require('./../mappings'),
+     //getFeatureType = require('./../featurepages/harvestCSW'),
+    dom = require('xmldom').DOMParser;
+    //Grid.mongo = mongoose.mongo;
+    //var conn = mongoose.createConnection('mongodb://localhost:27017/usgin-cache');
+    //var gfs = Grid(conn.db);
+    var files = require('./../wfscapabilites/mongoconn').Files,
+        timeout = 0,
+        pointer = 0,
+        flag = 0,
+    indicesComplete = 0,
+    urls = require('./../cache/urls'),
+    insertFeatures = require('./getFeatures.js');
+files.count({}, function(err, c)
+{
+    console.log('Count is ' + c);
+    TotalCount = c;
+});
 
-// ## Contructor
-// You should pass a config obj.
-module.exports = function (config) {
-  config = config || {};
-  config.dbName = config.dbName || 'usgin-features';
-  config.cacheName = config.cacheName || 'usgin-cache';
-  config.dbUrl = config.dbUrl || 'http://localhost:5984';
 
-  var connection = nano(config.dbUrl),
-      db = connection.use(config.dbName),
-      thisCache = cache({dbName: config.cacheName, dbUrl: config.dbUrl});
+   //var GetFeatures =
+        function getFeatures(WFSRecord,featureNum,Callback){
+    //Set Time out interval on auto bases
+        var featuretype = WFSRecord.metadata.featuretype,
+            cacheId = WFSRecord._id,
+            url = WFSRecord.metadata.endpoint,
+            filename = WFSRecord.filename,
+            fileSize = WFSRecord.length,
+            timer = fileSize/70
+            flag = 1
+        //setTimeout(function () {
 
-  // ## Private functions
-  // ### Insert features into the feature table
-  function insertFeatures(cacheId, featuretype, features, callback) {
-    // Build the CouchDB documents
-    var docs = features.map(function (f) {
-      return {
-        cacheId: cacheId,
-        featureType: featuretype,
-        feature: f
-      };
-    });
+            {
+                /*console.log("Pointer ="+pointer);*/
+            //if (fileSize > 100000000 ){
+                console.log(" Length is "+fileSize);
+            //}
+            console.log(" Timer is "+timer);
+            flag = 1
 
-    // Insert the docs
-    db.bulk({docs: docs}, function (err) {
-      callback(err);
-    });
-  }
+                insertFeatures().getFeatures(featuretype, cacheId, url, filename,featureNum, function callback(res){
+                    console.log("Num of Res are  "+res);
+                    //if(res){
+                        console.log("Call Back..>!")
+                        Callback(0)
+                        return;
+                    //}
+                });
+             //Callback(0)
+            console.log("Pointer ="+pointer)
+            }
+            pointer+=1;
+            //}
 
-  // ### Removes features from a particular GetFeature doc
-  function clearFeatures(cacheId, callback) {
-    // Lookup features of the given cacheId
-    db.view_with_list('usgin-features', 'deleteHelper', 'bulk', {key: cacheId})
-      .pipe(db.bulk())
-      .on('error', callback)
-      .on('end', function () {
-        callback(null);
-      });
-  }
-
-  // ### Streaming conversion from WFS to GeoJSON in CouchDB
-  function convert(cacheId, featureType, callback) {
-    var ogr = toGeoJson(),
-        insert = db.bulk(),
-        wfsData = thisCache.db.attachment.get(cacheId, 'response.xml'),
-        bulkWriter = jsonStream.stringify('{"docs":[', ',', ']}'),
-        geoJsonParser = jsonStream.parse('features.*')
-          .on('data', function (feature) {
-            bulkWriter.write({
-              cacheId: cacheId,
-              featuretype: featureType,
-              feature: feature
-            });
-          })
-          .on('end', bulkWriter.end);
-
-    console.time('\t- ' + cacheId);
-    ogr.output.pipe(geoJsonParser);
-    bulkWriter.pipe(insert);
-    wfsData.pipe(ogr.input);
-    insert.on('end', function () {
-        console.timeEnd('\t- ' + cacheId);
-        callback();
-    });
-  }
-
-  // ## Public API
-  return {
-    // ### Direct database access
-    db: db,
-
-    // ### Convert Cache WFS Responses to features
-    // Optionally, specify a featuretype to only convert those kinds of things
-    getFeatures: function (featuretype, callback) {
-      callback = typeof featuretype === 'function' ? featuretype : callback;
-      callback = callback || function () {};
-      if (typeof featuretype === 'string') {
-        thisCache.wfsFeaturesByType(featuretype, createGeoJson);
-      } else {
-        thisCache.wfsFeaturesByType(createGeoJson);
-      }
-
-      function createGeoJson(err, response) {
-        if (err) return callback(err);
-        console.log('Clearing existing features...');
-        async.eachSeries(response, function (row, cb) {
-          clearFeatures(row.id, cb);
-        }, function (err) {
-          if (err) return callback(err);
-          console.log('Converting WFS features to GeoJSON...');
-          async.eachLimit(response, 4, function (row, cb) {
-            convert(row.id, row.key, cb);
-          }, callback);
-        });
-      }
-    },
-
-    // ### Convert a single WFS from the cache to GeoJSON
-    convertWfs: function (cacheId, callback) {
-      callback = callback || function () {};
-      thisCache.db.get(cacheId, function (err, doc) {
-        if (err) return callback(err);
-        clearFeatures(cacheId, function (err) {
-          if (err) return callback(err);
-          convert(cacheId, doc.featuretype, callback);
-        });
-      });
-    },
-
-    // ### Send indexed features to PostGIS
-    toPostGis: function (mapping, connection, callback) {
-      var url = db.view_with_list('usgin-features', mapping, 'solrToFeatureCollection').uri.href,
-          converter = toPostGis(mapping, url, connection, callback);
-    },
-
-    // ### Gets features as a GeoJSON FeatureCollection
-    getGeoJson: function (featuretype, callback) {
-      var params = typeof featuretype === 'string' ? {key: featuretype} : {};
-      callback = typeof featuretype === 'function' ? featuretype : callback;
-      callback = callback || function () {};
-
-      db.view_with_list('usgin-features', 'featureType', 'featureCollection', callback);
-    },
-
-    // ### Clear everything except design documents from the database
-    clear: function (callback) {
-      callback = callback || function () {};
-      
-      db.list({include_docs: true}, function (err, result) {
-        if (err) { callback(err); return; }
-        
-        var docs = _.reject(result.rows, function (doc) {
-          return doc.id.indexOf('_design') === 0;
-        });
-        
-        docs = _.map(docs, function (row) {
-          return _.extend({ _deleted: true }, row.doc);
-        });
-        
-        db.bulk({docs: docs}, callback);
-      });
-    },
-
-    // ### Builds clustered features into the cache
-    buildClusters: function (mapping, connection, callback) {
-      callback = callback || function () {};
-
-      function insertClusters(err, result) {
-        if (err) return callback(err);
-
-        async.each(_.keys(result), function (zoom, cb) {
-          insertFeatures(zoom, 'cluster', result[zoom], cb)
-        }, callback);
-      }
-
-      var zoomRange = _.range(9); // [0,1,2,3,4,5,6,7,8]
-      cluster.pgClusterRange(mapping, zoomRange, connection, insertClusters);
-    },
-
-    // ### Get cluster features
-    getClusters: function (zoom, callback) {
-      callback = callback || function () {};
-      db.view_with_list('usgin-features', 'cacheId', 'featureCollection', {include_docs: true, key: zoom.toString()}, callback);
-    },
-    
-    // ### Setup the database
-    setup: function (callback) {
-      callback = callback || function () {};
-      
-      function designDocs() {
-        var id = '_design/usgin-features';
-        
-        db.get(id, function (err, doc) {
-          if (err && err.status_code !== 404) { callback(err); return; }
-          
-          if (doc) {
-            db.insert(_.extend(designDoc, {_rev: doc._rev}), id, callback);
-          } else {
-            db.insert(designDoc, callback);
-          }
-        });
-      }
-      
-      connection.db.list(function (err, dbNames) {
-        if (!_.contains(dbNames, config.dbName)) {
-          connection.db.create(config.dbName, designDocs);
-        } else {
-          designDocs();
-        }
-      });
+            //--- TRY WITH ASYN QUEUE
+        //},4000);  //40000* Math.random());
     }
-  };
-};
+
+    if(pointer == 0)
+    { //global index usgin-cache
+      dbmappings("0:usgin-cache");
+      pointer = 1;
+    }
+    var WFRecords = [];
+    //files.find({"metadata.featuretype" : "aasg:WellLog"},function (err, WFSRecord,callback) { //Find all files in the wfscolls and store them in WFSRecords Array
+    var n = 0,flag= 0,TotalCount=0;
+
+
+//var findData = function (userInput, callback) {
+    async.parallel({
+        modelAFind: function (cb){ files.find().exec(cb); }//,
+        //modelBFind: function (cb){ ModelB.find(input).exec(cb); }
+    }, function(err, result){
+        ret = result.modelAFind;
+        n =0; //455
+        console.log ( n +"="+TotalCount)
+        if(n < TotalCount) {
+            uploader(n)
+        } else {
+            console.log ( n +"="+TotalCount);
+        }
+    });
+var ret = '';
+
+function uploader(n){
+    console.log(ret.length+ " + " +flag )
+    while(n < ret.length && flag == 0) {
+        console.log(n + "." + ret[n].length);
+        if (ret[n].length <= 200) {
+            n = n + 1;
+            uploader(n)
+        } else {
+            var ftype = ret[n].metadata.featuretype;
+            dbmappings(ftype);
+            getFeatures(ret[n],n, function (value) {
+                flag = value;
+                console.log("value of flag is: " + flag + "value of n is: " + n)
+                if (flag == 0) {
+                    n = n + 1;
+                    //flag = 1
+                    uploader(n)
+                    //process.on('uncaughtException', function (err) {
+                    //    console.log('Caught exception: ' + err);
+                    //});
+
+                } else {
+                    console.log("This was the Last Record")
+                }
+            });
+        }
+    }//else
+}
+    /*files.find({ },function (err, WFSRecord,callback) { //Find all files in the wfscolls and store them in WFSRecords Array
+        if (err) return console.error(err);
+        while(n < WFSRecord.length){
+            console.log(WFSRecord[n].filename)
+
+            if(flag == 0){
+                console.log(WFSRecord[n].length);
+                flag = 1;
+                getFeatures(WFSRecord[n],
+                    function(value){
+                        //console.log("value of flag is:"+flag)
+                        flag = value
+                       // console.log("value of flag is:"+flag)
+                    });
+                //
+            }
+            n+=1;
+        }
+        //Because we first want to create mappings for elastic indices so asyn.each is called to keep the
+        //indices creation and data insertion processes separte from eachother.
+    });*/
+
+
+        /*console.log("Checking flag: " + flag)
+            if (flag == 0) {
+                getFeatures(data[i], function (callback) {
+                })
+            }
+            flag = 1;*/
+
+            //console.log(i);
+            //(function(i) {
+                /*async.series({
+                    i : function(callback) {
+                        getFeatures(WFSRecord[i],callback);
+                    }
+                })*/
+            //})(i);
+
+        //}
+//});
+        /*var queue = async.queue(GetFeatures, 1); // Run ten simultaneous uploads
+        //    process.nextTick(insertFeatures);
+        queue.drain = function() {
+            console.log("XML UP NOW");
+        };
+        // Queue your files for upload
+        queue.push(WFSRecord);
+        queue.concurrency = 1; // Increase to twenty simultaneous uploads
+        console.log("Length of the queue is :" +queue.length());
+        queue.saturated = function(){
+            console.log("Queue is Saturated...XXXXXX")
+        }
+        queue.kill;*/
+        /*async.forEachSeries(WFSRecord, function(WFSeach, callback) {
+            var featuretype = WFSeach.metadata.featuretype; //create mappings
+            dbmappings(featuretype);
+            callback();
+        }, function(err) {
+            if( err ) { return console.log(err); }
+            async.map(WFSRecord, GetFeatures, function(err,result){ //insert data asynchronusly
+                if(err){ console.log(err);}
+                console.log("Data Function Finished!");
+                console.log(result);
+            });
+        });*/
+
+        /*
+        async.mapSeries(WFSRecord, createIndices, function(err,result){
+            if(err){ console.log(erearchr);}
+            console.log("Finished!");
+            indicesComplete = 1;
+            console.log(result);
+        });
+        console.log("completed.............!");
+       // ---- TRY GULP THROU
+       async.map(WFSRecord, GetFeatures, function(err,result){
+            if(err){ console.log(err);}
+            console.log("Finished!");
+            console.log(result);
+        }); */
+    //});

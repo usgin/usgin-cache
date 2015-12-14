@@ -1,0 +1,19 @@
+<wfs:FeatureCollection xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/thermalspring/1.6" xmlns:gml="http://www.opengis.net/gml" xmlns:wfs="http://www.opengis.net/wfs" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/thermalspring/1.6 http://services.azgs.az.gov/arcgis/services/aasggeothermal/ORThermalSprings/MapServer/WFSServer?request=DescribeFeatureType%26version=1.1.0%26typename=ThermalSpring http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd">
+<gml:boundedBy>
+<gml:Envelope srsName="urn:ogc:def:crs:EPSG:6.9:4326">
+<gml:lowerCorner>42.016451000000004 -122.745098</gml:lowerCorner>
+<gml:upperCorner>45.945435000000003 -116.874422</gml:upperCorner>
+</gml:Envelope>
+</gml:boundedBy>
+<gml:featureMember>
+<aasg:ThermalSpring gml:id="F3__1">
+<aasg:OBJECTID>1</aasg:OBJECTID>
+<aasg:County>Baker</aasg:County>
+<aasg:Shape>
+<gml:Point>
+<gml:pos>45.012712999999898 -117.887101</gml:pos>
+</gml:Point>
+</aasg:Shape>
+</aasg:ThermalSpring>
+</gml:featureMember>
+</wfs:FeatureCollection>

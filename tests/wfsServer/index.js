@@ -12,6 +12,7 @@ app.get('/wfs/:serviceId', function (req, res, next) {
                 case 'getfeature':
                     if (req.query.typeName) {
                         return res.download(path.join(__dirname, 'sampleWfsGetFeatureResponses', req.params.serviceId + req.query.typeName + '.iso.xml'));
+                        //return res.download(path.join(__dirname, 'sampleWfsGetFeatureResponses', req.params.serviceId + req.query.typeName + '.iso.xml'));
                     }
                     break;
                 default:

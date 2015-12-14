@@ -1,0 +1,1890 @@
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Rock Chemistry.Isotopes
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Contour Lines
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Fault Feature2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Heat Flow1.3
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.NobleGases
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.TraceElements
+usgincm:Fault Feature1.1
+usgincm:Mineral Recovery Brine
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Geothermal Area0.7
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.USeries
+usgincm:Heat Flow1.23
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.RareEarths
+usgincm:DrillStemTest
+usgincm:Geologic Reservoir
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Power Plant Production1.0
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Rock Chemistry.Isotopes
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Geothermal Fluid Production
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Rock Chemistry.TraceElements
+usgincm:Contour Lines
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Hot Spring Feature1.8
+usgincm:DrillStemTest
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Rock Chemistry.USeries
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Geologic Reservoir
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Heat Flow1.3
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Heat Flow1.23
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Geothermal Area0.7
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.Volatiles
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Mineral Recovery Brine
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Power Plant Production1.0
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Fault Feature2.0
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Fault Feature1.1
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Geologic Reservoir
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Heat Flow1.23
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Heat Flow1.3
+usgincm:DrillStemTest
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Power Plant Production1.0
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.TraceElements
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Geothermal Area0.7
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Mineral Recovery Brine
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.NobleGases
+usgincm:Fault Feature2.0
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.Isotopes
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.USeries
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Mineral Recovery Brine
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.Volatiles
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.USeries
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.TraceElements
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Heat Flow1.23
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Fault Feature1.1
+usgincm:Geothermal Fluid Production
+usgincm:Hot Spring Feature1.8
+usgincm:Fault Feature2.0
+usgincm:DrillStemTest
+usgincm:Geothermal Area0.7
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.NobleGases
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.Isotopes
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Power Plant Production1.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Rock Chemistry.RareEarths
+usgincm:Mineral Recovery Brine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Fault Feature2.0
+usgincm:Geologic Reservoir
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Heat Flow1.3
+usgincm:Geothermal Area0.7
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Rock Chemistry.USeries
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.TraceElements
+usgincm:DrillStemTest
+usgincm:Geothermal Fluid Production
+usgincm:Contour Lines
+usgincm:Fault Feature1.1
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Heat Flow1.23
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Rock Chemistry.NobleGases
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Fault Feature1.1
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Geothermal Fluid Production
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Heat Flow1.23
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Hot Spring Feature1.8
+usgincm:Geologic Reservoir
+usgincm:Fault Feature2.0
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Rock Chemistry.TraceElements
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Mineral Recovery Brine
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:DrillStemTest
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.NobleGases
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Geothermal Area0.7
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.USeries
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Power Plant Production1.0
+usgincm:Fault Feature2.0
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Geothermal Area0.7
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:DrillStemTest
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Fault Feature1.1
+usgincm:Volcanic Vents1.4
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Mineral Recovery Brine
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Heat Flow1.23
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Hot Spring Feature1.8
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Geothermal Fluid Production
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.TraceElements
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.USeries
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Rock Chemistry.NobleGases
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:DrillStemTest
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.Volatiles
+usgincm:Power Plant Production1.0
+usgincm:Geologic Reservoir
+usgincm:Volcanic Vents1.4
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Heat Flow1.23
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Rock Chemistry.Isotopes
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Contour Lines
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Geothermal Fluid Production
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Fault Feature1.1
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Mineral Recovery Brine
+usgincm:Heat Flow1.3
+usgincm:Geothermal Area0.7
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Rock Chemistry.TraceElements
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Heat Flow1.3
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.USeries
+usgincm:Geologic Reservoir
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Rock Chemistry.TraceElements
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Fault Feature2.0
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Rock Chemistry.NobleGases
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Heat Flow1.23
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:DrillStemTest
+usgincm:Mineral Recovery Brine
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Geothermal Area0.7
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Geothermal Fluid Production
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Geothermal Area0.7
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Fault Feature1.1
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Contour Lines
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.USeries
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Hot Spring Feature1.8
+usgincm:Geologic Reservoir
+usgincm:DrillStemTest
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Mineral Recovery Brine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.TraceElements
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.Isotopes
+usgincm:Power Plant Production1.0
+usgincm:Heat Flow1.23
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Geologic Reservoir
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.Isotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.USeries
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Fault Feature2.0
+usgincm:Heat Flow1.3
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Heat Flow1.23
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Fault Feature1.1
+usgincm:Power Plant Production1.0
+usgincm:DrillStemTest
+usgincm:Geothermal Fluid Production
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Geothermal Area0.7
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Contour Lines
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Mineral Recovery Brine
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Heat Flow1.3
+usgincm:Power Plant Production1.0
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.NobleGases
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:DrillStemTest
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Fault Feature2.0
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.Isotopes
+usgincm:Geologic Reservoir
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Heat Flow1.23
+usgincm:Fault Feature1.1
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Fault Feature1.1
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Fault Feature2.0
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.Volatiles
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Mineral Recovery Brine
+usgincm:Contour Lines
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.NobleGases
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Rock Chemistry.TraceElements
+usgincm:Heat Flow1.23
+usgincm:Power Plant Production1.0
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Rock Chemistry.RareEarths
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.Isotopes
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Geothermal Fluid Production
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Geologic Reservoir
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Hot Spring Feature1.8
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:DrillStemTest
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Geothermal Fluid Production
+usgincm:Fluid Flux Injection and Disposal
+usgincm:DrillStemTest
+usgincm:Geologic Reservoir
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Fault Feature1.1
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.NobleGases
+usgincm:Heat Flow1.23
+usgincm:Mineral Recovery Brine
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Rock Chemistry.Volatiles
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Heat Flow1.3
+usgincm:Fault Feature2.0
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Rock Chemistry.RareEarths
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Power Plant Production1.0
+usgincm:Aqueous Chemistry.WaterDissolvedGas1.10
+usgincm:Aqueous Chemistry.WaterQuality1.10
+usgincm:Heat Flow1.3
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Aqueous Chemistry.GasIsotopes1.10
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents1.10
+usgincm:Aqueous Chemistry.BaseMetals
+usgincm:Aqueous Chemistry.WaterDissolvedGas
+usgincm:Aqueous Chemistry.CommonAnalytes1.10
+usgincm:Contour Lines
+usgincm:Aqueous Chemistry.WaterQuality
+usgincm:Aqueous Chemistry.MineralRecoveryBrine
+usgincm:Aqueous Chemistry.IsotopesDissolved1.10
+usgincm:Aqueous Chemistry.MinorDissolvedConstituents
+usgincm:Fluid Flux Injection and Disposal
+usgincm:DrillStemTest
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Aqueous Chemistry.Nitrogen1.10
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.Volatiles
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Power Plant Production1.0
+usgincm:Mineral Recovery Brine
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.USeries
+usgincm:Aqueous Chemistry.Nitrogen
+usgincm:Aqueous Chemistry.WaterIsotopes
+usgincm:Aqueous Chemistry.SingleAnalyte1.10
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.TraceElements
+usgincm:Hot Spring Feature1.8
+usgincm:Volcanic Vents1.4
+usgincm:Aqueous Chemistry.IsotopesDissolved
+usgincm:Rock Chemistry.NobleGases
+usgincm:Aqueous Chemistry.FreeGas1.10
+usgincm:Aqueous Chemistry.CommonAnalytes
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Aqueous Chemistry.FreeGas
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Aqueous Chemistry.BaseMetals1.10
+usgincm:Aqueous Chemistry.GasIsotopes
+usgincm:Aqueous Chemistry.MajorDissolvedConstituents
+usgincm:Heat Flow1.23
+usgincm:Aqueous Chemistry.SingleAnalyte
+usgincm:Geothermal Fluid Production
+usgincm:Aqueous Chemistry.WaterIsotopes1.10
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.Volatiles
+usgincm:Contour Lines
+usgincm:Fault Feature2.0
+usgincm:Fault Feature1.1
+usgincm:Fluid Flux Injection and Disposal
+usgincm:DrillStemTest
+usgincm:Borehole Temperature Observationsal
+usgincm:Borehole Temperature Observationsal
+usgincm:Borehole Temperature Observationsal
+usgincm:DrillStemTest
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Fault Feature1.1
+usgincm:Fault Feature2.0
+usgincm:Contour Lines
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Heat Flow1.23
+usgincm:Mineral Recovery Brine
+usgincm:Heat Flow1.3
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Geologic Reservoir
+usgincm:Geothermal Fluid Production
+usgincm:Power Plant Production1.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Heat Flow1.3
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Geologic Reservoir
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Power Plant Production1.0
+usgincm:Heat Flow1.23
+usgincm:Geothermal Fluid Production
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.NobleGases
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Volcanic Vents1.4
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.TraceElements
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.Volatiles
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.RareEarths
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.NobleGases
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.USeries
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Heat Flow1.23
+usgincm:Rock Chemistry.Isotopes
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Volcanic Vents1.4
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Fault Feature2.0
+usgincm:Geothermal Fluid Production
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Borehole Temperature Observationsal
+usgincm:DrillStemTest
+usgincm:Heat Flow1.3
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.Volatiles
+usgincm:Mineral Recovery Brine
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Geologic Reservoir
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.NobleGases
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.TraceElements
+usgincm:Fault Feature1.1
+ usgincm:Contour Lines
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Borehole Temperature Observationsal
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.Isotopes
+usgincm:Mineral Recovery Brine
+usgincm:Power Plant Production1.0
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.RareEarths
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.Volatiles
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Heat Flow1.23
+usgincm:Geologic Reservoir
+usgincm:DrillStemTest
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation1.6
+ usgincm:Contour Lines
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.USeries
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.NobleGases
+usgincm:Fault Feature1.1
+usgincm:Geothermal Fluid Production
+usgincm:Fault Feature2.0
+usgincm:Heat Flow1.3
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.TraceElements
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:DrillStemTest
+usgincm:Borehole Temperature Observationsal
+usgincm:Fault Feature2.0
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Geothermal Fluid Production
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.RareEarths
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Mineral Recovery Brine
+ usgincm:Contour Lines
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Heat Flow1.23
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.USeries
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.NobleGases
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Geologic Reservoir
+usgincm:Borehole Temperature Observationsal
+ usgincm:Contour Lines
+usgincm:Heat Flow1.23
+usgincm:DrillStemTest
+usgincm:Hot Spring Feature1.8
+usgincm:Mineral Recovery Brine
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.USeries
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.NobleGases
+usgincm:Geothermal Fluid Production
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.Volatiles
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.RareEarths
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.TraceElements
+usgincm:Volcanic Vents1.4
+usgincm:Fault Feature2.0
+usgincm:Heat Flow1.3
+usgincm:DrillStemTest
+usgincm:Borehole Temperature Observationsal
+usgincm:Fluid Flux Injection and Disposal
+ usgincm:Contour Lines
+usgincm:Geologic Reservoir
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.Isotopes
+usgincm:Heat Flow1.23
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.TraceElements
+usgincm:Power Plant Production1.0
+usgincm:Mineral Recovery Brine
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.RareEarths
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Hot Spring Feature1.8
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Geothermal Fluid Production
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.RareEarths
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Geothermal Fluid Production
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:DrillStemTest
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.USeries
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Heat Flow1.3
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Heat Flow1.23
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Geologic Reservoir
+usgincm:Thermal Conductivity Observation2.1
+ usgincm:Contour Lines
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Fault Feature1.1
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Power Plant Production1.0
+usgincm:Mineral Recovery Brine
+usgincm:Borehole Temperature Observationsal
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Mineral Recovery Brine
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.RareEarths
+usgincm:Heat Flow1.23
+usgincm:Hot Spring Feature1.8
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Volcanic Vents1.4
+usgincm:DrillStemTest
+usgincm:Fault Feature1.1
+usgincm:Borehole Temperature Observationsal
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.USeries
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Geologic Reservoir
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.Volatiles
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Fault Feature2.0
+ usgincm:Contour Lines
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.NobleGases
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Fault Feature1.1
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Borehole Temperature Observationsal
+usgincm:Heat Flow1.3
+usgincm:Thermal Conductivity Observation2.0
+usgincm:DrillStemTest
+usgincm:Heat Flow1.23
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.TraceElements
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.RareEarths
+ usgincm:Contour Lines
+usgincm:Mineral Recovery Brine
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.USeries
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Geologic Reservoir
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Thermal Conductivity Observation2.1
+usgincm:DrillStemTest
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Borehole Temperature Observationsal
+usgincm:Rock Chemistry.NobleGases
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.RareEarths
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.Volatiles
+usgincm:Heat Flow1.23
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.TraceElements
+usgincm:Fault Feature1.1
+usgincm:Geothermal Fluid Production
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Fault Feature2.0
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Mineral Recovery Brine
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.USeries
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.StableIsotopes
+ usgincm:Contour Lines
+usgincm:Geologic Reservoir
+usgincm:Mineral Recovery Brine
+usgincm:Heat Flow1.23
+usgincm:Heat Flow1.3
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.Isotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.TraceElements
+usgincm:Geothermal Fluid Production
+usgincm:Volcanic Vents1.4
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.USeries
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Fault Feature2.0
+usgincm:DrillStemTest
+usgincm:Power Plant Production1.0
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Borehole Temperature Observationsal
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.TraceElements
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.Isotopes
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.NobleGases
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Heat Flow1.23
+usgincm:Geologic Reservoir
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Mineral Recovery Brine
+usgincm:Power Plant Production1.0
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Volcanic Vents1.4
+usgincm:Geothermal Fluid Production
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.USeries
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Fault Feature2.0
+usgincm:Borehole Temperature Observationsal
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Fault Feature1.1
+usgincm:DrillStemTest
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.NobleGases
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.TraceElements
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Volcanic Vents1.4
+usgincm:Heat Flow1.23
+usgincm:Rock Chemistry.Volatiles
+ usgincm:Contour Lines
+usgincm:Fault Feature1.1
+usgincm:Borehole Temperature Observationsal
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Geologic Reservoir
+usgincm:Thermal Conductivity Observation2.2
+usgincm:DrillStemTest
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Fault Feature2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.Isotopes
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.NobleGases
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.Isotopes
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Geologic Reservoir
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Heat Flow1.23
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Power Plant Production1.0
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Geothermal Fluid Production
+usgincm:Borehole Temperature Observationsal
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.USeries
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.Volatiles
+usgincm:Fault Feature1.1
+usgincm:Volcanic Vents1.4
+usgincm:Hot Spring Feature1.8
+usgincm:Heat Flow1.3
+usgincm:DrillStemTest
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Fault Feature2.0
+usgincm:Fault Feature2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Power Plant Production1.0
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Volcanic Vents1.4
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Hot Spring Feature1.8
+usgincm:Heat Flow1.3
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.USeries
+usgincm:Mineral Recovery Brine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Fault Feature1.1
+usgincm:Borehole Temperature Observationsal
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Heat Flow1.23
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.Volatiles
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:DrillStemTest
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Heat Flow1.23
+usgincm:Geologic Reservoir
+ usgincm:Contour Lines
+usgincm:Fault Feature1.1
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Geothermal Fluid Production
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.Isotopes
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:DrillStemTest
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Power Plant Production1.0
+usgincm:Fault Feature2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Hot Spring Feature1.8
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.NobleGases
+usgincm:Borehole Temperature Observationsal
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.Volatiles
+usgincm:Volcanic Vents1.4
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.USeries
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.TraceElements
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Geologic Reservoir
+usgincm:Hot Spring Feature1.8
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.NobleGases
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Heat Flow1.23
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Volcanic Vents1.4
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Heat Flow1.3
+usgincm:Thermal Conductivity Observation1.6
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.TraceElements
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Borehole Temperature Observationsal
+usgincm:DrillStemTest
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.USeries
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.RareEarths
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.Isotopes
+usgincm:Power Plant Production1.0
+usgincm:Mineral Recovery Brine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Seismic Event Hypocenter1.6
+ usgincm:Contour Lines
+usgincm:DrillStemTest
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Geothermal Fluid Production
+usgincm:Fault Feature2.0
+usgincm:Heat Flow1.23
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.RareEarths
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.Volatiles
+usgincm:Borehole Temperature Observationsal
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Geologic Reservoir
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.TraceElements
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Mineral Recovery Brine
+usgincm:Borehole Temperature Observationsal
+usgincm:Geologic Reservoir
+usgincm:Fault Feature1.1
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Geothermal Fluid Production
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Volcanic Vents1.4
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.USeries
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Heat Flow1.23
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Mineral Recovery Brine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.TraceElements
+usgincm:Heat Flow1.3
+usgincm:DrillStemTest
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.RareEarths
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.Isotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Power Plant Production1.0
+usgincm:Hot Spring Feature1.8
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Heat Flow1.23
+usgincm:Hot Spring Feature1.8
+usgincm:Borehole Temperature Observationsal
+usgincm:Geothermal Fluid Production
+usgincm:Mineral Recovery Brine
+usgincm:DrillStemTest
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.NobleGases
+usgincm:Fault Feature1.1
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Heat Flow1.3
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.RareEarths
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Fault Feature2.0
+ usgincm:Contour Lines
+usgincm:Power Plant Production1.0
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Rock Chemistry.USeries
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.Isotopes
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.USeries
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Power Plant Production1.0
+usgincm:Hot Spring Feature1.8
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Volcanic Vents1.4
+usgincm:Fault Feature1.1
+usgincm:Geologic Reservoir
+usgincm:DrillStemTest
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.Volatiles
+usgincm:Heat Flow1.3
+usgincm:Heat Flow1.23
+usgincm:Rock Chemistry.TraceElements
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.NobleGases
+usgincm:Mineral Recovery Brine
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Borehole Temperature Observationsal
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Geothermal Fluid Production
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.USeries
+usgincm:Borehole Temperature Observationsal
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.Isotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Heat Flow1.3
+usgincm:Fault Feature2.0
+usgincm:Geologic Reservoir
+usgincm:Fault Feature1.1
+usgincm:Heat Flow1.23
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Power Plant Production1.0
+usgincm:DrillStemTest
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.NobleGases
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.Volatiles
+usgincm:Rock Chemistry.TraceElements
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Thermal Conductivity Observation2.1
+ usgincm:Contour Lines
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Hot Spring Feature1.8
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.RareEarths
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.NobleGases
+usgincm:Heat Flow1.3
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.USeries
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.Isotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:DrillStemTest
+usgincm:Fault Feature1.1
+usgincm:Power Plant Production1.0
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Borehole Temperature Observationsal
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Heat Flow1.23
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.TraceElements
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.Volatiles
+usgincm:Geologic Reservoir
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Geothermal Fluid Production
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Mineral Recovery Brine
+usgincm:Geologic Reservoir
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.Isotopes
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Heat Flow1.23
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Borehole Temperature Observationsal
+usgincm:Heat Flow1.3
+usgincm:DrillStemTest
+usgincm:Fault Feature2.0
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.RareEarths
+usgincm:Fault Feature1.1
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.TraceElements
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.Volatiles
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Seismic Event Hypocenter1.7
+usgincm:DrillStemTest
+ usgincm:Contour Lines
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Fault Feature2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Hot Spring Feature1.8
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.USeries
+usgincm:Geologic Reservoir
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Borehole Temperature Observationsal
+usgincm:Heat Flow1.23
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.Volatiles
+usgincm:Geothermal Fluid Production
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Rock Chemistry.RareEarths
+usgincm:Rock Chemistry.NobleGases
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Power Plant Production1.0
+usgincm:Heat Flow1.3
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.TraceElements
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Rock Chemistry.Isotopes
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Volcanic Vents1.4
+usgincm:Hot Spring Feature1.8
+usgincm:Borehole Temperature Observationsal
+usgincm:Rock Chemistry.RareEarths
+usgincm:Fault Feature2.0
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.USeries
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Rock Chemistry.NobleGases
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Fault Feature1.1
+usgincm:DrillStemTest
+usgincm:Geologic Reservoir
+usgincm:Geothermal Fluid Production
+usgincm:Volcanic Vents1.4
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.Volatiles
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Heat Flow1.3
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Heat Flow1.23
+ usgincm:Contour Lines
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Rock Chemistry.TraceElements
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Rock Chemistry.Isotopes
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Fault Feature2.0
+usgincm:Rock Chemistry.Volatiles
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Heat Flow1.3
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:DrillStemTest
+usgincm:Hot Spring Feature1.8
+usgincm:Rock Chemistry.TraceElements
+usgincm:Geologic Reservoir
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Borehole Temperature Observationsal
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.USeries
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Geothermal Fluid Production
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Volcanic Vents1.4
+usgincm:Heat Flow1.23
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.NobleGases
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Rock Chemistry.RareEarths
+ usgincm:Contour Lines
+usgincm:DrillStemTest
+usgincm:Borehole Temperature Observationsal
+usgincm:Rock Chemistry.MineralRecoveryBrine
+usgincm:Geothermal Fluid Production
+usgincm:Thermal Conductivity Observation2.2
+usgincm:Powell Cummings Geothermometry.GasAnalysis2.0
+usgincm:Thermal Conductivity Observation2.0
+usgincm:Heat Flow1.3
+usgincm:Rock Chemistry.WRMajorElements
+usgincm:Fluid Flux Injection and Disposal
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis
+usgincm:Geologic Reservoir
+usgincm:Seismic Event Hypocenter1.7
+usgincm:Rock Chemistry.RareEarths
+usgincm:Hot Spring Feature1.8
+usgincm:Seismic Event Hypocenter1.6
+usgincm:Rock Chemistry.StableIsotopes
+usgincm:Fault Feature1.1
+usgincm:Rock Chemistry.Isotopes
+usgincm:Powell Cummings Geothermometry.GasAnalysis
+ usgincm:Contour Lines
+usgincm:Rock Chemistry.SingleAnalytes
+usgincm:Rock Chemistry.NobleGases
+usgincm:Fault Feature2.0
+usgincm:Thermal Conductivity Observation1.6
+usgincm:Volcanic Vents1.4
+usgincm:Rock Chemistry.Volatiles
+usgincm:Heat Flow1.23
+usgincm:Thermal Conductivity Observation2.1
+usgincm:Mineral Recovery Brine
+usgincm:Rock Chemistry.TraceElements
+usgincm:Powell Cummings Geothermometry.LiquidAnalysis2.0
+usgincm:Power Plant Production1.0
+usgincm:Rock Chemistry.USeries

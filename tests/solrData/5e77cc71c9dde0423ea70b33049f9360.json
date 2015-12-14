@@ -1,1 +1,60 @@
-{"cacheId":"11a02cc150dab2ce2769e6ec412ea7f4ec9a6d2bbdaa194503a7d8a240f30179","featuretype":"aasg:ThermalSpring","feature":{"type":"Feature","id":18,"properties":{"gml_id":"F3__18","OBJECTID":18,"ThermalSpringURI":"http://resources.usgin.org/uri-gin/adggs/thermalspring/1.8/NC/6/","SpringName":"Clear Creek","Label":"NC-6","OtherName":null,"OtherIdentifier":"AL-132","Description":"Hot Springs","Source":"Motyka, R.J., Moorman, M.A., and Liss, S.A., 1983, Geothermal resources of Alaska: Alaska Division of Geological & Geophysical Surveys Miscellaneous Publication 8, 1 sheet, scale 1:2,500,000.","SourceURI":"http://resources.usgin.org/uri-gin/adggs/springs_source2/671/","FeatureType":"Hot Spring","LandLeaseOwner":null,"OtherLocationName":null,"County":"Nome","State":"Alaska","PLSS_Meridians":null,"Township":null,"Range":null,"Section_":null,"SectionPart":null,"Parcel":null,"UTM_E":null,"UTM_N":null,"UTMDatumZone":null,"LatDegree":64.849358530000003498,"LongDegree":-162.30326421000000892,"SRS":"EPSG:4326","LocationUncertaintyStatement":"Location from ADGGS Geothermal Map (GIS).","Temperature":65,"TemperatureUnits":"C","TempMeasurementProcedure":"Field measurements with thermistor probe or dial thermomter, from most recent analysis","TempMeasurementDateTime":"1979-08-10T12:00:00","Flow":"880","FlowUnits":"L/min","FlowMeasurementProcedure":"procedure requested","FlowMeasurementDateTime":"1979-08-10T12:00:00","MeasurementSource":"Missing","FlowContinuity":null,"Classification":null,"RelatedWaterChemistry":"AqChemistry, Isotopes","RelatedResources":"http://www.dggs.dnr.state.ak.us/pubs/pubs?reqtype=citation&ID=671, http://geoheat.oit.edu/database.htm,  http://apps1.eere.energy.gov/tribalenergy/pdfs/nana_gap_final_report.pdf","Remarks":null,"Notes":null},"geometry":{"type":"Point","coordinates":[-162.30326421399996661,64.849358535000078518]}}}
+{
+  "cacheId": "11a02cc150dab2ce2769e6ec412ea7f4ec9a6d2bbdaa194503a7d8a240f30179",
+  "featuretype": "aasg:ThermalSpring",
+  "feature": {
+    "type": "Feature",
+    "id": 18,
+    "properties": {
+      "gml_id": "F3__18",
+      "OBJECTID": 18,
+      "ThermalSpringURI": "http://resources.usgin.org/uri-gin/adggs/thermalspring/1.8/NC/6/",
+      "SpringName": "Clear Creek",
+      "Label": "NC-6",
+      "OtherName": null,
+      "OtherIdentifier": "AL-132",
+      "Description": "Hot Springs",
+      "Source": "Motyka, R.J., Moorman, M.A., and Liss, S.A., 1983, Geothermal resources of Alaska: Alaska Division of Geological & Geophysical Surveys Miscellaneous Publication 8, 1 sheet, scale 1:2,500,000.",
+      "SourceURI": "http://resources.usgin.org/uri-gin/adggs/springs_source2/671/",
+      "FeatureType": "Hot Spring",
+      "LandLeaseOwner": null,
+      "OtherLocationName": null,
+      "County": "Nome",
+      "State": "Alaska",
+      "PLSS_Meridians": null,
+      "Township": null,
+      "Range": null,
+      "Section_": null,
+      "SectionPart": null,
+      "Parcel": null,
+      "UTM_E": null,
+      "UTM_N": null,
+      "UTMDatumZone": null,
+      "LatDegree": 64.849358530000003498,
+      "LongDegree": -162.30326421000000892,
+      "SRS": "EPSG:4326",
+      "LocationUncertaintyStatement": "Location from ADGGS Geothermal Map (GIS).",
+      "Temperature": 65,
+      "TemperatureUnits": "C",
+      "TempMeasurementProcedure": "Field measurements with thermistor probe or dial thermomter, from most recent analysis",
+      "TempMeasurementDateTime": "1979-08-10T12:00:00",
+      "Flow": "880",
+      "FlowUnits": "L/min",
+      "FlowMeasurementProcedure": "procedure requested",
+      "FlowMeasurementDateTime": "1979-08-10T12:00:00",
+      "MeasurementSource": "Missing",
+      "FlowContinuity": null,
+      "Classification": null,
+      "RelatedWaterChemistry": "AqChemistry, Isotopes",
+      "RelatedResources": "http://www.dggs.dnr.state.ak.us/pubs/pubs?reqtype=citation&ID=671, http://geoheat.oit.edu/database.htm,  http://apps1.eere.energy.gov/tribalenergy/pdfs/nana_gap_final_report.pdf",
+      "Remarks": null,
+      "Notes": null
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -162.30326421399996661,
+        64.849358535000078518
+      ]
+    }
+  }
+}

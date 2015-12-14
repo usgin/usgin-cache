@@ -1,23 +1,28 @@
+/*
+ var mongoose = require('mongoose');
+ mongoSchema = mongoose.Schema({},{strict:false}),
+ dbcache = mongoose.model('dbcache',mongoSchema);
+ */
 // # usgin-cache Design Document
 
 // A view to index cached records by requestType
 var requests = function (doc) {
-  if (doc.hasOwnProperty('requestType')) {
-    emit(doc.requestType, 1);
-  }
+    if (doc.hasOwnProperty('requestType')) {
+        emit(doc.requestType, 1);
+    }
 };
 
 // A view to list metadata IDs from the cached set of CSW GetRecords requests.
 // These IDs are indexed by the CSW URL from which they were fetched
 var metadataIds = function (doc) {
-  if (doc.endpoint && doc.response && doc.requestType && doc.requestType === 'getrecords') {
-    var re = /<gmd:fileIdentifier>\n?<gco:CharacterString>(.+?)<\/gco:CharacterString>\n?<\/gmd:fileIdentifier>/g,
-        xml = doc.response,
-        match;
-    while (match = re.exec(xml)) {
-      emit(doc.endpoint, match[1]);
+    if (doc.endpoint && doc.response && doc.requestType && doc.requestType === 'getrecords') {
+        var re = /<gmd:fileIdentifier>\n?<gco:CharacterString>(.+?)<\/gco:CharacterString>\n?<\/gmd:fileIdentifier>/g,
+            xml = doc.response,
+            match;
+        while (match = re.exec(xml)) {
+            emit(doc.endpoint, match[1]);
+        }
     }
-  }
 };
 
 // A view to list WFS URLs that are found in metadata records in the cache.
@@ -32,66 +37,66 @@ var metadataIds = function (doc) {
 //
 // Points are cumulative -- that is, a URL containing `service=wfs` will always get at least 8 points.
 var wfsUrls = function (doc) {
-  if (doc.response && doc.requestType && doc.requestType === 'getrecordbyid') {
-    var findUrls = /<gmd:URL>(.+?)<\/gmd:URL>/g,
-    xml = doc.response,
-    urls = [], match;
+    if (doc.response && doc.requestType && doc.requestType === 'getrecordbyid') {
+        var findUrls = /<gmd:URL>(.+?)<\/gmd:URL>/g,
+            xml = doc.response,
+            urls = [], match;
 
-    while (match = findUrls.exec(xml)) { urls.push(match[1]); }
+        while (match = findUrls.exec(xml)) { urls.push(match[1]); }
 
-    var exps = [
-      {re: /service=wfs/i, points: 5}, {re: /wfs/i, points: 3},
-      {re: /request=/i, points: 1}, {re: /version=/i, points: 1}
-    ];
+        var exps = [
+            {re: /service=wfs/i, points: 5}, {re: /wfs/i, points: 3},
+            {re: /request=/i, points: 1}, {re: /version=/i, points: 1}
+        ];
 
-    urls.map(function (url) {
-      return {
-        url: url,
-        rank: exps.reduce(function (result, exp) {
-          var rank = isNaN(result) ? (result.re.exec(url) ? result.points : 0) : result;
-          return exp.re.exec(url) ? rank + exp.points : rank;
-        })
-      };
-    }).forEach(function (ranked) {
-      emit(ranked.rank, ranked.url.trim());
-    });
-  }
+        urls.map(function (url) {
+            return {
+                url: url,
+                rank: exps.reduce(function (result, exp) {
+                    var rank = isNaN(result) ? (result.re.exec(url) ? result.points : 0) : result;
+                    return exp.re.exec(url) ? rank + exp.points : rank;
+                })
+            };
+        }).forEach(function (ranked) {
+            emit(ranked.rank, ranked.url.trim());
+        });
+    }
 };
 
 // A view function to find featuretypes in WFS Capabilities docs
 var wfsFeatureTypes = function (doc) {
-  if (doc.response && doc.requestType && doc.requestType === 'getcapabilities') {
-    var findTypes = /FeatureTypeList>.+?Name>(.+?)<\//g,
-        xml = doc.response,
-        featureTypes = [], match;
+    if (doc.response && doc.requestType && doc.requestType === 'getcapabilities') {
+        var findTypes = /FeatureTypeList>.+?Name>(.+?)<\//g,
+            xml = doc.response,
+            featureTypes = [], match;
 
-      while (match = findTypes.exec(xml)) featureTypes.push(match[1]);
+        while (match = findTypes.exec(xml)) featureTypes.push(match[1]);
 
-      featureTypes.forEach(function (featureType) {
-        emit(featureType, doc.endpoint);
-      });
-  }
+        featureTypes.forEach(function (featureType) {
+            emit(featureType, doc.endpoint);
+        });
+    }
 };
 
 // A view function to find cached WFS responses of a particular featuretype
 var wfsFeaturesByType = function (doc) {
-  if (doc.featuretype) {
-    emit(doc.featuretype, doc.response);
-  }
+    if (doc.featuretype) {
+        emit(doc.featuretype, doc.response);
+    }
 };
 
 // A view function to find info about GetFeature attachments
 var getFeatureAttachments = function (doc) {
-  if (doc.requestType === 'getfeature') {
-    emit(doc._attachments, doc.endpoint);
-  }
+    if (doc.requestType === 'getfeature') {
+        emit(doc._attachments, doc.endpoint);
+    }
 }
 
 // A view function to just take a look at the size of attached docs
 var wfsResponseSize = function (doc) {
-  if (doc.requestType === 'getfeature' && doc._attachments && doc._attachments['response.xml']) {
-    emit(doc._attachments['response.xml'].length, doc.endpoint);
-  }
+    if (doc.requestType === 'getfeature' && doc._attachments && doc._attachments['response.xml']) {
+        emit(doc._attachments['response.xml'].length, doc.endpoint);
+    }
 }
 
 // A list function that is intended to be used in tandem with the above `wfsUrls` view.
@@ -101,29 +106,29 @@ var wfsResponseSize = function (doc) {
 //
 // This will return a list of URLs with a minimum ranking of 5. See `wfsUrls` for rank breakdown.
 var threshold = function (head, req) {
-  var min = req.query.min || 0,
-      max = req.query.max || 9999,
-      result = [];
-  
-  start({ 'headers': { 'Content-type': 'application/json' } });
+    var min = req.query.min || 0,
+        max = req.query.max || 9999,
+        result = [];
 
-  while (row = getRow()) {
-    if (row.key >= min && row.key <= max) {
-      result.push(row.value.split('?')[0]);
+    start({ 'headers': { 'Content-type': 'application/json' } });
+
+    while (row = getRow()) {
+        if (row.key >= min && row.key <= max) {
+            result.push(row.value.split('?')[0]);
+        }
     }
-  }
 
-  send(JSON.stringify(result));
+    send(JSON.stringify(result));
 };
 
 // A list function that simply returns a list of values. Save yourself one `.map` function.
 var values = function (head, req) {
-  var result = [];
-  while (row = getRow()) {
-    result.push(row.value);
-  }
-  start({ 'headers': { 'Content-type': 'application/json' } });
-  send(JSON.stringify(result));
+    var result = [];
+    while (row = getRow()) {
+        result.push(row.value);
+    }
+    start({ 'headers': { 'Content-type': 'application/json' } });
+    send(JSON.stringify(result));
 };
 
 // This is the design document itself

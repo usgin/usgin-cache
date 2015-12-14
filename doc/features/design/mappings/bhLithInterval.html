@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="en"><head><title>features\design\mappings\bhLithInterval</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="features\design\mappings\bhLithInterval"><meta name="groc-project-path" content="features\design\mappings\bhLithInterval.js"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">features\design\mappings\bhLithInterval.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(doc)</span> </span>{
+    <span class="hljs-keyword">var</span> props = doc.feature.properties || {};
+    <span class="hljs-keyword">if</span> (doc.featuretype === <span class="hljs-string">'aasg:BoreholeLithInterval'</span>) {
+        <span class="hljs-keyword">var</span> result = {
+            id: props.BHIntervalURI,
+            content_model: <span class="hljs-string">'http://schemas.usgin.org/uri-gin/ngds/dataschema/bhlithinterval/'</span>,
+            url: props.BHIntervalURI,
+            bhlithintervalname_t: props.WellName,
+            label_t: props.APINo,
+            othername_t: props.WellName,
+            otheridentifier_t: props.BoreholeName,
+            description_t: props.Description,
+            geo: doc.feature.geometry.coordinates[<span class="hljs-number">0</span>] + <span class="hljs-string">' '</span> + doc.feature.geometry.coordinates[<span class="hljs-number">1</span>]
+        }
+        emit(doc.cacheId, result);
+    }
+};</div></div></div></div></body></html>

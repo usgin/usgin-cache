@@ -31,11 +31,9 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
 - [Git](http://git-scm.com/)
 - [Microsoft Visual Studio 2012](http://www.microsoft.com/en-us/download/details.aspx?id=34673) (for Windows only)
 - [Node.js](http://nodejs.org/dist/v0.10.26/) (v0.10.26)
-- [Apache Solr](http://lucene.apache.org/solr/)
-- [CouchDB](http://couchdb.apache.org/)
+- [Mongo DB](https://www.mongodb.org/downloads#production)
+- [ElasticSearch](https://www.elastic.co/downloads)
 - [GDAL/OGR](http://gdal.org)
-- [PostgreSQL](http://postgresql.org) (x64 for 64 bit OS) 
-- [Elastic Search](https://www.elastic.co/downloads/elasticsearch) 
 
 ### Then:
 
@@ -44,18 +42,18 @@ This Solr index will provide an endpoint that can be searched by a thin, front-e
     npm config set msvs_version 2012 --global 
     npm install
 
-### Connect to Solr
+### Connect to MongoDB
 
-There is a bash script included that will download, configure, and run Solr for you. To use it, just type
+There is a bash script included that will download, configure, and run MongoDB for you. To use it, just type
 
-    chmod 755 run-solr.sh
-    ./run-solr.sh
+    chmod 755 run-mongo.sh
+    ./run-mongo.sh
 
 ## Elastic Search Configure
 1.	Unzip binaries.
 2.	Install JDK and set environment variables Name: JAVA_HOME, PATH=’JDK installation directory in program files’
-3.	Run elasticsearch command from elastic search bin directory.
-4.	Install plugin for couchdb from [here](http://daemon.co.za/2012/05/elasticsearch-5-minutes/)
+3.	Run ElasticSearch command from ElasticSearchh bin directory.
+4.	Install plugin for ElasticSearch from [here](http://daemon.co.za/2012/05/elasticsearch-5-minutes/)
 5.	Install Marvel management and monitoring tool if possible
 
 ### Writing Mapping Functions
@@ -80,22 +78,9 @@ groc
 
 ## Running Tests:
 
-1. Make sure that Solr is running
-
-```
-./run-solr.sh
-```
-
-2. Make sure that you have a PostGIS-enabled database ready to accept test data
-
-```shell
-createuser -P cache_tester
-createdb -O cache_tester cache_test
-psql -d cache_test -c "create extension postgis;"
-```
-
-3. Make a copy of `tests/test-config-example.json` with the name `tests/test-config.json` and edit it to match the connection details for your test database.
-4. Run the tests.
+1. Make sure that ElasticSearch and MongoDB is running
+2. Make a copy of `tests/test-config-example.json` with the name `tests/test-config.json` and edit it to match the connection details for your test database.
+3. Run the tests.
 
 ```
 npm test
